@@ -3,22 +3,10 @@ const path = require('path'),
     asyncHandler = require('../middleware/async'),
     ErrorResponse = require('../utils/errorResponse');
 
-//@desc      Open the home page
-//@route     GET /
-//@access    Public
-exports.indexPage = asyncHandler(async(req, res, next) => {
-    res.render('index'); 
-  });
 
-//@desc      Sign up page
-//@route     GET /signup 
-//@access    Public
-exports.signUpPage = asyncHandler(async(req, res, next) => {
-    res.render('signup'); 
-  });
 
 //@desc      create/sign-up a new user, 
-//@route     POST /signup 
+//@route     POST /user/signup 
 //@access    Public
 exports.createNewUser = asyncHandler(async(req, res, next) => {
   const newUser = await User.create(req.body);
@@ -30,7 +18,7 @@ exports.createNewUser = asyncHandler(async(req, res, next) => {
 });
 
 //@desc      login
-//@route     POST /login
+//@route     POST /user/login
 //@access    Public
 exports.login = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
@@ -54,8 +42,29 @@ exports.login = asyncHandler(async (req, res, next) => {
       return next(new ErrorResponse(`Password is wrong`, 401));
     }
     
-    res.json({ success: true, msg: 'Good job, you are in' });
+    //res.json({ success: true, msg: 'Good job, you are in' });
+    sendTokenResponse(user, 200, res);
 
 
  });
  
+ //get token from model, create cookie and send response
+const sendTokenResponse = (user, statusCode, res) => {
+  //create token
+  const token = user.getSignedJwtToken(),
+    options = {
+      expires: new Date(
+        Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+      ),
+      httpOnly: true,
+    };
+
+  if (process.env.NODE_ENV === 'production') {
+    options.secure = true;
+  }
+
+  res.status(statusCode).cookie('token', token, options).json({
+    success: true,
+    token,
+  });
+};

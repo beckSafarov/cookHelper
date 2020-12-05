@@ -16,11 +16,13 @@ app.use(express.json());
 
 
 //the next set of declarations 
-const routes = require('./routes/routes'),
+const userRoutes = require('./routes/userRoutes'),
+  pageRoutes = require('./routes/pageRoutes'),
   connectDB = require('./config/db'); //connecting the database
 
 connectDB(); 
-app.use('/', routes); 
+app.use('/', pageRoutes); 
+app.use('/user', userRoutes); 
 app.use(errorHandler); //using errorhandler function in case of errors 
 
 

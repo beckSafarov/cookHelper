@@ -52,4 +52,26 @@ UserSchema.pre('save', async function (next) {
     return await bcrypt.compare(enteredPassword, this.password);
   };
 
+//function to identify the weight of the users
+UserSchema.pre('save', function(){
+  const height = this.height/100; 
+  const weight = this.weight; 
+  const bmi = weight/(height*height); 
+
+  if(bmi >= 18.5 && bmi <= 24.9){
+    this.weightCategory = 'normal'; 
+  } else if(bmi < 18.5){
+    this.weightCategory = 'underweight'; 
+  }else{
+    this.weightCategory = 'overweight'; 
+  }
+}); 
+
+//sign JWT and return
+UserSchema.methods.getSignedJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
+
 module.exports = mongoose.model('user', UserSchema);
