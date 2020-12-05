@@ -1,0 +1,20 @@
+[
+    {
+        "name": "hot dog",
+        "difficultyLevel": "easy",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "sausage", "mayonnaise", "ketchup"],
+        "category": "fast-food",
+        "steps": "bla bla bla"
+    },
+
+    {
+        "name": "nasi ayam",
+        "difficultyLevel": "easy",
+        "approximateTimeInMinutes": 20,
+        "ingredients": ["nasi", "ayam"],
+        "category": "less fat",
+        "steps": "bla bla bla"
+    }
+    
+]

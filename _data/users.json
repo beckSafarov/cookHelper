@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Begzod Safarov",
+        "email": "becksafarov@gmail.com",
+        "password": "123456",
+        "weight": 50,
+        "height": 170
+    },
+    {
+        "name": "Jack Dorsey",
+        "email": "jackdorsey@gmail.com",
+        "password": "123456",
+        "weight": 80,
+        "height": 180
+    },
+    {
+        "name": "John Doe",
+        "email": "johndoe@gmail.com",
+        "password": "123456",
+        "weight": 70,
+        "height": 175
+    },
+    {
+        "name": "Tom Smith",
+        "email": "tomsmith@gmail.com",
+        "password": "123456",
+        "weight": 75,
+        "height": 180
+    }
+]

@@ -3,6 +3,7 @@ const express = require('express'),
   app = express(),
   morgan =require('morgan'),
   colors = require('colors'),
+  errorHandler = require('./middleware/error'),
   PORT = process.env.PORT || 5000;
 
 
@@ -10,15 +11,17 @@ const express = require('express'),
 //load env vars
 dotenv.config({ path: './config/config.env' });
 app.set('view engine', 'ejs');
+//Body parser
+app.use(express.json());
 
 
 //the next set of declarations 
 const routes = require('./routes/routes'),
   connectDB = require('./config/db'); //connecting the database
 
-connectDB();
-app.use(express.json()); //body parser 
+connectDB(); 
 app.use('/', routes); 
+app.use(errorHandler); //using errorhandler function in case of errors 
 
 
 
