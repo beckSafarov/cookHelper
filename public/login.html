@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" />
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body>
     <h1>Login page</h1>
     <form id ="form">
         <label for="email">Enter your email</label>
-        <input type="email" name = "email" id = "email" placeholder="email" required>
-        <label for="password">Enter a password</label>
+        <input type="email" name = "email" id = "email" required>
+        <label for="password">Enter your password</label>
         <input type="password" name = "password" id = "password" required> 
         <br>
         <button id = "submitBtn" type="submit">Submit</button>
         <br>
         <p id = "warningBtn"></p>
     </form>
+    <a style = "text-decoration: none;" href="signup.html">No account? Get one</a>
     <script src = "js/login.js"></script>
 
 </body>
