@@ -3,9 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" />
     <title>Document</title>
 </head>
 <body>
     <h1>SIGN UP page</h1>
+    <form id ="form">
+        <label for="name">Enter your name</label>
+        <input type="text" name = "name" id = "name" placeholder="John" required>
+        <label for="email">Enter your email</label>
+        <input type="email" name = "email" id = "email" placeholder="email" required>
+        <label for="password">Enter a password, at least 6 characters</label>
+        <input type="password" name = "password" id = "password" required>
+        <label for="weight">Enter your weight</label>
+        <input type="number" name = "weight" id = "weight" placeholder="e.g. 70" required>
+        <label for="height">Enter your height in centimetres</label>
+        <input type="number" name = "height" id = "height" placeholder="e.g. 170" required>
+        <br>
+        <button id = "submitBtn" type="submit">Submit</button>
+        <br>
+        <p id = "warningBtn" style="color:red;"></p>
+    </form>
+    <form action="/login" method = "GET">
+        <button> Already have account? Login</button>
+    </form>
+    <script src = "js/signup.js"></script>
+
 </body>
 </html>

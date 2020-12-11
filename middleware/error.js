@@ -21,7 +21,11 @@ const errorHandler = (err, req, res, next) => {
 
   //mongoose duplicate key check
   if (err.code === 11000) {
-    message = 'Such value data already exists';
+    let errorPoint; 
+    for(let element in err.keyValue){
+      errorPoint = element; 
+    }
+    message = `Such ${errorPoint} already exists`;
     err = new ErrorResponse(message, 400);
     
   }

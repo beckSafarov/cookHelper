@@ -1,4 +1,5 @@
 const express = require('express'),
+  path = require('path'),
   dotenv = require('dotenv'),
   app = express(),
   morgan =require('morgan'),
@@ -21,6 +22,10 @@ const userRoutes = require('./routes/userRoutes'),
   connectDB = require('./config/db'); //connecting the database
 
 connectDB(); 
+
+//set static folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/', pageRoutes); 
 app.use('/user', userRoutes); 
 app.use(errorHandler); //using errorhandler function in case of errors 

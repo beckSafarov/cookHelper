@@ -2,13 +2,15 @@ const express = require('express'),
     router = express.Router(),
     {
       indexPage, 
-      signUpPage
+      signUpPage,
+      loginPage
     } = require('../controllers/pageController');
     
 
   
 router.route('/').get(indexPage); 
 router.route('/signup').get(signUpPage); 
+router.route('/login').get(loginPage); 
 
 
 

@@ -15,3 +15,10 @@ exports.indexPage = asyncHandler(async(req, res, next) => {
 exports.signUpPage = asyncHandler(async(req, res, next) => {
     res.render('signup'); 
   });
+
+//@desc      Login page
+//@route     GET /login 
+//@access    Public
+exports.loginPage = asyncHandler(async(req, res, next) => {
+  res.render('login'); 
+});
