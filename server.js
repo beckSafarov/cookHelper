@@ -5,6 +5,7 @@ const express = require('express'),
   morgan =require('morgan'),
   colors = require('colors'),
   errorHandler = require('./middleware/error'),
+  fileupload = require('express-fileupload');
   PORT = process.env.PORT || 5000;
 
 
@@ -15,6 +16,10 @@ app.set('view engine', 'ejs');
 //Body parser
 app.use(express.json());
 
+//dev logging middleware
+if (process.env.NODE_ENV == 'development') {
+  app.use(morgan('dev'));
+}
 
 //the next set of declarations 
 const userRoutes = require('./routes/userRoutes'),
@@ -23,6 +28,9 @@ const userRoutes = require('./routes/userRoutes'),
 
 connectDB(); 
 
+//file upload
+app.use(fileupload());
+
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -30,12 +38,6 @@ app.use('/', pageRoutes);
 app.use('/user', userRoutes); 
 app.use(errorHandler); //using errorhandler function in case of errors 
 
-
-
-//dev logging middleware
-if (process.env.NODE_ENV == 'development') {
-  app.use(morgan('dev'));
-}
 
 app.listen(
   PORT,

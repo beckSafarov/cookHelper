@@ -1,0 +1,103 @@
+[
+    {
+        "name": "hot dog", 
+        "photoLink": "/photos/hotdog.jpg",
+        "difficultyLevel": "easy",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "sausage", "mayonnaise", "ketchup"],
+        "category": "fast-food",
+        "calories": "500",
+        "steps": "bla bla bla"
+    },
+
+    {
+        "name": "hamburger", 
+        "photoLink": "/photos/hamburger.jpg",
+        "difficultyLevel": "easy",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "fast-food",
+        "calories": "700",
+        "steps": "bla bla bla"
+    },
+    {
+        "name": "example 3", 
+        "photoLink": "/photos/example_3.webp",
+        "difficultyLevel": "medium",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "low-fat",
+        "calories": "700",
+        "steps": "bla bla bla"
+    },
+    {
+        "name": "example 4", 
+        "photoLink": "/photos/example_4.webp",
+        "difficultyLevel": "medium",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "low-fat",
+        "calories": "700",
+        "steps": "bla bla bla"
+    },
+    {
+        "name": "example 5", 
+        "photoLink": "/photos/example_5.webp",
+        "difficultyLevel": "hard",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "vegetarian",
+        "calories": "700",
+        "steps": "bla bla bla"
+    },
+    {
+        "name": "example 6", 
+        "photoLink": "/photos/example_6.webp",
+        "difficultyLevel": "hard",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "vegetarian",
+        "calories": "700",
+        "steps": "bla bla bla"
+    },
+    {
+        "name": "example 7", 
+        "photoLink": "/photos/example_7.jpg",
+        "difficultyLevel": "medium",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "meaty",
+        "calories": "700",
+        "steps": "bla bla bla"
+    },
+    {
+        "name": "example 8", 
+        "photoLink": "/photos/example_8.jpg",
+        "difficultyLevel": "medium",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "meaty",
+        "calories": "700",
+        "steps": "bla bla bla"
+    },
+    {
+        "name": "example 9", 
+        "photoLink": "/photos/example_9.jpg",
+        "difficultyLevel": "easy",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "malay",
+        "calories": "700",
+        "steps": "bla bla bla"
+    },
+    {
+        "name": "example 10", 
+        "photoLink": "/photos/example_10.jpg",
+        "difficultyLevel": "easy",
+        "approximateTimeInMinutes": 10,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "malay",
+        "calories": "700",
+        "steps": "bla bla bla"
+    }
+]

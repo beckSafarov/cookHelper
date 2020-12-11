@@ -6,6 +6,11 @@ const foodSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    photoLink: {
+        type: String,
+        required: true,
+        unique: true
+    },
     difficultyLevel: {
         type: String, 
         required: true
@@ -22,10 +27,14 @@ const foodSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    calories: {
+        type: Number,
+        required: true
+    },
     steps: {
         type: String,
         required: true
     }
 })
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('food', foodSchema);
