@@ -32,17 +32,12 @@ form.addEventListener('submit', function(e){
             height: height.value
         };
     
-        post('http://localhost:5000/user/signup', data)
+        post(`${process.env.URL}/user/signup`, data)
             .then(data => {
                 if(data.success == false){
                     warningBtn.innerHTML = data.error; 
                 }else{
-                    warningBtn.innerHTML = ''; 
-                    name.value = '';
-                    email.value = '';
-                    password.value = ''; 
-                    weight.value = '';
-                    height.value = '';
+                    window.location.href = `${process.env.URL}/login.html`;
                 }
                 
             })

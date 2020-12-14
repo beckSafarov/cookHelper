@@ -2,7 +2,8 @@ const express = require('express'),
     router = express.Router(),
     { 
       createNewUser,
-      login
+      login,
+      dashboard
     } = require('../controllers/userController');
 
   
@@ -10,6 +11,7 @@ const express = require('express'),
 
 router.route('/signup').post(createNewUser);
 router.route('/login').post(login);
+router.route('/dashboard').get(dashboard);
 
 
 

@@ -24,7 +24,7 @@ form.addEventListener('submit', function(e){
         password: password.value,
     };
 
-    post('http://localhost:5000/user/login', data)
+    post(`${process.env.URL}/user/login`, data)
         .then(data => {
             if(data.success == false){
                 warningBtn.innerHTML = data.error; 

@@ -45,8 +45,14 @@ exports.login = asyncHandler(async (req, res, next) => {
     //res.json({ success: true, msg: 'Good job, you are in' });
     sendTokenResponse(user, 200, res);
 
-
  });
+
+//@desc      dashboard page
+//@route     GET /user/dashboard
+//@access    Public
+ exports.dashboard = asyncHandler(async(req, res, next)=>{
+   res.render('dashboard');
+ })
  
  //get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {

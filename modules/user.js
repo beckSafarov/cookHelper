@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     weightCategory: String, //overweight, normal, underweight
+    weightRecommendations: [String],
     ingredients: [String],
     foodHabits: [String],
 })
@@ -51,6 +52,7 @@ UserSchema.pre('save', async function (next) {
   UserSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
   };
+
 
 //function to identify the weight of the users
 UserSchema.pre('save', function(){
@@ -73,5 +75,14 @@ UserSchema.methods.getSignedJwtToken = function () {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
+
+UserSchema.post('save', function(){
+  //adding recommendations based on the weight
+  if(this.weightCategory == 'underweight'){
+    this.weightRecommendations.push('fast-food', 'meaty');
+  }else if(this.weightCategory == 'overwheight'){
+    this.weightRecommendations.push('low-fat', 'vegetarian'); 
+  }
+})
 
 module.exports = mongoose.model('user', UserSchema);

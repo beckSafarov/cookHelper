@@ -22,3 +22,4 @@ exports.signUpPage = asyncHandler(async(req, res, next) => {
 exports.loginPage = asyncHandler(async(req, res, next) => {
   res.render('login'); 
 });
+
