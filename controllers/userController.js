@@ -48,10 +48,15 @@ exports.login = asyncHandler(async (req, res, next) => {
  });
 
 //@desc      dashboard page
-//@route     GET /user/dashboard
+//@route     GET /user/:id/dashboard
 //@access    Public
  exports.dashboard = asyncHandler(async(req, res, next)=>{
-   res.render('dashboard');
+  const user = await User.findById(req.params.id);
+  if(!user){
+      return next(new ErrorResponse(`Such user not found`, 404));
+  }
+  
+  res.render('dashboard');
  })
  
  //get token from model, create cookie and send response
@@ -72,5 +77,6 @@ const sendTokenResponse = (user, statusCode, res) => {
   res.status(statusCode).cookie('token', token, options).json({
     success: true,
     token,
+    id: user._id
   });
 };

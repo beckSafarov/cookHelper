@@ -11,7 +11,7 @@ const express = require('express'),
 
 router.route('/signup').post(createNewUser);
 router.route('/login').post(login);
-router.route('/dashboard').get(dashboard);
+router.route('/:id/dashboard').get(dashboard);
 
 
 

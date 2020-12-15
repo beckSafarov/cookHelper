@@ -45,3 +45,24 @@ app.listen(
     `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
   )
 );
+
+//handle unhandled rejections
+process.on('unhandledRejection', (err, promise) => {
+  console.log('unhandledRejection', err.message);
+  //close server & exit process
+  server.close();
+});
+
+//handling crashes
+process.on('uncaughtException', (err, promise) => {
+  console.log('uncaughtException', err.message);
+  //close server & exit process
+  server.close();
+});
+
+//killing server
+process.on('SIGTERM', (err, promise) => {
+  console.log('SIGTERM', err.message);
+  //close server & exit process
+  server.close();
+});
