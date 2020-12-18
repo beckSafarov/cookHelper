@@ -49,14 +49,15 @@ exports.login = asyncHandler(async (req, res, next) => {
 
 //@desc      dashboard page
 //@route     GET /user/:id/dashboard
-//@access    Public
+//@access    Private
  exports.dashboard = asyncHandler(async(req, res, next)=>{
   const user = await User.findById(req.params.id);
   if(!user){
       return next(new ErrorResponse(`Such user not found`, 404));
   }
+  foods = await user.featuredFoods();
   
-  res.render('dashboard');
+  res.render('dashboard', {foods: foods});
  })
  
  //get token from model, create cookie and send response

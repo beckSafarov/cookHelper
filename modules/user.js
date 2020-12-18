@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
   bcrypt = require('bcryptjs'),
   jwt = require('jsonwebtoken'),
+  Foods = require('./foods.js'),
   crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
@@ -31,12 +32,11 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     weightCategory: String, //overweight, normal, underweight
-    weightRecommendations: [String],
     ingredients: [String],
     foodHabits: [String],
 })
 
-//encrypt password using  bcrypt
+//ENCRYPT PASSWORDS USING BECRYPT
 UserSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
       next();
@@ -54,7 +54,7 @@ UserSchema.pre('save', async function (next) {
   };
 
 
-//function to identify the weight of the users
+//IDENTIFY THE BMI OF THE USERS 
 UserSchema.pre('save', function(){
   const height = this.height/100; 
   const weight = this.weight; 
@@ -76,13 +76,44 @@ UserSchema.methods.getSignedJwtToken = function () {
   });
 };
 
-UserSchema.post('save', function(){
-  //adding recommendations based on the weight
+
+//GENERATE ARRAY WITH RECOMMENDED FOODS
+UserSchema.methods.featuredFoods = async function () {
+  let categories = [];
+  let foods = []; 
+  
+  //choosing recommended food categories based on weight
   if(this.weightCategory == 'underweight'){
-    this.weightRecommendations.push('fast-food', 'meaty');
+    categories.push('fast-food', 'meaty');
   }else if(this.weightCategory == 'overwheight'){
-    this.weightRecommendations.push('low-fat', 'vegetarian'); 
+    categories.push('low-fat', 'vegetarian'); 
   }
-})
+
+  //adding those categoies to the food array 
+  if(categories.length > 0){
+    for(let i = 0; i<categories.length; i++){
+      let food = await Foods.find({category: categories[i]}).exec(); 
+      for(let y = 0; y<food.length; y++){
+        foods.push(food[y]);
+      }
+    }
+  }else{
+    let food = await Foods.find().exec();
+    for(let y = 0; y<food.length; y++){
+      foods.push(food[y]);
+    } 
+    foods.push(food); 
+  }
+
+  return foods; 
+};
+
+
+//SIGN JWT AND RETURN
+UserSchema.methods.getSignedJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
 
 module.exports = mongoose.model('user', UserSchema);
