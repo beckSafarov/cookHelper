@@ -11,6 +11,10 @@ const foodSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    description: {
+        type: String, 
+        required: true
+    },
     difficultyLevel: {
         type: String, 
         required: true

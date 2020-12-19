@@ -2,6 +2,7 @@
     {
         "name": "hot dog", 
         "photoLink": "/photos/hotdog.jpg",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "easy",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "sausage", "mayonnaise", "ketchup"],
@@ -13,6 +14,7 @@
     {
         "name": "hamburger", 
         "photoLink": "/photos/hamburger.jpg",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "easy",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "beef", "cabbage", "tomato"],
@@ -21,8 +23,20 @@
         "steps": "bla bla bla"
     },
     {
+        "name": "cheeseburger", 
+        "photoLink": "/photos/cheeseburger.jpg",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
+        "difficultyLevel": "medium",
+        "approximateTimeInMinutes": 30,
+        "ingredients": ["bread", "beef", "cabbage", "tomato"],
+        "category": "fast-food",
+        "calories": "700",
+        "steps": "bla bla bla"
+    },
+    {
         "name": "example 3", 
         "photoLink": "/photos/example_3.webp",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "medium",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "beef", "cabbage", "tomato"],
@@ -33,6 +47,7 @@
     {
         "name": "example 4", 
         "photoLink": "/photos/example_4.webp",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "medium",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "beef", "cabbage", "tomato"],
@@ -43,6 +58,7 @@
     {
         "name": "example 5", 
         "photoLink": "/photos/example_5.webp",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "hard",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "beef", "cabbage", "tomato"],
@@ -53,6 +69,7 @@
     {
         "name": "example 6", 
         "photoLink": "/photos/example_6.webp",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "hard",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "beef", "cabbage", "tomato"],
@@ -63,6 +80,7 @@
     {
         "name": "example 7", 
         "photoLink": "/photos/example_7.jpg",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "medium",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "beef", "cabbage", "tomato"],
@@ -73,6 +91,7 @@
     {
         "name": "example 8", 
         "photoLink": "/photos/example_8.jpg",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "medium",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "beef", "cabbage", "tomato"],
@@ -83,6 +102,7 @@
     {
         "name": "example 9", 
         "photoLink": "/photos/example_9.jpg",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "easy",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "beef", "cabbage", "tomato"],
@@ -93,6 +113,7 @@
     {
         "name": "example 10", 
         "photoLink": "/photos/example_10.jpg",
+        "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "easy",
         "approximateTimeInMinutes": 10,
         "ingredients": ["bread", "beef", "cabbage", "tomato"],
