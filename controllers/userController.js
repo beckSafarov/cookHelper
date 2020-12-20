@@ -1,6 +1,8 @@
 const path = require('path'),
     User = require('../modules/user'),
+    Foods = require('../modules/foods'),
     asyncHandler = require('../middleware/async'),
+
     ErrorResponse = require('../utils/errorResponse');
 
 
@@ -55,9 +57,22 @@ exports.login = asyncHandler(async (req, res, next) => {
   if(!user){
       return next(new ErrorResponse(`Such user not found`, 404));
   }
-  foods = await user.featuredFoods();
-  
-  res.render('dashboard', {foods: foods});
+
+  if(!req.query.category || req.query.category == 'recfoods'){
+    featuredFoods = await user.featuredFoods();
+    res.render('dashboard', {foods: featuredFoods});
+  }else if(req.query.category == 'fastfoods'){
+    const fastfoods = await Foods.find({category: 'fast-food'}).exec(); 
+    res.render('dashboard', {foods: fastfoods});
+  }else if(req.query.category == 'meatcorner'){
+    const meaty = await Foods.find({category: 'meaty'}).exec(); 
+    res.render('dashboard', {foods: meaty});
+  }else if(req.query.category == 'lowfat'){
+    const lowfat = await Foods.find({category: 'low-fat'}).exec(); 
+    res.render('dashboard', {foods: lowfat});
+  }else{
+    return next(new ErrorResponse(`${req.query.category} is wrong query`, 404));
+  }
  })
  
  //get token from model, create cookie and send response

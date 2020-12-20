@@ -9,12 +9,25 @@
 <body>
     <h1>Home page</h1>
     <nav>
-        <form id = "form">
-            <button><a style = "text-decoration: none;" href="signup.html"> Sign up </a></button>
-            <button><a style = "text-decoration: none;" href="login.html"> Login </a></button>
-        </form>
+        <button id = "signup">Sign up</button>
+        <button id = "login">Login</button>
     </nav>
     
+    
+    <script>
+        const signupBtn = document.getElementById('signup'); 
+        const loginBtn = document.getElementById('login'); 
+
+        signupBtn.addEventListener('click', function(e){
+            e.preventDefault(); 
+            window.location.href = "signup.html"; 
+        })
+
+        loginBtn.addEventListener('click', function(e){
+            e.preventDefault(); 
+            window.location.href = "login.html"; 
+        })
+    </script>
 
 </body>
 </html>
