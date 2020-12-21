@@ -3,7 +3,8 @@ const express = require('express'),
     { 
       createNewUser,
       login,
-      dashboard
+      dashboard,
+      searchPage
     } = require('../controllers/userController');
 
   
@@ -12,6 +13,8 @@ const express = require('express'),
 router.route('/signup').post(createNewUser);
 router.route('/login').post(login);
 router.route('/:id/dashboard').get(dashboard);
+router.route('/:id/search').get(searchPage);
+
 
 
 

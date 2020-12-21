@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="http://localhost:5000/css/searchPage.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+    crossorigin="anonymous"></script>
+    <title>Search Food</title>
+</head>
+<body>
+  <div class="navbar-fixed">
+    <nav class="white">
+      <div class="container">
+        <div class="nav-wrapper">
+          <a style="color: #EE7176" href="" class="brand-logo"> COOK HELPER</a>
+          <a href="#" class = "black-text sidenav-trigger" data-target = "mobile-nav">
+              <i class="fas fa-bars fa-2x"></i>
+          </a>
+          <ul class="right hide-on-med-and-down black-text">
+            <li>
+              <a style = "color: #EE7176;" href="" class="waves-effect"><strong>Dashboard</strong></a>
+            </li>
+            <li>
+              <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
+            </li>
+            <li>
+                <a style = "color: #f3979a;" href="" class="waves-effect">Search</a>
+              </li>
+          </ul>
+          
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+    
+
+    <!--Side Nav for mobile view-->
+    <ul class="sidenav" id = "mobile-nav">
+      <p class = "sideMenuText"><strong>Main Menu</strong></p>
+      <li><a  href="#home">Home</a></li>
+      <li><a  href="#settings">Settings</a></li>
+      <li><a  href="#settings">Search</a></li>
+      <hr>
+    </ul>
+
+    <div class="section new-section">
+        <div class="container">
+            <!--Search Field-->
+            <div class="row">
+                <div class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                    
+                    <input type="text" id="autocomplete-input" class="autocomplete">
+                    <label for="autocomplete-input">Enter ingredients</label>
+                    
+                    </div>
+                    
+                </div>
+                <button id = 'outputBtn' class = "btn waves-effect"> OK </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <p id="warning"></p>
+                <span id = "output""></span>
+            </div>    
+        </div>
+    </div>
+
+    <!-- <div id = "outputSection" class="section">
+        <div id ="outputBox" class="container">
+            <p id = "output"></p>
+              <div class="row">
+                
+              </div>
+        </div>
+    </div> -->
+      
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="http://localhost:5000/js/searchPage.js"></script>
+</body>
+</html>

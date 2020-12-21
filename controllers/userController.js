@@ -74,7 +74,19 @@ exports.login = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`${req.query.category} is wrong query`, 404));
   }
  })
- 
+
+//@desc      Search Food page
+//@route     GET /user/:id/search
+//@access    Private
+ exports.searchPage = asyncHandler(async(req, res, next)=>{
+  const user = await User.findById(req.params.id);
+  if(!user){
+      return next(new ErrorResponse(`Such user not found`, 404));
+  }
+  res.render('searchPage'); 
+ })
+
+
  //get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {
   //create token

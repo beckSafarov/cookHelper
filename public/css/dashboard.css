@@ -14,3 +14,16 @@ body {
 #tabsBar {
   padding-left: 5px;
 }
+
+.sideMenuText {
+  margin-left: 10px;
+  color: #ee7176;
+}
+
+.activeText {
+  color: #ee7176;
+}
+
+.simpleText {
+  color: #f3979a;
+}
