@@ -24,6 +24,7 @@ if (process.env.NODE_ENV == 'development') {
 //the next set of declarations 
 const userRoutes = require('./routes/userRoutes'),
   pageRoutes = require('./routes/pageRoutes'),
+  apiRoutes = require('./routes/apiRoutes'),
   connectDB = require('./config/db'); //connecting the database
 
 connectDB(); 
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', pageRoutes); 
 app.use('/user', userRoutes); 
+app.use('/api', apiRoutes);
 app.use(errorHandler); //using errorhandler function in case of errors 
 
 
