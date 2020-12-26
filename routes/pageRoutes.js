@@ -8,9 +8,9 @@ const express = require('express'),
     
 
   
-// router.route('/').get(indexPage); 
-// router.route('/signup').get(signUpPage); 
-// router.route('/login').get(loginPage); 
+router.route('/').get(indexPage); 
+router.route('/signup').get(signUpPage); 
+router.route('/login').get(loginPage); 
 
 
 

@@ -20,6 +20,7 @@ async function post(url, data){
     const resData = await response.json(); 
     return resData;        
 }
+// console.log(`${root}/user/signup`);
 
 form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -32,12 +33,12 @@ form.addEventListener('submit', function(e){
             height: height.value
         };
     
-        post(`${process.env.URL}/user/signup`, data)
+        post(`${root}/user/signup`, data)
             .then(data => {
                 if(data.success == false){
                     warningBtn.innerHTML = data.error; 
                 }else{
-                    window.location.href = `${process.env.URL}/login.html`;
+                    window.location.href = `${root}/login`;
                 }
                 
             })

@@ -60,16 +60,28 @@ exports.login = asyncHandler(async (req, res, next) => {
 
   if(!req.query.category || req.query.category == 'recfoods'){
     featuredFoods = await user.featuredFoods();
-    res.render('dashboard', {foods: featuredFoods});
+    res.render('dashboard', {
+      foods: featuredFoods,
+      root: process.env.root
+    });
   }else if(req.query.category == 'fastfoods'){
     const fastfoods = await Foods.find({category: 'fast-food'}).exec(); 
-    res.render('dashboard', {foods: fastfoods});
+    res.render('dashboard', {
+      foods: fastfoods,
+      root: process.env.root
+    });
   }else if(req.query.category == 'meatcorner'){
     const meaty = await Foods.find({category: 'meaty'}).exec(); 
-    res.render('dashboard', {foods: meaty});
+    res.render('dashboard', {
+      foods: meaty,
+      root: process.env.root
+    });
   }else if(req.query.category == 'lowfat'){
     const lowfat = await Foods.find({category: 'low-fat'}).exec(); 
-    res.render('dashboard', {foods: lowfat});
+    res.render('dashboard', {
+      foods: lowfat,
+      root: process.env.root
+    });
   }else{
     return next(new ErrorResponse(`${req.query.category} is wrong query`, 404));
   }
@@ -83,7 +95,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   if(!user){
       return next(new ErrorResponse(`Such user not found`, 404));
   }
-  res.render('searchPage'); 
+  res.render('searchPage', {root: process.env.root}); 
  })
 
 
