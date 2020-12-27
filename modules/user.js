@@ -15,20 +15,20 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'Please add an email'],
-        unique: true, 
+        unique: true,
     },
     password: {
-        type: String, 
+        type: String,
         required: [true, 'Please add a password'],
         minlength: [6, 'Password cannot be less than 6 characters'],
         select: false
     },
     weight: {
-        type: Number, 
+        type: Number,
         required: true
     },
     height: {
-        type: Number, 
+        type: Number,
         required: true
     },
     weightCategory: String, //overweight, normal, underweight
@@ -41,12 +41,12 @@ UserSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
       next();
     }
-  
+
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
     this.resetPasswordToken = undefined;
     this.resetPasswordExpire = undefined;
-  });
+});
 
   //match user entered password to hashed password in database
   UserSchema.methods.matchPassword = async function (enteredPassword) {
@@ -54,20 +54,20 @@ UserSchema.pre('save', async function (next) {
   };
 
 
-//IDENTIFY THE BMI OF THE USERS 
+//IDENTIFY THE BMI OF THE USERS
 UserSchema.pre('save', function(){
-  const height = this.height/100; 
-  const weight = this.weight; 
-  const bmi = weight/(height*height); 
+  const height = this.height/100;
+  const weight = this.weight;
+  const bmi = weight/(height*height);
 
   if(bmi >= 18.5 && bmi <= 24.9){
-    this.weightCategory = 'normal'; 
+    this.weightCategory = 'normal';
   } else if(bmi < 18.5){
-    this.weightCategory = 'underweight'; 
+    this.weightCategory = 'underweight';
   }else{
-    this.weightCategory = 'overweight'; 
+    this.weightCategory = 'overweight';
   }
-}); 
+});
 
 //sign JWT and return
 UserSchema.methods.getSignedJwtToken = function () {
@@ -80,19 +80,19 @@ UserSchema.methods.getSignedJwtToken = function () {
 //GENERATE ARRAY WITH RECOMMENDED FOODS
 UserSchema.methods.featuredFoods = async function () {
   let categories = [];
-  let foods = []; 
+  let foods = [];
   
   //choosing recommended food categories based on weight
   if(this.weightCategory == 'underweight'){
     categories.push('fast-food', 'meaty');
   }else if(this.weightCategory == 'overwheight'){
-    categories.push('low-fat', 'vegetarian'); 
+    categories.push('low-fat', 'vegetarian');
   }
 
-  //adding those categoies to the food array 
+  //adding those categoies to the food array
   if(categories.length > 0){
     for(let i = 0; i<categories.length; i++){
-      let food = await Foods.find({category: categories[i]}).exec(); 
+      let food = await Foods.find({category: categories[i]}).exec();
       for(let y = 0; y<food.length; y++){
         foods.push(food[y]);
       }
@@ -101,19 +101,12 @@ UserSchema.methods.featuredFoods = async function () {
     let food = await Foods.find().exec();
     for(let y = 0; y<food.length; y++){
       foods.push(food[y]);
-    } 
-    foods.push(food); 
+    }
+    foods.push(food);
   }
 
-  return foods; 
+  return foods;
 };
 
-
-//SIGN JWT AND RETURN
-UserSchema.methods.getSignedJwtToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
-};
 
 module.exports = mongoose.model('user', UserSchema);

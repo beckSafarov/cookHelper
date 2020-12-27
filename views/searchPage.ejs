@@ -22,7 +22,7 @@
           </a>
           <ul class="right hide-on-med-and-down black-text">
             <li>
-              <a style = "color: #EE7176;" href="" class="waves-effect"><strong>Dashboard</strong></a>
+              <a id = 'dashboard-link' style = "color: #EE7176;" href="" class="waves-effect"><strong>Dashboard</strong></a>
             </li>
             <li>
               <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
@@ -72,26 +72,55 @@
                     
                     <input type="text" id="autocomplete-input" class="autocomplete">
                     <label id = "label" for="autocomplete-input"></label>
-                    
+                    <p id = 'printtextfield'></p>
                     </div>
                     
                 </div>
-                <button id = 'outputBtn' class = "btn waves-effect"> OK </button>
+                <button id = 'outputBtn' class = "btn  waves-effect"> OK </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="section">
+    
+    <div id = "tags-section" class="section">
         <div class="container">
-            <div id = "tags-row" class="row">
+            <div class="card-panel">
+              <div id = "tags-row" class="row">
                 <p id="warning"></p>
                 <span class = "delete-item secondary-content"></span>
-            </div>    
+              </div>   
+            </div> 
         </div>
     </div>
 
+    <section id="works" class="section section-cardinfo scrollspy">
+      <div class="foodsection">
+        <% foods.forEach(function(food) {%>
+          <div class="row">
+          <div class="col s6 m4 l3">
+            <div class="card z-depth-1 hoverable">
+              <div class="card-image">
+                  <img class = "card-photo" onclick="sendToRelevantPage()" src="<%= food.photoLink %> " height = 220  alt="<%= food.name %>">
+              </div>
+              <div class="card-action" >
+                <a href="#" style="color: #EE7176;" class = "waves-effect"><%= food.name %> </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }); %> 
+      
+      </div>
+  </section>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="http://localhost:5000/js/searchPage.js"></script>
+<script src="<%=root%>/js/searchPage.js"></script>
+<script>
+    const root = '<%=root%>'; 
+    const userId = window.location.href.split('/')[4];
+    document.getElementById('dashboard-link').href = `<%=root%>/user/${userId}/dashboard`;
+</script>
 </body>
 </html>
