@@ -1,14 +1,15 @@
 const express = require('express'),
     router = express.Router(),
     {
-        foods, 
-        users,
-        loadSomeFoods
+        foods,
+        searchFood, 
+        searchFoodByIngredient,
+        users
     } = require('../controllers/apiController'); 
 
 
 router.route('/foods').get(foods); 
 router.route('/:specialpass/users').get(users); 
-router.route('/loadsomefoods').post(loadSomeFoods); 
-
+router.route('/foods/:food').get(searchFood);
+router.route('/ingredients/:ingredient').get(searchFoodByIngredient);
 module.exports = router; 

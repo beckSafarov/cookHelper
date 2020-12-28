@@ -11,18 +11,25 @@ const url = window.location.href;
 
 loadAllEventListeners(); 
 function loadAllEventListeners(){
-    document.addEventListener('DOMContentLoaded', main);
-    outputBtn.addEventListener('click', buttonAction); 
+    document.addEventListener('DOMContentLoaded', starter);
+    outputBtn.addEventListener('click', function(e){
+        e.preventDefault(); 
+        if(location.href.endsWith('/search') || location.href.includes('general')){
+            generalFoodButtonAction(); 
+            
+        }else{
+            ingredientsButtonAction(); 
+        }
+    }); 
 }
 
 
 
-  async function main(){
+  async function starter(){
     let foods = await getFoods();
     const foodList = getProperFoodFormat(foods.data); 
     const ingredients = getProperIngredientFormat(foods.data);
-    
-    if(url.endsWith('search') || url.includes('general')){
+    if(window.location.href.endsWith('search') || window.location.href.includes('general')){
         var instances = M.Autocomplete.init(elems, {
             data: foodList,
         });
@@ -37,6 +44,32 @@ function loadAllEventListeners(){
     }
   }
 
+  async function generalFoodButtonAction(){
+    if(elementTextField.value == ''){
+        throwError('Please enter an ingredient');  
+    }else{
+        warning.innerHTML = '';
+        let similarFoods = await searchItem('foods', elementTextField.value); 
+        if(similarFoods){
+            newTag(elementTextField.value); 
+            console.log(similarFoods);
+        }
+    }
+}
+
+async function ingredientsButtonAction(){
+    if(elementTextField.value == ''){
+        throwError('Please enter an ingredient');  
+    }else{
+        warning.innerHTML = '';
+        let similarFoods = await searchItem('ingredients', elementTextField.value); 
+        if(similarFoods){
+            addTag(elementTextField.value); 
+            console.log(similarFoods);
+        }
+    }
+}
+
   async function getFoods(){
     const response = await fetch(`${root}/api/foods`); 
     const resData = await response.json(); 
@@ -46,18 +79,6 @@ function loadAllEventListeners(){
     return resData; 
 }
 
-async function post(url, data){
-        
-    const response = await fetch(url, {
-             method: 'POST',
-             headers: {
-                 'Content-type':'application/json'
-             },
-             body: JSON.stringify(data)
-     }); 
-     const resData = await response.json(); 
-     return resData;        
-  }
 
 function getProperFoodFormat(foodListRows){
     let foodList = {}
@@ -80,56 +101,20 @@ function getProperIngredientFormat(foodListRows){
 }
 
 
-
-async function buttonAction(e){
-    e.preventDefault(); 
-    if(elementTextField.value == ''){
-        warning.innerHTML = 'Please enter an ingredient'; 
-        warning.style.color = 'red'; 
-    }else{
-        warning.innerHTML = '';
-        let foodConfirmed = await confirmFood(elementTextField.value); 
-        if(foodConfirmed){
-            createTag(elementTextField.value); 
-            searchFood(elementTextField.value); 
+async function searchItem(stream, name){
+    const response = await fetch(`${root}/api/${stream}/${name}`); 
+    const resData = await response.json(); 
+    if(!resData || resData.success === false){
+        if(stream === 'foods'){
+            throwError(`Sorry, we could not find food named ${name}`);
         }else{
-            warning.innerHTML = `Sorry! Food named ${elementTextField.value} not found`;
-            warning.color = 'red'; 
+            throwError(`Sorry, we could not find foods with ${name}`);
         }
-        
+        return false; 
+    }else{
+        return resData.data; 
     }
-}
-
-async function confirmFood(foodName){
-    const foodResponse = await getFoods(); 
-    for(let i = 0; i<foodResponse.data.length; i++){
-        if(foodResponse.data[i].name === foodName){
-            return true;  
-        }
-    }
-    return false; 
-}
-
-
-async function searchFood(foodName){
-    // let foodList = []; 
-    // let foodFound = false; 
-    // const foodResponse = await getFoods(); 
-    // for(let i = 0; i<foodResponse.data.length; i++){
-    //     if(foodResponse.data[i].name.includes(foodName)){
-    //         foodList.push(foods[i]); 
-    //         foodFound = true; 
-    //     }
-    // }
-    const sendData = {
-        food: foodName
-    }
-
-    post(`${root}/api/loadsomefoods`, sendData)
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-
-    // return (!foodFound) ? false:foodList;
+    return resData; 
 }
 
 tagsRow.addEventListener('click', function(e){
@@ -139,14 +124,34 @@ tagsRow.addEventListener('click', function(e){
     } 
 });
 
-function createTag(value){
+function addTag(value){
     const span = document.createElement('span'); 
     span.className = 'btn-small'; 
     span.style = 'margin-right: 10px;';
     span.appendChild(document.createTextNode(value)); 
+    if(window.location.href.endsWith('search') || window.location.href.includes('general')){
+        span.id = 'tag'; 
+    }
     const link = document.createElement('a'); 
     link.className = 'delete-item secondary-content'; 
+    
     link.innerHTML = '<i style="padding-right:2px;" class = "white-text center-align material-icons">close</i>'; 
+
     span.appendChild(link); 
     tagsRow.appendChild(span); 
+}
+
+function newTag(value){
+
+    if(document.querySelectorAll('tag') !== null){
+        document.getElementById('tag').remove(); 
+        addTag(value);
+    }else{
+        addTag(value); 
+    }
+}
+
+function throwError(message){
+    warning.innerHTML = message; 
+    warning.color = 'red'; 
 }

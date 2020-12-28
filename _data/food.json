@@ -79,7 +79,7 @@
         "steps": "bla bla bla"
     },
     {
-        "name": "example 7", 
+        "name": "Macarelli", 
         "photoLink": "/photos/example_7.jpg",
         "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "medium",
@@ -90,7 +90,7 @@
         "steps": "bla bla bla"
     },
     {
-        "name": "example 8", 
+        "name": "Pizza", 
         "photoLink": "/photos/example_8.jpg",
         "description": "This is a sample description of the food. It is so delicious and great, eat it",
         "difficultyLevel": "medium",

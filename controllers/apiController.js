@@ -3,6 +3,7 @@ const path = require('path'),
     Foods = require('../modules/foods'),
     asyncHandler = require('../middleware/async'),
     ErrorResponse = require('../utils/errorResponse');
+const { all } = require('../routes/apiRoutes');
 
 
 //@desc      get the foods
@@ -13,8 +14,60 @@ exports.foods = asyncHandler(async(req, res, next) => {
     const foods = await Foods.find(); 
     res.json({
         success: true,
-        data: foods
+        data: foods,
     })
+  });
+
+  //@desc      search for some food
+  //@route     GET /api/foods/:food
+  //@access    Private
+  exports.searchFood = asyncHandler(async(req, res, next) => {
+    let similarFoodList = []; 
+    const allFoods = await Foods.find().exec(); 
+    for(let i = 0; i<allFoods.length; i++){
+        if(allFoods[i].name.includes(req.params.food)){
+            similarFoodList.push(allFoods[i]); 
+        }
+    }
+
+    if(similarFoodList.length == 0){
+        res.json({
+            success: false,
+            error: `${req.params.food} is not found`
+        })
+    }else{
+        console.log(req.headers.cookie);
+        res.json({
+            success: true,
+            data: similarFoodList
+         })
+    }
+  }); //end of search food 
+
+  //@desc      search for some food
+  //@route     GET /api/ingredients/:ingredient
+  //@access    Private
+  exports.searchFoodByIngredient = asyncHandler(async(req, res, next)=>{
+    const allFoods = await Foods.find().exec(); 
+    const foodList = [];
+    for(let i = 0; i<allFoods.length; i++){
+        for(let x= 0; x<allFoods[i].ingredients.length; x++){
+            if(req.params.ingredient === allFoods[i].ingredients[x]){
+                foodList.push(allFoods[i]); 
+            }
+        } //end of the second loop 
+    }//end of the first loop 
+    if(foodList.length === 0){
+        res.json({
+            success: false,
+            error: `Food with ingredient ${req.params.food} not found `
+        })
+    }else{
+        res.json({
+            success: true,
+            data: foodList
+        })
+    }
   });
 
 //@desc      get the
@@ -36,41 +89,3 @@ exports.users = asyncHandler(async(req, res, next) => {
     }
     
   });
-
-//@desc      get some foods
-//@route     POST /api/loadsomefoods
-//@access    Private
-exports.loadSomeFoods = asyncHandler(async(req, res, next)=>{
-    const requiredFoodName = req.body.food; 
-    if(!requiredFoodName){
-        res.status(400).json({
-            success: false, 
-            error: 'Empty or wrong query data',
-            you_sent: req.body.foodList
-        })
-    }else if(requiredFoodName.length === 0){
-        res.status(400).json({
-            success: false, 
-            error: 'You sent an empty array',
-            you_sent: req.body.foodList
-        })
-    }
-
-    else{
-        let allFoods = await Foods.find().exec(); 
-        let foodList = []; 
-
-        for(let i = 0; i<allFoods.length; i++){
-            if(allFoods[i].name.includes(requiredFoodName)){
-                foodList.push(allFoods[i]); 
-            }
-        }
-        res.status(200).json({
-            success: true,
-            foodList,
-            you_sent: req.body.foodList
-        })
-    }
-
-    
-})

@@ -16,7 +16,7 @@
     <nav class="white">
       <div class="container">
         <div class="nav-wrapper">
-          <a style="color: #EE7176" href="" class="brand-logo"> COOK HELPER</a>
+          <a href="" class="brand-logo"><img src="https://i.ibb.co/stzNwrf/cook-helper-logo.png" alt="cook helper" height = 60 weight = 60></a>
           <a href="#" class = "black-text sidenav-trigger" data-target = "mobile-nav">
               <i class="fas fa-bars fa-2x"></i>
           </a>
@@ -72,7 +72,6 @@
                     
                     <input type="text" id="autocomplete-input" class="autocomplete">
                     <label id = "label" for="autocomplete-input"></label>
-                    <p id = 'printtextfield'></p>
                     </div>
                     
                 </div>
@@ -88,31 +87,11 @@
             <div class="card-panel">
               <div id = "tags-row" class="row">
                 <p id="warning"></p>
-                <span class = "delete-item secondary-content"></span>
               </div>   
             </div> 
         </div>
     </div>
 
-    <section id="works" class="section section-cardinfo scrollspy">
-      <div class="foodsection">
-        <% foods.forEach(function(food) {%>
-          <div class="row">
-          <div class="col s6 m4 l3">
-            <div class="card z-depth-1 hoverable">
-              <div class="card-image">
-                  <img class = "card-photo" onclick="sendToRelevantPage()" src="<%= food.photoLink %> " height = 220  alt="<%= food.name %>">
-              </div>
-              <div class="card-action" >
-                <a href="#" style="color: #EE7176;" class = "waves-effect"><%= food.name %> </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% }); %> 
-      
-      </div>
-  </section>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
