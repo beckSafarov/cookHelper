@@ -4,11 +4,15 @@ const express = require('express'),
       indexPage, 
       signUpPage,
       loginPage
-    } = require('../controllers/pageController');
+    } = require('../controllers/pageController'),
+    {
+      urlDirect,
+      protect
+    } = require('../middleware/auth'); 
     
 
   
-router.route('/').get(indexPage); 
+router.route('/').get(urlDirect, indexPage); 
 router.route('/signup').get(signUpPage); 
 router.route('/login').get(loginPage); 
 

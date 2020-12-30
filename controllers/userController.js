@@ -2,8 +2,12 @@ const path = require('path'),
     User = require('../modules/user'),
     Foods = require('../modules/foods'),
     asyncHandler = require('../middleware/async'),
-
-    ErrorResponse = require('../utils/errorResponse');
+    ErrorResponse = require('../utils/errorResponse'),
+    {
+      searchFoodByIngredient,
+      searchFoods,
+      getQueriedIngredients
+    } = require('../utils/userCtrlHelpers'); 
 
 
 
@@ -50,16 +54,16 @@ exports.login = asyncHandler(async (req, res, next) => {
  });
 
 //@desc      dashboard page
-//@route     GET /user/:id/dashboard
+//@route     GET /user/dashboard
 //@access    Private
  exports.dashboard = asyncHandler(async(req, res, next)=>{
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.user.id);
   if(!user){
       return next(new ErrorResponse(`Such user not found`, 404));
   }
 
   if(!req.query.category || req.query.category == 'recfoods'){
-    featuredFoods = await user.featuredFoods();
+    const featuredFoods = await user.featuredFoods();
     res.render('dashboard', {
       foods: featuredFoods,
       root: process.env.root
@@ -88,16 +92,56 @@ exports.login = asyncHandler(async (req, res, next) => {
  })
 
 //@desc      Search Food page
-//@route     GET /user/:id/search
+//@route     GET /user/search
 //@access    Private
  exports.searchPage = asyncHandler(async(req, res, next)=>{
-  const user = await User.findById(req.params.id);
-  if(!user){
-      return next(new ErrorResponse(`Such user not found`, 404));
-  }
-  res.render('searchPage', {root: process.env.root}); 
+  const user = await User.findById(req.user.id);
+  let foodList = []; 
+  let message = ``;
+  
+  if(req.query.name){
+    foodList = await searchFoods(req.query.name); 
+    if(!foodList){
+      res.status(400).json({
+        success: false,
+        error: `No food named ${req.query.ingredient} was found`
+      })
+    }
+    message = `Search Result(s) for ${req.query.name}`;
+  }//end of the if statement
+  res.render('generalSearch', {
+    root: process.env.root,
+    foods: foodList,
+    message: message
+  }); 
  })
 
+//@desc      Search Ingredients page
+//@route     GET /user/search/ingredients 
+//@queries   GET /user/search/ingredients?name=sausage;bread
+//@access    Private
+exports.ingredients = asyncHandler(async(req, res, next)=>{
+  const user = await User.findById(req.user.id);
+  let foodList = []; 
+  let ingredientsArray = [];
+  ingredientsArray.push(req.query.name); 
+  if(req.query.name){
+    if(req.query.name.includes(';')){
+      ingredientsArray = req.query.name.split(';');
+    } 
+    foodList = await searchFoodByIngredient(ingredientsArray)
+  }else{
+    ingredientsArray = []; 
+  }
+  console.log(ingredientsArray);
+
+  res.render('searchIngredients', {
+    root: process.env.root,
+    foods: foodList,
+    ingredients: ingredientsArray
+  })
+  
+});//end of the ingredients controller 
 
  //get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {

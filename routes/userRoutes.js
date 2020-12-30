@@ -4,16 +4,23 @@ const express = require('express'),
       createNewUser,
       login,
       dashboard,
-      searchPage
-    } = require('../controllers/userController');
+      searchPage,
+      ingredients
+    } = require('../controllers/userController'),
+    {
+      urlDirect,
+      protect
+    } = require('../middleware/auth'); 
+
 
   
 
 
 router.route('/signup').post(createNewUser);
 router.route('/login').post(login);
-router.route('/:id/dashboard').get(dashboard);
-router.route('/:id/search').get(searchPage);
+router.route('/dashboard').get(protect, dashboard);
+router.route('/search').get(protect, searchPage);
+router.route('/search/ingredients').get(protect, ingredients);
 
 
 

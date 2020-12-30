@@ -27,7 +27,7 @@
               <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
             </li>
             <li>
-              <a style = "color: #f3979a;" onclick="searchPage()" class="waves-effect">Search</a>
+              <a style = "color: #f3979a;" href = "<%=root%>/user/search" class="waves-effect">Search</a>
             </li>
           </ul>
           
@@ -70,7 +70,7 @@
 
     <!--Featured foods-->
 <section id="works" class="section section-cardinfo scrollspy">
-    <div class="foodsection">
+    <div id="foodsection">
       <% foods.forEach(function(food) {%>
         <div class="row">
         <div class="col s6 m4 l3">

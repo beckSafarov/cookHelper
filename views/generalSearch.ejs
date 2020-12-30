@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="http://localhost:5000/css/searchPage.css">
+    <link rel="stylesheet" href="<%=root%>/css/searchPage.css">
+    <link rel="stylesheet" href="<%=root%>/css/dashboard.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
     crossorigin="anonymous"></script>
     <title>Search Food</title>
@@ -22,7 +23,7 @@
           </a>
           <ul class="right hide-on-med-and-down black-text">
             <li>
-              <a id = 'dashboard-link' style = "color: #EE7176;" href="" class="waves-effect"><strong>Dashboard</strong></a>
+              <a id = 'dashboard-link' style = "color: #EE7176;" href="<%=root%>/user/dashboard" class="waves-effect"><strong>Dashboard</strong></a>
             </li>
             <li>
               <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
@@ -31,8 +32,6 @@
                 <a style = "color: #f3979a;" href="" class="waves-effect">Search</a>
               </li>
           </ul>
-          
-          
         </div>
       </div>
     </nav>
@@ -54,8 +53,8 @@
       <div class="nav-wrapper">
         <div style="width: 100%;" class="row">
           <ul id = "tabsBar"  class="tabs tab-demo  hide-on-med-and-down">
-            <li class="tab col s6"><a id = "recFoodsTab" href="?searchtype=general">General Search</a></li>
-            <li class="tab col s6"><a id = "fastFoodsTab"   href="?searchtype=ingredients">Search by Ingredients</a></li>
+            <li class="tab col s6"><a id = "recFoodsTab" href="<%=root%>/user/search">General Search</a></li>
+            <li class="tab col s6"><a id = "fastFoodsTab"   href="<%=root%>/user/search/ingredients">Search by Ingredients</a></li>
           </ul>
         </div>
        </div>
@@ -68,38 +67,42 @@
             <div class="row">
                 <div class="col s12">
                 <div class="row">
-                    <div class="input-field col s12">
-                    
+                    <div class="input-field col s12 m6">
                     <input type="text" id="autocomplete-input" class="autocomplete">
-                    <label id = "label" for="autocomplete-input"></label>
+                    <label id = "label" for="autocomplete-input">Food name</label>
                     </div>
-                    
                 </div>
                 <button id = 'outputBtn' class = "btn  waves-effect"> OK </button>
                 </div>
             </div>
         </div>
     </div>
+    <p id = "warning"></p>
 
-    
-    <div id = "tags-section" class="section">
-        <div class="container">
-            <div class="card-panel">
-              <div id = "tags-row" class="row">
-                <p id="warning"></p>
-              </div>   
-            </div> 
-        </div>
+        <!--Featured foods-->
+    <section class="section section-cardinfo scrollspy">
+
+      <div class = "container">
+        <h5 class ="heading left-align"><%=message%></h5>
+        <% foods.forEach(function(food) {%>
+          <div class="row">
+          <div class="col s6 m4 l3">
+            <div class="card z-depth-1 hoverable">
+              <div class="card-image">
+                  <img class = "card-photo" src="<%= food.photoLink %> " height = 180  alt="<%= food.name %>">
+              </div>
+              <div class="card-action" >
+                <a href="#" style="color: #EE7176;" class = "waves-effect"><%= food.name %> </a>
+              </div>
+            </div>
+          </div>
+      <% }); %> 
+      </div> 
     </div>
-
+    </section>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="<%=root%>/js/searchPage.js"></script>
-<script>
-    const root = '<%=root%>'; 
-    const userId = window.location.href.split('/')[4];
-    document.getElementById('dashboard-link').href = `<%=root%>/user/${userId}/dashboard`;
-</script>
+<script src="<%=root%>/js/generalSearch.js"></script>
 </body>
 </html>

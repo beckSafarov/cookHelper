@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="<%=root%>/css/searchPage.css">
+    <link rel="stylesheet" href="<%=root%>/css/dashboard.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+    crossorigin="anonymous"></script>
+    <title>Search Ingredients</title>
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav class="white">
+          <div class="container">
+            <div class="nav-wrapper">
+              <a href="" class="brand-logo"><img src="https://i.ibb.co/stzNwrf/cook-helper-logo.png" alt="cook helper" height = 60 weight = 60></a>
+              <a href="#" class = "black-text sidenav-trigger" data-target = "mobile-nav">
+                  <i class="fas fa-bars fa-2x"></i>
+              </a>
+              <ul class="right hide-on-med-and-down black-text">
+                <li>
+                  <a id = 'dashboard-link' style = "color: #EE7176;" href="" class="waves-effect"><strong>Dashboard</strong></a>
+                </li>
+                <li>
+                  <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
+                </li>
+                <li>
+                    <a style = "color: #f3979a;" href="" class="waves-effect">Search</a>
+                  </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!--Side Nav for mobile view-->
+    <ul class="sidenav" id = "mobile-nav">
+        <p class = "sideMenuText"><strong>Main Menu</strong></p>
+        <li><a  href="#home">Home</a></li>
+        <li><a  href="#settings">Settings</a></li>
+        <li><a  href="#settings">Search</a></li>
+        <hr>
+      </ul>
+  
+      <!--Food Categories Tab-->
+     <div style="padding-top: 2px;" class="hide-on-med-and-down">
+      <nav class="white">
+        <div class="nav-wrapper">
+          <div style="width: 100%;" class="row">
+            <ul id = "tabsBar"  class="tabs tab-demo  hide-on-med-and-down">
+              <li class="tab col s6"><a id = "recFoodsTab" href="<%=root%>/user/search">General Search</a></li>
+              <li class="tab col s6"><a id = "fastFoodsTab"   href="<%=root%>/user/search/ingredients">Search by Ingredients</a></li>
+            </ul>
+          </div>
+         </div>
+      </nav>
+     </div>
+
+     <div class="section new-section">
+        <div class="container">
+            <!--Search Field-->
+            <div class="row">
+                <div class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                    
+                    <input type="text" id="autocomplete-input" class="autocomplete">
+                    <label id = "label" for="autocomplete-input">Ingredient name</label>
+                    </div>
+                    
+                </div>
+                <button id = 'outputBtn' class = "btn  waves-effect"> OK </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id = "tags-section" class="section">
+        <div class="container">
+            <div class="card-panel">
+              <div id = "tags-row" class="row">
+                <%ingredients.forEach(function(ingredient) { %> 
+                <span style = "margin-right: 10px" class = "btn-small"><%=ingredient%><a class='delete-item secondary-content'><i style="padding-right:2px;" class = "white-text center-align material-icons">close</i></a></span>
+                <% })%>
+              </div>   
+            </div>
+            <br>
+            <p id="warning"></p> 
+        </div>
+    </div>
+
+        <!--Search result food-->
+    <section class="section section-cardinfo scrollspy">
+        <div id="foodsection">
+            <% foods.forEach(function(food) {%>
+                <div class="row">
+                   <div class="col s6 m4 l3">
+                        <div class="card z-depth-1 hoverable">
+                            <div class="card-image">
+                                <img class = "card-photo" src="<%= food.photoLink %> " height = 220  alt="<%= food.name %>">
+                            </div>
+                            <div class="card-action" >
+                            <a href="#" style="color: #EE7176;" class = "waves-effect"><%= food.name %> </a>
+                            </div>
+                        </div>
+                    </div>
+            <% }); %> 
+              </div> 
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="<%=root%>/js/ingredients.js"></script>
+</body>
+</html>

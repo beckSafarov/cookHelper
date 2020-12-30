@@ -1,7 +1,9 @@
 const email = document.getElementById('email'),
     password = document.getElementById('password'),
     warningBtn = document.getElementById('warningBtn'),
-    form = document.getElementById('form');
+    form = document.getElementById('form'),
+    root = `${location.protocol}//${location.host}`; 
+console.log(root); 
 
 //post function to make a post request to the server
 async function post(url, data){
@@ -26,13 +28,13 @@ form.addEventListener('submit', function(e){
     };
 
 
-    post(`http://localhost:5000/user/login`, data)
+    post(`${root}/user/login`, data)
         .then(data => {
             if(data.success == false){
                 warningBtn.innerHTML = data.error;
                 warningBtn.style.color = 'red';
             }else{
-                window.location.href = `http://localhost:5000/user/${data.id}/dashboard`;
+                window.location.href = `${root}/user/dashboard`;
             }
 
         })
