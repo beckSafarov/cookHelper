@@ -21,9 +21,12 @@ async function starter(){
     const foodList = getProperFoodFormat(foods.data); 
     var instances = M.Autocomplete.init(elems, {
         data: foodList,
+        onAutocomplete: generalFoodButtonAction
     });
 
-    
+    //init sideNav
+    const sidenav = document.querySelector('.sidenav'); 
+    M.Sidenav.init(sidenav, {});        
 
 }
 

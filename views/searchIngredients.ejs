@@ -22,14 +22,14 @@
               </a>
               <ul class="right hide-on-med-and-down black-text">
                 <li>
-                  <a id = 'dashboard-link' style = "color: #EE7176;" href="" class="waves-effect"><strong>Dashboard</strong></a>
+                  <a id = 'dashboard-link' style = "color: #F3979A ;" href="<%=root%>/user/dashboard" class="waves-effect"><strong>Dashboard</strong></a>
+                </li>
+                <li>
+                    <a id = "search-link" style = "color: #EE7176;" href="" class="waves-effect">Search</a>
                 </li>
                 <li>
                   <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
                 </li>
-                <li>
-                    <a style = "color: #f3979a;" href="" class="waves-effect">Search</a>
-                  </li>
               </ul>
             </div>
           </div>
@@ -37,12 +37,15 @@
       </div>
 
       <!--Side Nav for mobile view-->
-    <ul class="sidenav" id = "mobile-nav">
+      <ul class="sidenav" id = "mobile-nav">
         <p class = "sideMenuText"><strong>Main Menu</strong></p>
-        <li><a  href="#home">Home</a></li>
-        <li><a  href="#settings">Settings</a></li>
+        <li><a  href="<%=root%>/user/dashboard">Dashboard</a></li>
         <li><a  href="#settings">Search</a></li>
+        <li><a  href="#settings">Settings</a></li>
         <hr>
+        <p class = "sideMenuText"><strong>Search Type</strong></p>
+        <li><a  href="">General</a></li>
+        <li style="background-color: #ee7176;"><a  href="<%=root%>/user/search/ingredients">By Ingredient</a></li>
       </ul>
   
       <!--Food Categories Tab-->
@@ -51,14 +54,14 @@
         <div class="nav-wrapper">
           <div style="width: 100%;" class="row">
             <ul id = "tabsBar"  class="tabs tab-demo  hide-on-med-and-down">
-              <li class="tab col s6"><a id = "recFoodsTab" href="<%=root%>/user/search">General Search</a></li>
-              <li class="tab col s6"><a id = "fastFoodsTab"   href="<%=root%>/user/search/ingredients">Search by Ingredients</a></li>
+              <li class="tab col s6"><a id = "recFoodsTab"  href="<%=root%>/user/search">General Search</a></li>
+              <li class="tab col s6"><a id = "fastFoodsTab" style = "color: #EE7176;"   href="<%=root%>/user/search/ingredients">Search by Ingredients</a></li>
             </ul>
           </div>
          </div>
       </nav>
      </div>
-
+     <div class="divider"></div>
      <div class="section new-section">
         <div class="container">
             <!--Search Field-->
@@ -67,12 +70,15 @@
                 <div class="row">
                     <div class="input-field col s12">
                     
-                    <input type="text" id="autocomplete-input" class="autocomplete">
+                    <input type="text" id="autocomplete-input" class="autocomplete" value = "<%=lastEntered%>">
                     <label id = "label" for="autocomplete-input">Ingredient name</label>
                     </div>
                     
                 </div>
-                <button id = 'outputBtn' class = "btn  waves-effect"> OK </button>
+                <div class="row">
+                  <button style="width: 48%; margin-left: 10px;" id = 'outputBtn' class = "btn  waves-effect"> Search </button>
+                  <button id = "clearBtn" style="width: 48%;" id = 'outputBtn' class = "btn red darken-1 white-text waves-effect disabled"> Clear </button>
+                </div>
                 </div>
             </div>
         </div>
@@ -95,13 +101,13 @@
 
         <!--Search result food-->
     <section class="section section-cardinfo scrollspy">
-        <div id="foodsection">
+        <div id="foodsection" class = "container">
             <% foods.forEach(function(food) {%>
                 <div class="row">
                    <div class="col s6 m4 l3">
                         <div class="card z-depth-1 hoverable">
                             <div class="card-image">
-                                <img class = "card-photo" src="<%= food.photoLink %> " height = 220  alt="<%= food.name %>">
+                                <img class = "card-photo" src="<%= food.photoLink %> " height = 180  alt="<%= food.name %>">
                             </div>
                             <div class="card-action" >
                             <a href="#" style="color: #EE7176;" class = "waves-effect"><%= food.name %> </a>

@@ -5,7 +5,8 @@ const express = require('express'),
       login,
       dashboard,
       searchPage,
-      ingredients
+      ingredients,
+      foodPage
     } = require('../controllers/userController'),
     {
       urlDirect,
@@ -21,6 +22,8 @@ router.route('/login').post(login);
 router.route('/dashboard').get(protect, dashboard);
 router.route('/search').get(protect, searchPage);
 router.route('/search/ingredients').get(protect, ingredients);
+router.route('/food/:foodId').get(protect, foodPage);
+
 
 
 

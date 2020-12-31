@@ -24,6 +24,14 @@ body {
   color: #ee7176;
 }
 
+.passiveText {
+  color: #f3979a;
+}
+
 .simpleText {
   color: #f3979a;
+}
+
+.fullWidthButton {
+  width: 100%;
 }

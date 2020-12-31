@@ -23,14 +23,14 @@
           </a>
           <ul class="right hide-on-med-and-down black-text">
             <li>
-              <a id = 'dashboard-link' style = "color: #EE7176;" href="<%=root%>/user/dashboard" class="waves-effect"><strong>Dashboard</strong></a>
+              <a id = 'dashboard-link' style = "color: #f3979a;" href="<%=root%>/user/dashboard" class="waves-effect"><strong>Dashboard</strong></a>
+            </li>
+            <li>
+                <a style = "color: #EE7176;" href="" class="waves-effect">Search</a>
             </li>
             <li>
               <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
             </li>
-            <li>
-                <a style = "color: #f3979a;" href="" class="waves-effect">Search</a>
-              </li>
           </ul>
         </div>
       </div>
@@ -41,10 +41,13 @@
     <!--Side Nav for mobile view-->
     <ul class="sidenav" id = "mobile-nav">
       <p class = "sideMenuText"><strong>Main Menu</strong></p>
-      <li><a  href="#home">Home</a></li>
-      <li><a  href="#settings">Settings</a></li>
-      <li><a  href="#settings">Search</a></li>
+      <li><a  href="<%=root%>/user/dashboard">Dashboard</a></li>
+      <li><a  href="">Search</a></li>
+      <li><a  href="">Settings</a></li>
       <hr>
+      <p class = "sideMenuText"><strong>Search Type</strong></p>
+      <li style="background-color: #ee7176;"><a  href="">General</a></li>
+      <li><a  href="<%=root%>/user/search/ingredients">By Ingredient</a></li>
     </ul>
 
     <!--Food Categories Tab-->
@@ -53,37 +56,37 @@
       <div class="nav-wrapper">
         <div style="width: 100%;" class="row">
           <ul id = "tabsBar"  class="tabs tab-demo  hide-on-med-and-down">
-            <li class="tab col s6"><a id = "recFoodsTab" href="<%=root%>/user/search">General Search</a></li>
+            <li class="tab col s6"><a style = "color: #EE7176;" id = "recFoodsTab" href="<%=root%>/user/search">General Search</a></li>
             <li class="tab col s6"><a id = "fastFoodsTab"   href="<%=root%>/user/search/ingredients">Search by Ingredients</a></li>
           </ul>
         </div>
        </div>
     </nav>
    </div>
-
+   <div class="divider"></div>
     <div class="section new-section">
         <div class="container">
             <!--Search Field-->
             <div class="row">
                 <div class="col s12">
                 <div class="row">
-                    <div class="input-field col s12 m6">
-                    <input type="text" id="autocomplete-input" class="autocomplete">
+                    <div class="input-field col s12">
+                    <input type="text" id="autocomplete-input" class="autocomplete" value = "<%=enteredFood%>">
                     <label id = "label" for="autocomplete-input">Food name</label>
                     </div>
                 </div>
-                <button id = 'outputBtn' class = "btn  waves-effect"> OK </button>
+                <button style="width: 100%;" id = 'outputBtn' class = "btn  waves-effect" > Search </button>
                 </div>
             </div>
         </div>
     </div>
-    <p id = "warning"></p>
+    
 
         <!--Featured foods-->
     <section class="section section-cardinfo scrollspy">
 
       <div class = "container">
-        <h5 class ="heading left-align"><%=message%></h5>
+        <p class = "center-align" id = "warning"></p>
         <% foods.forEach(function(food) {%>
           <div class="row">
           <div class="col s6 m4 l3">

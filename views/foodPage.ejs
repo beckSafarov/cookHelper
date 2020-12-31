@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="<%=root%>/css/dashboard.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+    crossorigin="anonymous"></script>
+    <title>Food Page</title>
+</head>
+<body>
+    <div class="navbar-fixed">
+        <nav class="white">
+          <div class="container">
+            <div class="nav-wrapper">
+              <a href="" class="brand-logo"><img src="https://i.ibb.co/stzNwrf/cook-helper-logo.png" alt="cook helper" height = 60 weight = 60></a>
+              <a href="#" class = "black-text sidenav-trigger" data-target = "mobile-nav">
+                  <i class="fas fa-bars fa-2x"></i>
+              </a>
+              <ul class="right hide-on-med-and-down black-text">
+                <li>
+                  <a id = 'dashboard-link' style = "color: #f3979a;" href="<%=root%>/user/dashboard" class="waves-effect"><strong>Dashboard</strong></a>
+                </li>
+                <li>
+                    <a style = "color: #f3979a;" href="<%=root%>/user/search" class="waves-effect">Search</a>
+                </li>
+                <li>
+                  <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!--Side Nav for mobile view-->
+        <ul class="sidenav" id = "mobile-nav">
+            <p class = "sideMenuText"><strong>Main Menu</strong></p>
+            <li><a  href="<%=root%>/user/dashboard">Dashboard</a></li>
+            <li><a  href = "<%=root%>/user/search">Search</a></li>
+            <li><a  href="">Settings</a></li>
+        </ul>
+
+      <div class="section">
+            <div class="row">
+                <div class="col s12 m6">
+                    <img class="materialboxed hoverable" height="90%" width="100%" src="<%=food.photoLink%>" data-caption = "<%=food.name%>">
+                    <h3 class = "heading center-align"> <strong><%=food.name.toUpperCase()%></strong> </h3>
+                </div>
+                <div class="col s12 m6">
+                    <div style="padding-top: 2px;">
+                        <div class="row">
+                            <ul id = "tabsBar" class="tabs tab-demo">
+                              <li class="tab col s3 m3 active"><a style = "color: #EE7176;" id = "recFoodsTab" href="#description">Description</a></li>
+                              <li class="tab col s3 m3"><a id = "fastFoodsTab"   href="#ingredients">Ingredients</a></li>
+                              <li class="tab col s3 m3"><a id = "fastFoodsTab"   href="#steps">Steps</a></li>
+                            </ul>
+                          </div>
+                       </div>
+                </div>
+                
+            </div>
+      </div>
+
+      <div id = "#description" class="col s12 m6">
+            <%=food.description%>
+      </div>
+      <div id = "#steps" class="col s12 m6">
+        <%=food.steps%>
+      </div>
+      <div id = "#ingredients" class="col s12 m6">
+        ingredints here
+      </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.materialboxed');
+            var instances = M.Materialbox.init(elems, {});
+        });
+
+        //init sideNav
+        const sidenav = document.querySelector('.sidenav'); 
+        M.Sidenav.init(sidenav, {});
+
+        //init tabs bar
+        const el = document.getElementById('tabsBar'); 
+        var instance = M.Tabs.init(el, {});
+    </script>
+</body>
+</html>

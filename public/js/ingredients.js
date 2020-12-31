@@ -1,4 +1,5 @@
 let elementTextField = document.querySelector('.autocomplete');
+let clearBtn = document.getElementById('clearBtn');
 const output = document.querySelector('#output');
 const outputBtn = document.getElementById('outputBtn'); 
 const warning = document.getElementById('warning');
@@ -16,6 +17,7 @@ loadAllEventListeners();
 function loadAllEventListeners(){
     document.addEventListener('DOMContentLoaded', starter);
     outputBtn.addEventListener('click', ingredientsButtonAction); 
+    clearBtn.addEventListener('click', clearButtonAction); 
     tagsRow.addEventListener('click', function(e){
         e.preventDefault(); 
         removeTag(e); 
@@ -29,7 +31,10 @@ async function starter(){
 
     var instances = M.Autocomplete.init(elems, {
         data: ingredients,
+        onAutocomplete: ingredientsButtonAction
     });
+
+    clearButtonToggler(); 
 }//end of the starter function 
 
 async function ingredientsButtonAction(){
@@ -41,7 +46,6 @@ async function ingredientsButtonAction(){
         if(similarFoods){
             addTag(elementTextField.value); 
             newIngredientQuery(elementTextField.value); 
-            console.log(similarFoods);
         }
     }
 }
@@ -94,9 +98,13 @@ function addTag(value){
 
 function removeTag(e){
     e.preventDefault(); 
+    let closeStartingIndex;
+    let tagWord; 
     if(e.target.parentElement.classList.contains('delete-item')){
-        console.log(e.target.parentElement.innerHTML); 
-        e.target.parentElement.parentElement.remove(); 
+        closeStartingIndex = e.target.parentElement.parentElement.textContent.search('close'); //5:10 
+        tagWord = e.target.parentElement.parentElement.textContent.slice(0, closeStartingIndex); 
+        e.target.parentElement.parentElement.remove();  
+        cutURL(tagWord);
     } 
 }
 
@@ -108,6 +116,34 @@ function newIngredientQuery(ingredient){
         window.location.href = `${url}?name=${ingredient}`; 
     }
 }
+
+function cutURL(tagWord){
+    let urlArray = location.href.split('='); 
+    let ingredients = urlArray[1]; 
+    let ingredientsArray = [];
+    if(ingredients.includes(';')){
+        ingredientsArray = ingredients.split(';');   
+        ingredientsArray.splice(ingredientsArray.indexOf(tagWord), 1); 
+        ingredientsArray = ingredientsArray.join(';'); 
+        urlArray[1] = ingredientsArray;  
+        urlArray = urlArray.join('='); 
+        location.href = urlArray; 
+    } else{
+        location.href = `${root}/user/search/ingredients`; 
+    }
+}
+
+function clearButtonToggler(){
+    if(location.href.includes('name')){
+        clearBtn.classList.toggle('disabled'); 
+    }
+}
+
+function clearButtonAction(){
+    location.href = `${root}/user/search/ingredients`;
+}
+
+
 
 function throwError(message){
     warning.innerHTML = message; 

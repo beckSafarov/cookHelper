@@ -6,7 +6,7 @@ const path = require('path'),
     {
       searchFoodByIngredient,
       searchFoods,
-      getQueriedIngredients
+      getUniqueArray
     } = require('../utils/userCtrlHelpers'); 
 
 
@@ -97,7 +97,6 @@ exports.login = asyncHandler(async (req, res, next) => {
  exports.searchPage = asyncHandler(async(req, res, next)=>{
   const user = await User.findById(req.user.id);
   let foodList = []; 
-  let message = ``;
   
   if(req.query.name){
     foodList = await searchFoods(req.query.name); 
@@ -107,12 +106,11 @@ exports.login = asyncHandler(async (req, res, next) => {
         error: `No food named ${req.query.ingredient} was found`
       })
     }
-    message = `Search Result(s) for ${req.query.name}`;
   }//end of the if statement
   res.render('generalSearch', {
     root: process.env.root,
     foods: foodList,
-    message: message
+    enteredFood: req.query.name
   }); 
  })
 
@@ -130,18 +128,34 @@ exports.ingredients = asyncHandler(async(req, res, next)=>{
       ingredientsArray = req.query.name.split(';');
     } 
     foodList = await searchFoodByIngredient(ingredientsArray)
+    foodList = getUniqueArray(foodList); 
   }else{
     ingredientsArray = []; 
   }
-  console.log(ingredientsArray);
 
   res.render('searchIngredients', {
     root: process.env.root,
     foods: foodList,
-    ingredients: ingredientsArray
+    ingredients: ingredientsArray,
+    lastEntered: ingredientsArray[ingredientsArray.length-1]
   })
   
 });//end of the ingredients controller 
+
+
+//@desc      Chosen Food Page
+//@route     GET /user/food/:foodId
+//@access    Private
+exports.foodPage = asyncHandler(async(req, res, next)=>{
+  const food = await Foods.findById(req.params.foodId); 
+  if(!food){
+    return next(new ErrorResponse(`No food was found with the id of ${req.params.id}`, 400));
+  }
+  res.render('foodPage', {
+    root: process.env.root,
+    food: food
+  }); 
+});
 
  //get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {
