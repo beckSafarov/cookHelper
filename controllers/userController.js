@@ -6,7 +6,8 @@ const path = require('path'),
     {
       searchFoodByIngredient,
       searchFoods,
-      getUniqueArray
+      getUniqueArray,
+      getRandomFoods
     } = require('../utils/userCtrlHelpers'); 
 
 
@@ -151,9 +152,17 @@ exports.foodPage = asyncHandler(async(req, res, next)=>{
   if(!food){
     return next(new ErrorResponse(`No food was found with the id of ${req.params.id}`, 400));
   }
+  const allSimilarFoods = await Foods.find({category: food.category})
+  // const similarFoods = getRandomFoods(allSimilarFoods); 
+  allSimilarFoods.forEach(function(currentFood, index){
+     if(currentFood.id === req.params.foodId){
+       allSimilarFoods.splice(index, 1); 
+     }
+  }); 
   res.render('foodPage', {
     root: process.env.root,
-    food: food
+    food: food,
+    similarFoods: allSimilarFoods
   }); 
 });
 

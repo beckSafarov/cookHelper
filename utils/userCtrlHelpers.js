@@ -45,3 +45,13 @@ exports.getUniqueArray = (a) =>{
   
   return out;
 }
+
+exports.getRandomFoods = (allSimilarFoods)=>{
+  let similarFoods = []; 
+  let random; 
+  for(let i = 0; i<4; i++){
+    random = Math.floor(Math.random() * allSimilarFoods.length) + 1; 
+    similarFoods[i] = allSimilarFoods[random];  
+  }
+  return similarFoods; 
+}

@@ -4,10 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="<%=root%>/css/dashboard.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
     crossorigin="anonymous"></script>
     <title>Food Page</title>
+    <style>
+      #like-button {
+          float: right;
+          margin-right: 5px;
+      }
+
+      .invisible-button{
+        background-color: transparent;
+        border-color: transparent;
+      }
+      .similarFoodsRow{
+        margin-left: 30px;
+      }
+      
+    </style>
 </head>
 <body>
     <div class="navbar-fixed">
@@ -45,49 +61,80 @@
       <div class="section">
             <div class="row">
                 <div class="col s12 m6">
-                    <img class="materialboxed hoverable" height="90%" width="100%" src="<%=food.photoLink%>" data-caption = "<%=food.name%>">
-                    <h3 class = "heading center-align"> <strong><%=food.name.toUpperCase()%></strong> </h3>
+                  <h4 class = "heading center-align"> <strong><%=food.name.toUpperCase()%></strong> </h4>
+                    <div class="container">
+                      <img class="materialboxed hoverable" height="100%" width="100%" src="<%=food.photoLink%>" data-caption = "<%=food.name%>">
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="container">
+                        <button style="background-color: transparent; border-color: transparent;" id="like-button" onclick="likeButtonController()" class = "tooltipped" data-position="bottom" data-tooltip="Like">
+                          <i style = "color: pink;" class="small material-icons">thumb_up</i>
+                        </button>
+                      </div>
+                    </div>
                 </div>
                 <div class="col s12 m6">
                     <div style="padding-top: 2px;">
                         <div class="row">
-                            <ul id = "tabsBar" class="tabs tab-demo">
-                              <li class="tab col s3 m3 active"><a style = "color: #EE7176;" id = "recFoodsTab" href="#description">Description</a></li>
-                              <li class="tab col s3 m3"><a id = "fastFoodsTab"   href="#ingredients">Ingredients</a></li>
-                              <li class="tab col s3 m3"><a id = "fastFoodsTab"   href="#steps">Steps</a></li>
+                            <ul style="width: 90%;" id = "tabsBar" class="tabs tab-demo">
+                              <li class="tab col s3 m3 active"><a href="#" style = "color: #EE7176;" id = "descriptionTab" onclick="moveToDescription()">Description</a></li>
+                              <li class="tab col s3 m3"><a href="#" id = "ingredientsTab" onclick="moveToIngredients()">Ingredients</a></li>
+                              <li class="tab col s3 m3"><a href="#" id = "stepsTab" onclick="moveToSteps()">Steps</a></li>
+                          
                             </ul>
+                          </div> 
+                   </div>
+                  <div class="container">
+                      <div class = "hide" id="#description"><%= food.description %> </div>
+                      <div class = "hide" id="#ingredients">
+                        <div id = "tags-section" class="section">
+                          <div class="card-panel center-align">
+                            <div id = "tags-row" class="row">
+                              <%food.ingredients.forEach(function(ingredient) { %> 
+                              <span style = "margin-right: 10px" class = "btn-small"><%=ingredient%><a></a></span>
+                              <% })%>
+                            </div>   
                           </div>
-                       </div>
+                      </div>
+                      </div>
+                      <div class = "hide" id="#steps"><%= food.steps %> </div>
+                  </div>
                 </div>
                 
             </div>
       </div>
 
-      <div id = "#description" class="col s12 m6">
-            <%=food.description%>
-      </div>
-      <div id = "#steps" class="col s12 m6">
-        <%=food.steps%>
-      </div>
-      <div id = "#ingredients" class="col s12 m6">
-        ingredints here
-      </div>
+         <!--Featured foods-->
+    <section class="section section-cardinfo scrollspy">
+      
+      <div class = "similarFoodsRow">
+        <h4 style="margin-left: 8px;" class = "heading"> Similar Foods</h4>
+        <p class = "center-align" id = "warning"></p>
+        <% similarFoods.forEach(function(food) {%>
+          <div class="row">
+          <div class="col s6 m4 l3">
+            <div class="card z-depth-1 hoverable">
+              <div class="card-image">
+                  <img class = "card-photo" onclick="sendToRelevantPage('<%=food.id%>')"  src="<%= food.photoLink %> " height = 220 alt="<%= food.name %>">
+              </div>
+              <div class="card-action" >
+                <a href="#" style="color: #EE7176;" class = "waves-effect"><%= food.name %> </a>
+              </div>
+            </div>
+          </div>
+      <% }); %> 
+      </div> 
+    </div>
+    </section>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="<%= root%>/js/foodPage.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.materialboxed');
-            var instances = M.Materialbox.init(elems, {});
-        });
-
-        //init sideNav
-        const sidenav = document.querySelector('.sidenav'); 
-        M.Sidenav.init(sidenav, {});
-
-        //init tabs bar
-        const el = document.getElementById('tabsBar'); 
-        var instance = M.Tabs.init(el, {});
+      function sendToRelevantPage(id){
+        location.href = `<%=root%>/user/food/${id}`;
+      }
     </script>
 </body>
 </html>
