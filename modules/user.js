@@ -2,6 +2,7 @@ const mongoose = require('mongoose'),
   bcrypt = require('bcryptjs'),
   jwt = require('jsonwebtoken'),
   Foods = require('./foods.js'),
+  {getUniqueArray} = require('../utils/userCtrlHelpers'),
   crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
@@ -32,7 +33,7 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     weightCategory: String, //overweight, normal, underweight
-    ingredients: [String],
+    ingredients: [Object],
     foodHabits: [String],
 })
 
@@ -108,5 +109,28 @@ UserSchema.methods.featuredFoods = async function () {
   return foods;
 };
 
+//ADDS LIST OF INGREDIENTS TO THE INGREDIENTS ARRAY
+UserSchema.methods.addToIngredients = function(ingredients){
+  this.ingredients = this.ingredients.concat(ingredients); 
+  return this.ingredients;
+}
+
+//REMOVES ONE INGREDIENT FROM THE INGREDIENT ARRAY
+UserSchema.methods.removeFromIngredients = function(ingredient, foodName){
+  let ingredients = this.ingredients; 
+  ingredients.forEach(function(listIngredient, index){
+      if(listIngredient.ingredient === ingredient && listIngredient.food === foodName){
+            ingredients.splice(index, 1); 
+      }
+  });
+  this.ingredients = ingredients; 
+  return this.ingredients; 
+}
+
+//REMOVES ALL INGREDIENTS FROM THE INGREDIENT ARRAY
+UserSchema.methods.flushIngredients = function(ingredient, foodName){
+  this.ingredients = []; 
+  return this.ingredients; 
+}
 
 module.exports = mongoose.model('user', UserSchema);

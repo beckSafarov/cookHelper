@@ -31,18 +31,22 @@ document.addEventListener('DOMContentLoaded', function() {
     meatCornerSideTab.style.backgroundColor = '#ee7176'; 
     meatCornerTab.className = 'active';
   }
+
+  //drop down init
+    // var elems = document.querySelectorAll('.dropdown-trigger');
+    // var instances = M.Dropdown.init(elems, {
+    //   alignment: 'right',
+    //   coverTrigger: false, 
+    //   hover: true
+    // });
 });
 
 
 
-function sendToRelevantPage(){
-  window.location.href = '?category=meatcorner';
-}
+// function searchPage(){
+//   const url = window.location.href; 
+//   const urlArray = url.split('/');
+//   const userId = urlArray[4]; 
+//   window.location.href = `http://localhost:5000/user/${userId}/search`; 
 
-function searchPage(){
-  const url = window.location.href; 
-  const urlArray = url.split('/');
-  const userId = urlArray[4]; 
-  window.location.href = `http://localhost:5000/user/${userId}/search`; 
-
-}
+// }

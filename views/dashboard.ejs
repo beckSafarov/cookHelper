@@ -1,48 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="<%=root%>/css/dashboard.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
-    crossorigin="anonymous"></script>
-    <title>Dashboard</title>
-</head>
-<body>
-  <div class="navbar-fixed">
-    <nav class="white">
-      <div class="container">
-        <div class="nav-wrapper">
-          <a href="" class="brand-logo"><img src="https://i.ibb.co/stzNwrf/cook-helper-logo.png" alt="cook helper" height = 60 weight = 60></a>
-          <!-- <a style="color: #EE7176" href="" class="brand-logo"> COOK HELPER</a> -->
-          <a href="#" class = "black-text sidenav-trigger" data-target = "mobile-nav">
-              <i class="fas fa-bars fa-2x"></i>
-          </a>
-          <ul class="right hide-on-med-and-down black-text">
-            <li>
-              <a style = "color: #EE7176;" href="<%=root%>" class="waves-effect"><strong>Dashboard</strong></a>
-            </li>
-            <li>
-              <a style = "color: #f3979a;" href = "<%=root%>/user/search" class="waves-effect">Search</a>
-            </li>
-            <li>
-              <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
-            </li>
-          </ul>
-          
-          
-        </div>
-      </div>
-    </nav>
-  </div>
+<%- include('navbar', {title: 'Dashboard'}); %> 
+
+ <!--Side Nav for mobile view-->
+ <ul class="sidenav" id = "mobile-nav">
+  <p class = "sideMenuText"><strong>Main Menu</strong></p>
+  <li><a  href="">Dashboard</a></li>
+  <li><a  href = "<%=root%>/user/search">Search</a></li>
+  <li><a  href="#settings">Settings</a></li>
+  <div class="divider"></div>
+  <p class = "sideMenuText "> <strong>Food Categories</strong></p>
+  <li id = "featuredSideTab"><a  href="?category=recfoods">Featured</a></li>
+  <li id = "fastFoodSideTab"><a  href="?category=fastfoods">Fast Foods</a></li>
+  <li id = "meatCornerSideTab"><a  href="?category=meatcorner">Meat Corner</a></li>
+  <li id = "lowFatSideTab"><a  href="?category=lowfat">Low Fat</a></li>
+</ul>
+
     
 <!--Food Categories Tab-->
    <div style="padding-top: 2px;" class="navbar-fixed hide-on-med-and-down">
     <nav class="white">
       <div class="nav-wrapper">
         <div style="width: 100%;" class="row">
-          <ul id = "tabsBar"  class="tabs tab-demo  hide-on-med-and-down">
+          <ul style="border:none;" id = "tabsBar"  class="tabs tab-demo  hide-on-med-and-down">
             <li  class="tab col s3"><a id = "recFoodsTab" href="?category=recfoods">Featured Foods</a></li>
             <li class="tab col s3"><a id = "fastFoodsTab"   href="?category=fastfoods">Fast Foods</a></li>
             <li class="tab col s3"><a id = "meatCornerTab" href="?category=meatcorner">Meat Corner</a></li>
@@ -55,29 +33,15 @@
    </div>
    
 
-    <!--Side Nav for mobile view-->
-    <ul class="sidenav" id = "mobile-nav">
-      <p class = "sideMenuText"><strong>Main Menu</strong></p>
-      <li><a  href="">Dashboard</a></li>
-      <li><a  href = "<%=root%>/user/search">Search</a></li>
-      <li><a  href="#settings">Settings</a></li>
-      <hr>
-      <p class = "sideMenuText "> <strong>Food Categories</strong></p>
-      <li id = "featuredSideTab"><a  href="?category=recfoods">Featured</a></li>
-      <li id = "fastFoodSideTab"><a  href="?category=fastfoods">Fast Foods</a></li>
-      <li id = "meatCornerSideTab"><a  href="?category=meatcorner">Meat Corner</a></li>
-      <li id = "lowFatSideTab"><a  href="?category=lowfat">Low Fat</a></li>
-    </ul>
-
     <!--Featured foods-->
 <section id="works" class="section section-cardinfo scrollspy">
-    <div id="foodsection">
+    <div id="foodsection" class = "container">
       <% foods.forEach(function(food) {%>
         <div class="row">
         <div class="col s6 m4 l3">
           <div class="card z-depth-1 hoverable">
             <div class="card-image">
-                <img class = "card-photo" onclick="sendToRelevantPage('<%=food.id%>')" src="<%= food.photoLink %> " height = 220  alt="<%= food.name %>">
+                <img class = "card-photo" onclick="sendToRelevantPage('<%=food.id%>')" src="<%= food.photoLink %> " height = 180  alt="<%= food.name %>">
             </div>
             <div class="card-action" >
               <a href="#" style="color: #EE7176;" class = "waves-effect"><%= food.name %> </a>
@@ -95,6 +59,8 @@
   function sendToRelevantPage(id){
     location.href = `<%=root%>/user/food/${id}`;
   }
+
+  document.getElementById('dashboardLink').style.color = '#EE7176'; 
 </script>
 </body>
 </html>

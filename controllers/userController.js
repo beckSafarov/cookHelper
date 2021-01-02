@@ -166,6 +166,67 @@ exports.foodPage = asyncHandler(async(req, res, next)=>{
   }); 
 });
 
+exports.shoppingListPage = asyncHandler(async(req, res, next)=>{
+  res.render('shopping', {root: process.env.root});  
+});
+
+//@desc      add foods to the shopping list
+//@route     GET /user/shoppinglist/add
+//@access    Private
+exports.addToShoppingList = asyncHandler(async(req, res, next)=>{
+  const foodId = req.body.id; 
+  let listObj = []; 
+  if(!foodId){
+    return next(new ErrorResponse(`Please provide the id of the food`, 400));
+  }
+  const food = await Foods.findById(foodId); 
+  const user = await User.findById(req.user.id); 
+  food.ingredients.forEach(function(ingredient){
+      listObj.push({ingredient, food: food.name}); 
+  });
+  const currentIngredients = user.addToIngredients(listObj); 
+  user.save(); 
+
+  res.status(200).json({
+      success: true, 
+      added: food.ingredients,
+      current: currentIngredients
+  })
+});
+
+//@desc      remove one food from the shopping list
+//@route     GET /user/shoppinglist/remove
+//@access    Private
+exports.removeFromShoppingList = asyncHandler(async(req, res, next)=>{
+  const {ingredientName, foodName} = req.body; 
+  if(!ingredientName || !foodName){
+    return next(new ErrorResponse(`Ingredient name and food name required`, 400));
+  }
+  const user = await User.findById(req.user.id); 
+  const currentList = user.removeFromIngredients(ingredientName, foodName); 
+  user.save(); 
+  res.status(200).json({
+    success: true, 
+    removed: `${ingredientName} for ${foodName}`,
+    current: currentList
+  })
+});
+
+//@desc      clean the shopping list
+//@route     GET /user/shoppinglist/flush
+//@access    Private
+exports.flushShoppingList = asyncHandler(async(req, res, next)=>{
+  const user = await User.findById(req.user.id); 
+  const currentList = user.flushIngredients(); 
+  user.save(); 
+  res.status(200).json({
+    success: true, 
+    removed: `All ingredients`,
+    current: currentList
+  })
+});
+
+
  //get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {
   //create token

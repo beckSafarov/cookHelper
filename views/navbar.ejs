@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="<%=root%>/css/dashboard.css">
+    <link rel="stylesheet" href="<%=root%>/css/navbar.css">
+    <link rel="stylesheet" href="<%=root%>/css/shopping.css">
+    <link rel="stylesheet" href="<%=root%>/css/foodPage.css">
+    <link rel="stylesheet" href="<%=root%>/css/searchPage.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+    crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title><%= title %> </title>
+</head>
+<body>
+  <div class="navbar-fixed">
+    <nav class="white">
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="" class="brand-logo"><img src="https://i.ibb.co/stzNwrf/cook-helper-logo.png" alt="cook helper" height = 60 weight = 60></a>
+          <!-- <a style="color: #EE7176" href="" class="brand-logo"> COOK HELPER</a> -->
+          <a href="#" class = "black-text sidenav-trigger" data-target = "mobile-nav">
+              <i class="fas fa-bars fa-2x"></i>
+          </a>
+          <ul class="right hide-on-med-and-down black-text">
+            <li>
+              <a id='dashboardLink' style = "color: #f3979a;" href="<%=root%>/user/dashboard" class="waves-effect"><strong>Dashboard</strong></a>
+            </li>
+            <li>
+              <a id='searchLink' style = "color: #f3979a;" href = "<%=root%>/user/search" class="waves-effect">Search</a>
+            </li>
+            <li>
+                <a id="shoppingLink" style = "color: #f3979a;" href='<%= root %>/user/shoppinglist '>Shopping List</a>
+            </li>
+            <li>
+                <a id = "settingsLink" style = "color: #f3979a;" href='#' data-target='dropdown1'>Settings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>

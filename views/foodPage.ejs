@@ -1,54 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="<%=root%>/css/dashboard.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
-    crossorigin="anonymous"></script>
-    <title>Food Page</title>
-    <style>
-      #like-button {
-          float: right;
-          margin-right: 5px;
-      }
-
-      .invisible-button{
-        background-color: transparent;
-        border-color: transparent;
-      }
-      .similarFoodsRow{
-        margin-left: 30px;
-      }
-      
-    </style>
-</head>
-<body>
-    <div class="navbar-fixed">
-        <nav class="white">
-          <div class="container">
-            <div class="nav-wrapper">
-              <a href="" class="brand-logo"><img src="https://i.ibb.co/stzNwrf/cook-helper-logo.png" alt="cook helper" height = 60 weight = 60></a>
-              <a href="#" class = "black-text sidenav-trigger" data-target = "mobile-nav">
-                  <i class="fas fa-bars fa-2x"></i>
-              </a>
-              <ul class="right hide-on-med-and-down black-text">
-                <li>
-                  <a id = 'dashboard-link' style = "color: #f3979a;" href="<%=root%>/user/dashboard" class="waves-effect"><strong>Dashboard</strong></a>
-                </li>
-                <li>
-                    <a style = "color: #f3979a;" href="<%=root%>/user/search" class="waves-effect">Search</a>
-                </li>
-                <li>
-                  <a style = "color: #f3979a;" href="" class="waves-effect">Settings</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </div>
+<%- include('navbar', {title: food.name.toUpperCase()}) %> 
 
       <!--Side Nav for mobile view-->
         <ul class="sidenav" id = "mobile-nav">
@@ -78,9 +28,9 @@
                     <div style="padding-top: 2px;">
                         <div class="row">
                             <ul style="width: 90%;" id = "tabsBar" class="tabs tab-demo">
-                              <li class="tab col s3 m3 active"><a href="#" style = "color: #EE7176;" id = "descriptionTab" onclick="moveToDescription()">Description</a></li>
-                              <li class="tab col s3 m3"><a href="#" id = "ingredientsTab" onclick="moveToIngredients()">Ingredients</a></li>
-                              <li class="tab col s3 m3"><a href="#" id = "stepsTab" onclick="moveToSteps()">Steps</a></li>
+                              <li class="tab col s3 m3 active"><a href = "#" style = "color: #EE7176;" id = "descriptionTab" onclick="moveToDescription()">Description</a></li>
+                              <li class="tab col s3 m3"><a href = "#"  id = "ingredientsTab" onclick="moveToIngredients()">Ingredients</a></li>
+                              <li class="tab col s3 m3"><a href = "#" id = "stepsTab" onclick="moveToSteps()">Steps</a></li>
                           
                             </ul>
                           </div> 
@@ -96,6 +46,8 @@
                               <% })%>
                             </div>   
                           </div>
+                          <button id = "shoppingBtn" style="width: 100%;" class="btn">Add To Shopping List</button>
+                          <p style="color:red" id="warning"></p>
                       </div>
                       </div>
                       <div class = "hide" id="#steps"><%= food.steps %> </div>
@@ -130,11 +82,15 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      let foodName = `<%=food.name%>`;
+    </script>
     <script src="<%= root%>/js/foodPage.js"></script>
     <script>
       function sendToRelevantPage(id){
         location.href = `<%=root%>/user/food/${id}`;
       }
     </script>
+    
 </body>
 </html>

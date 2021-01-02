@@ -70,7 +70,7 @@ exports.foods = asyncHandler(async(req, res, next) => {
     }
   });
 
-//@desc      get the
+//@desc      get the users
 //@route     GET /api/:specialpass/users
 //@access    Private
 exports.users = asyncHandler(async(req, res, next) => {
@@ -89,3 +89,4 @@ exports.users = asyncHandler(async(req, res, next) => {
     }
     
   });
+

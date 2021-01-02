@@ -1,0 +1,13 @@
+.collection {
+  font-size: 20px;
+}
+
+.secondary-content {
+  font-size: 14px;
+  color: inherit;
+  font-family: inherit;
+}
+
+.item-name {
+  padding-left: 5px;
+}

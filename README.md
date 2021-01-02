@@ -6,8 +6,8 @@ Cook helper is a web app that makes food recommendations and shows steps for how
 
 It uses Node&Express in the backend, MongoDB for database, vanilla javscript and ejs template engine in the frontend.
 
-- Version 0.7
-- License MIT
+- Version: 0.7
+- License: MIT
 
 ## Usage
 
