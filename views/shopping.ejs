@@ -4,30 +4,35 @@
  <ul class="sidenav" id = "mobile-nav">
     <p class = "sideMenuText"><strong>Main Menu</strong></p>
     <li><a  href="<%= root %>/user/dashboard ">Dashboard</a></li>
+    <li><a style="background-color: #EE7176;"  href = "">Shopping List</a></li>
     <li><a  href = "<%=root%>/user/search">Search</a></li>
-    <li><a  href = "">Shopping List</a></li>
     <li><a  href="#settings">Settings</a></li>
   </ul>
 
 <div class="section">
     <div class="container">
-        <h3 class = "heading">This is shopping List Page</h3>
-        <ul class="collection">
-            <li class="collection-item"> <i style="margin-right: 13px;" class="far fa-check-circle"></i></i>Alvin <a href="#" class = "secondary-content"><em>For Hamburger</em></a></li>
-            <li class="collection-item">Boris</li>
-            <li class="collection-item">Robin</li>
-            <li class="collection-item">Olster</li>
+        <h3 class = "heading center-align"><%= info %> </h3>
+        <% if(ingredients.length > 0) { %>
+          <ul class="collection">
+            <% ingredients.forEach(function(ingredient) {%>
+              <li class="collection-item"> 
+                <a class = "done" style="color: black;" href="#"><i onclick="removeFromDB(`<%=ingredient.ingredient%>`, `<%=ingredient.food%>`)" style="margin-right: 13px;" class="far fa-circle"></i> </a>
+                <%=ingredient.ingredient%> 
+                <a href="#" class = "secondary-content"><em><%=ingredient.food%></em></a></li>
+          <% }); %> 
           </ul>
+          <div id = "btnDiv">
+            <a id="clearBtn" class="btn red">CLEAR ALL</a>
+          </div>
+        <% } %> 
     </div>
 </div>
 
 
-
-
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script> 
+  let listLength = parseInt(`<%=ingredients.length%>`);
+</script>
 <script src="<%=root%>/js/shopping.js"></script>
 </body>
 </html>

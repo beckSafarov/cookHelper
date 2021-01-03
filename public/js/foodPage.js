@@ -83,10 +83,9 @@ async function addToShoppingList(){
     }); 
     const resData = await response.json();
     if(resData.success == true){
-        warning.innerHTML = 'List has been added!'; 
-        warning.style.color = 'green'; 
+        M.toast({html: 'List has been added!', classes: 'rounded'});
     }else{
-        warning.innerHTML = resData.error; 
+        M.toast({html: 'Sorry something went wrong', classes: 'rounded'});
         console.log(resData);
     }
 }//end of the addToShoppingList() function 

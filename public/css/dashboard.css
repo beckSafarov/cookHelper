@@ -35,3 +35,22 @@ body {
 .fullWidthButton {
   width: 100%;
 }
+
+#sideMenu {
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.sideMenuItem {
+  margin-top: 20px;
+}
+
+a:hover {
+  color: #ee7176;
+}
+
+.menuLabel {
+  color: #f3979a;
+  font-size: 20px;
+  margin-top: 32px;
+}

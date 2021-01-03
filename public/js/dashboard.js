@@ -15,38 +15,11 @@ const cardPhotos = document.querySelectorAll('.card-photo'),
 M.Tabs.init(tabs, {});
 
 document.addEventListener('DOMContentLoaded', function() {
-  if(window.location.href.includes('recfoods') || window.location.href.endsWith('dashboard') ){
-    recFoodsTab.className = 'active'; 
-    featuredSideTab.style.backgroundColor = '#ee7176'; 
+  document.getElementById(selectedTab).style.color = '#EE7176'; 
+  document.getElementById(selectedSideTab).style.backgroundColor = '#EE7176'; 
 
-  }else if(window.location.href.endsWith('fastfoods')){
-    fastFoodSideTab.style.backgroundColor = '#ee7176'; 
-    fastFoodsTab.className = 'active';
-
-  }else if(window.location.href.includes('lowfat')){
-    lowFatSideTab.style.backgroundColor = '#ee7176'; 
-    lowFatTab.className = 'active';
-
-  }else if(window.location.href.includes('meatcorner')){
-    meatCornerSideTab.style.backgroundColor = '#ee7176'; 
-    meatCornerTab.className = 'active';
-  }
-
-  //drop down init
-    // var elems = document.querySelectorAll('.dropdown-trigger');
-    // var instances = M.Dropdown.init(elems, {
-    //   alignment: 'right',
-    //   coverTrigger: false, 
-    //   hover: true
-    // });
+  //select tab content
+  var elems = document.querySelectorAll('select');
+  var instances = M.FormSelect.init(elems, {});
 });
 
-
-
-// function searchPage(){
-//   const url = window.location.href; 
-//   const urlArray = url.split('/');
-//   const userId = urlArray[4]; 
-//   window.location.href = `http://localhost:5000/user/${userId}/search`; 
-
-// }

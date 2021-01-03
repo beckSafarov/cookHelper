@@ -59,37 +59,33 @@ exports.login = asyncHandler(async (req, res, next) => {
 //@access    Private
  exports.dashboard = asyncHandler(async(req, res, next)=>{
   const user = await User.findById(req.user.id);
+  let tab = '$'; 
+  let sideTab = '$'; 
+  let foods;
   if(!user){
       return next(new ErrorResponse(`Such user not found`, 404));
   }
 
   if(!req.query.category || req.query.category == 'recfoods'){
-    const featuredFoods = await user.featuredFoods();
-    res.render('dashboard', {
-      foods: featuredFoods,
-      root: process.env.root
-    });
-  }else if(req.query.category == 'fastfoods'){
-    const fastfoods = await Foods.find({category: 'fast-food'}).exec(); 
-    res.render('dashboard', {
-      foods: fastfoods,
-      root: process.env.root
-    });
-  }else if(req.query.category == 'meatcorner'){
-    const meaty = await Foods.find({category: 'meaty'}).exec(); 
-    res.render('dashboard', {
-      foods: meaty,
-      root: process.env.root
-    });
-  }else if(req.query.category == 'lowfat'){
-    const lowfat = await Foods.find({category: 'low-fat'}).exec(); 
-    res.render('dashboard', {
-      foods: lowfat,
-      root: process.env.root
-    });
+    foods = await user.featuredFoods();
+    tab = `recfoods`;
+    sideTab = `${tab}Side`;
   }else{
-    return next(new ErrorResponse(`${req.query.category} is wrong query`, 404));
+    foods = await Foods.find({category: req.query.category}).exec(); 
+    tab = `${req.query.category}`;
+    sideTab = `${tab}Side`; 
+    if(!foods){
+        return next(new ErrorResponse(`${req.query.category} is wrong query`, 404));
+    }
   }
+  console.log(tab);
+  res.render('dashboard', {
+    foods,
+    root: process.env.root,
+    tab,
+    sideTab
+  });
+
  })
 
 //@desc      Search Food page
@@ -167,7 +163,18 @@ exports.foodPage = asyncHandler(async(req, res, next)=>{
 });
 
 exports.shoppingListPage = asyncHandler(async(req, res, next)=>{
-  res.render('shopping', {root: process.env.root});  
+  const userData = await User.findById(req.user.id);
+  let title;  
+  if(userData.ingredients.length < 1){
+      title = 'Your shopping list is empty'; 
+  }else{
+      title = 'Your shopping list'; 
+  }
+  res.render('shopping', {
+    root: process.env.root,
+    ingredients: userData.ingredients,
+    info: title
+  });  
 });
 
 //@desc      add foods to the shopping list

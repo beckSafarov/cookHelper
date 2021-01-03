@@ -27,6 +27,10 @@ const foodSchema = new mongoose.Schema({
         type: [String],
         required: true
     },
+    amount: {
+        type: [String],
+        required: true
+    },
     category: { // spicy, meaty, vegan, fast food...
         type: String,
         required: true

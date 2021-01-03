@@ -36,13 +36,19 @@
                           </div> 
                    </div>
                   <div class="container">
-                      <div class = "hide" id="#description"><%= food.description %> </div>
+                      <div class = "hide" id="#description">
+                        <p><strong>Calories: </strong> <%= food.calories %> </p>
+                        <p><strong>Approximate time: </strong> <%= food.approximateTimeInMinutes %> minutes</p>
+                        <p><strong>Difficulty Level: </strong><%= food.difficultyLevel %> </p>
+                        <p><strong>Description: </strong><%= food.description %></p>  <br>
+                        
+                      </div>
                       <div class = "hide" id="#ingredients">
                         <div id = "tags-section" class="section">
                           <div class="card-panel center-align">
                             <div id = "tags-row" class="row">
                               <%food.ingredients.forEach(function(ingredient) { %> 
-                              <span style = "margin-right: 10px" class = "btn-small"><%=ingredient%><a></a></span>
+                              <span style = "margin-right: 10px; margin-top: 10px;" class = "btn-small"><%=ingredient%><a></a></span>
                               <% })%>
                             </div>   
                           </div>
@@ -68,7 +74,7 @@
           <div class="col s6 m4 l3">
             <div class="card z-depth-1 hoverable">
               <div class="card-image">
-                  <img class = "card-photo" onclick="sendToRelevantPage('<%=food.id%>')"  src="<%= food.photoLink %> " height = 220 alt="<%= food.name %>">
+                  <img class = "card-photo" onclick="sendToRelevantPage('<%=food.id%>')"  src="<%= food.photoLink %> " width = 220 height = 220 alt="<%= food.name %>">
               </div>
               <div class="card-action" >
                 <a href="#" style="color: #EE7176;" class = "waves-effect"><%= food.name %> </a>
