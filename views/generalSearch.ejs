@@ -3,11 +3,8 @@
 
     <!--Side Nav for mobile view-->
     <ul class="sidenav" id = "mobile-nav">
-      <p class = "sideMenuText"><strong>Main Menu</strong></p>
-      <li><a  href="<%=root%>/user/dashboard">Dashboard</a></li>
-      <li><a  href="">Search</a></li>
-      <li><a  href="">Settings</a></li>
-      <hr>
+      <%- include('sideMenuMain') %> 
+      <div class="divider"></div>
       <p class = "sideMenuText"><strong>Search Type</strong></p>
       <li style="background-color: #ee7176;"><a  href="">General</a></li>
       <li><a  href="<%=root%>/user/search/ingredients">By Ingredient</a></li>

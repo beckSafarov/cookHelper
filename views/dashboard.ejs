@@ -2,11 +2,7 @@
 
  <!--Side Nav for mobile view-->
  <ul class="sidenav" id = "mobile-nav">
-  <p class = "sideMenuText"><strong>Main Menu</strong></p>
-  <li><a  href="">Dashboard</a></li>
-  <li><a  href="<%=root %>/user/shoppinglist">Shopping List</a></li>
-  <li><a  href = "<%=root%>/user/search">Search</a></li>
-  <li><a  href="#settings">Settings</a></li>
+  <%- include('sideMenuMain') %> 
   <div class="divider"></div>
   <p class = "sideMenuText "> <strong>Food Categories</strong></p>
   <li id = "recfoodsSide"><a  href="?category=recfoods">Featured</a></li>
