@@ -9,7 +9,7 @@
         "amount": ["1 loaf", "1", "1", "1"],
         "category": "fast-food",
         "calories": "500",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
 
     {
@@ -22,7 +22,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "fast-food",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
         
     },
     {
@@ -35,7 +35,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "fast-food",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
     {
         "name": "example 3", 
@@ -47,7 +47,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "low-fat",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
     {
         "name": "example 4", 
@@ -59,7 +59,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "low-fat",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
     {
         "name": "example 5", 
@@ -71,7 +71,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "vegetarian",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
     {
         "name": "example 6", 
@@ -83,7 +83,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "vegetarian",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
     {
         "name": "Macarelli", 
@@ -95,7 +95,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "meaty",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
     {
         "name": "Pizza", 
@@ -107,7 +107,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "meaty",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
     {
         "name": "example 9", 
@@ -119,7 +119,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "sweet",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
     {
         "name": "example 10", 
@@ -131,7 +131,7 @@
         "amount": ["1 loaf", "100 g", "1", "1"],
         "category": "high-carb",
         "calories": "700",
-        "steps": "bla bla bla"
+        "steps": "stepsFiles/general"
     },
     {
         "name": "nasi lemak",
@@ -143,7 +143,7 @@
         "amount":["2 cups", "1", "1 cup", "1", "1 teaspoons", "1 can"],
         "category": "low-fat",
         "calories": "338",
-        "steps": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps": "stepsFiles/nasi lemak"
     },
     {
         "name": "egg sambal",
@@ -155,7 +155,7 @@
         "amount":["4", "2 tablespoons", "1 cups"],
         "category": "low-fat",
         "calories": "262",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/egg sambal"
     },
     {
         "name": "naan",
@@ -167,7 +167,7 @@
         "amount":["1 teaspoons", "1/2 cups", "1/4 oz", "2 1/4 cups", "3 tablespoons"],
         "category": "low-fat" ,
         "calories": "295",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!" 
+        "steps":"stepsFiles/naan" 
     },
     {
         "name": "sandwich",
@@ -179,7 +179,7 @@
         "amount":["4 slices", "1", "2", "2 tablespoons", "1"],
         "category": "fast-food" ,
         "calories": "308",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/sandwich"
     },
     {
         "name": "chicken salad",
@@ -191,7 +191,7 @@
         "amount":["5 tablespoons", "2 teaspoons", "1/2", "1 pound boneless", "2 stalks"],
         "category": "meaty" ,
         "calories": "319",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/chicken salad"
     },
     {
         "name": "banana pancakes",
@@ -203,7 +203,7 @@
         "amount":["1 1/2 cups", "1/4 cups", "6", "2", "1 cups", "3 tablespoons"],
         "category": "sweet" ,
         "calories": "399",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/banana pancakes"
     },
     {
         "name": "nasi goreng",
@@ -215,7 +215,7 @@
         "amount":["1 1/2 cups", "2", "2", "1", "3 tablespoons"],
         "category": "meaty" ,
         "calories": "388",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/nasi goreng"
     },
     {
         "name": "creamed corn",
@@ -227,7 +227,7 @@
         "amount":["4 tablespoons", "1 lb.", "1/2 cups", "1 cups", "3 teapoons", "1/2 cups"],
         "category": "snacks" ,
         "calories": "363",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!" 
+        "steps":"stepsFiles/creamed corn" 
     },
     {
         "name": "crispy fried chicken",
@@ -239,7 +239,7 @@
         "amount":["6 drumsticks", "3 tablespoons", "1", "3 teapoons"],
         "category": "malay" ,
         "calories": "312",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/crispy fried chicken"
     },
     {
         "name": "popcorn",
@@ -251,7 +251,7 @@
         "amount":["3 tablespoons", "1/3 cups" , "1 tablespoons", "1/2 cups"],
         "category": "snacks" ,
         "calories": "312",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/popcorn"
     },
     {
         "name": "jam puffs",
@@ -263,7 +263,7 @@
         "amount":["1 sheet", "1 tablespoons", "1/2", "1 teaspoons"],
         "category": "snacks" ,
         "calories": "87",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/jam puffs"
      
     },
     {
@@ -276,7 +276,7 @@
         "amount":["1/4 cups", "1/2 cups", "1", "1/4 cups", "1/2 teaspoons", "1 cups", " 1 1/2 cups"],
         "category": "sweet" ,
         "calories": "370",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/blueberry cake"
     },
     {
         "name": "roasted potato",
@@ -288,7 +288,7 @@
         "amount":["1 lb", "2 tablespoons", "6 cloves", "1/2 teaspoons", "1 tablespoons"],
         "category": "high-carb" ,
         "calories": "181",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/roasted potato"
     },
     {
         "name": "macaroni and cheese",
@@ -300,11 +300,11 @@
         "amount":["4 cups", "1/4 cups", "1/4 cups", "1/2 teaspoons", "2 cups", "2 cups"],
         "category": "low-fat" ,
         "calories": "630",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/macaroni and cheese"
     },
     {
-        "name": "ramen cheese noodle",
-        "photoLink":"/photos/ramen cheese noodle.jpg" ,
+        "name": "ramen noodle",
+        "photoLink":"/photos/ramen noodle.jpg" ,
         "description":"A simple dish that everyone likes and craving" ,
         "difficultyLevel": "easy",
         "approximateTimeInMinutes": 7,
@@ -312,7 +312,7 @@
         "amount":["1", "1/2 cups", "1/4 cups"],
         "category": "fast-food" ,
         "calories": "230",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!" 
+        "steps":"stepsFiles/ramen noodle" 
     },
     {
         "name": "steamed buns",
@@ -324,7 +324,7 @@
         "amount":["350 g", "2 1/2 tablespoons", "1 teaspoons", "1 cup"],
         "category": "high-carb" ,
         "calories": "183",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/steamed buns"
     },
     {
         "name": "prawn fritters",
@@ -336,7 +336,7 @@
         "amount":["200 g", "1 teaspoons", "1/2", "80", "1 cups"],
         "category": "seafood" ,
         "calories": "224",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/prawn fritters"
     },
     {
         "name": "chicken rice porridge",
@@ -348,7 +348,7 @@
         "amount":["2 cups", "10 cups", "2", "1 inch", "3"],
         "category": "low-fat" ,
         "calories": "181",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/chicken rice porridge"
     },
     {
         "name": "oatmeal",
@@ -360,7 +360,7 @@
         "amount":["1/2 cups", "1 cup"],
         "category": "low-fat" ,
         "calories": "70",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/oatmeal"
     },
     {
         "name": "baked salmon",
@@ -372,6 +372,6 @@
         "amount":["12 oz", "2 cloves", "3 tablespoons", "1 tablespoons","1/8 teaspoons", "1/8 teaspoons"],
         "category": "seafood" ,
         "calories": "353",
-        "steps":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Itaque aliquid eius voluptates impedit modi quia odit iste blanditiis porro! Aliquid!"
+        "steps":"stepsFiles/baked salmon"
     }
 ]

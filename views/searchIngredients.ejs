@@ -5,7 +5,7 @@
         <%- include('sideMenuMain') %> 
         <div class="divider"></div>
         <p class = "sideMenuText"><strong>Search Type</strong></p>
-        <li><a  href="">General</a></li>
+        <li><a  href="<%= root %>/user/search ">General</a></li>
         <li style="background-color: #ee7176;"><a  href="<%=root%>/user/search/ingredients">By Ingredient</a></li>
       </ul>
   
@@ -36,9 +36,11 @@
                     </div>
                     
                 </div>
-                <div class="row">
-                  <button style="width: 48%; margin-left: 10px;" id = 'outputBtn' class = "btn  waves-effect"> Search </button>
-                  <button id = "clearBtn" style="width: 48%;" id = 'outputBtn' class = "btn red darken-1 white-text waves-effect disabled"> Clear </button>
+                <div class="container">
+                  <div class="row">
+                    <button style="width: 45%;" id = 'outputBtn' class = "btn  waves-effect"> Search </button>
+                    <button id = "clearBtn" style="width: 45%;" id = 'outputBtn' class = "btn red darken-1 white-text waves-effect disabled"> Clear </button>
+                  </div>
                 </div>
                 </div>
             </div>
