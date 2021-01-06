@@ -4,27 +4,34 @@
         "email": "becksafarov@gmail.com",
         "password": "123456",
         "weight": 50,
-        "height": 170
+        "height": 170,
+        "experience": "beginner"
     },
     {
         "name": "Jack Dorsey",
         "email": "jackdorsey@gmail.com",
         "password": "123456",
         "weight": 80,
-        "height": 180
+        "height": 180,
+        "experience": "beginner"
+
     },
     {
         "name": "John Doe",
         "email": "johndoe@gmail.com",
         "password": "123456",
         "weight": 70,
-        "height": 175
+        "height": 175,
+        "experience": "intermediate"
+
     },
     {
         "name": "Tom Smith",
         "email": "tomsmith@gmail.com",
         "password": "123456",
         "weight": 75,
-        "height": 180
+        "height": 180,
+        "experience": "advanced"
+
     }
 ]

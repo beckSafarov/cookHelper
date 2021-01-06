@@ -32,7 +32,7 @@ const food = JSON.parse(
 //Import into DB
 const importData = async () => {
   try {
-    await userModel.create(users);
+    await userModel.create(users); 
     await foodModel.create(food);
     await console.log('Data Imported...'.green.inverse);
     process.exit();

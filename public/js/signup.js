@@ -3,6 +3,7 @@ const name = document.getElementById('name'),
     password = document.getElementById('password'),
     weight = document.getElementById('weight'),
     height = document.getElementById('height'),
+    experience = document.getElementById('experience'),
     submitBtn = document.getElementById('submitBtn'),
     warningBtn = document.getElementById('warningBtn'),
     form = document.getElementById('form');
@@ -22,15 +23,22 @@ async function post(url, data){
 }
 // console.log(`${root}/user/signup`);
 
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, {});
+  });
+
 form.addEventListener('submit', function(e){
     e.preventDefault();
+    console.log(experience.value);
     if(password.value.length > 5){
         const data = {
             name: name.value,
             email: email.value, 
             password: password.value,
             weight: weight.value,
-            height: height.value
+            height: height.value,
+            experience: experience.value
         };
     
         post(`${root}/user/signup`, data)

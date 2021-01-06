@@ -3,32 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <title>Sign up</title>
 </head>
 <body>
-    <h1>SIGN UP page</h1>
-    <form id ="form">
-        <label for="name">Enter your name</label>
-        <input type="text" name = "name" id = "name" placeholder="John" required>
-        <label for="email">Enter your email</label>
-        <input type="email" name = "email" id = "email" placeholder="email" required>
-        <label for="password">Enter a password, at least 6 characters</label>
-        <input type="password" name = "password" id = "password" required>
-        <label for="weight">Enter your weight</label>
-        <input type="number" name = "weight" id = "weight" placeholder="e.g. 70" required>
-        <label for="height">Enter your height in centimetres</label>
-        <input type="number" name = "height" id = "height" placeholder="e.g. 170" required>
-        <br>
-        <button id = "submitBtn" type="submit">Submit</button>
-        <br>
-        <p id = "warningBtn" style="color:red;"></p>
-    </form>
-    <a style = "text-decoration: none;" href="/login">Already have an account? Sign in</a>
+    <h1 class = "center-align">SIGN UP page</h1>
+    <div class="container">
+        <form class = "col s12" id ="form">
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="name">Enter your name</label>
+                    <input type="text" name = "name" id = "name" placeholder="John" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="email">Enter your email</label>
+                    <input type="email" name = "email" id = "email" placeholder="email" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="password">Enter a password, at least 6 characters</label>
+                    <input type="password" name = "password" id = "password" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="weight">Enter your weight</label>
+                    <input type="number" name = "weight" id = "weight" placeholder="e.g. 70" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="height">Enter your height in centimetres</label>
+                    <input type="number" name = "height" id = "height" placeholder="e.g. 170" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                     <select id = "experience">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                      </select>
+                      <label>Experience in cooking</label>
+                </div>
+            </div>
+            <br>
+            <div class="center-align">
+                <p id = "warningBtn" style="color:red;"></p>
+            </div>
+            <button style="width: 100%;" class = "btn green waves-effect hoverable" id = "submitBtn" type="submit">Submit</button>
+            <br>
+            
+            <div class="center-align">
+                <a style = "text-decoration: none;" href="/login">Already have an account? Sign in</a>
+            </div>
+        </form>
+        <br><br>
+        
+    </div>
+    
     <script>
         const root = `<%=root%>`;
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src = "js/signup.js"></script>
+    
 
 </body>
 </html>

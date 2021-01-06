@@ -9,10 +9,12 @@
   <li id = "fast-foodSide"><a  href="?category=fast-food">Fast Foods</a></li>
   <li id = "meatySide"><a  href="?category=meaty">Meat Corner</a></li>
   <li id = "low-fatSide"><a  href="?category=low-fat">Low Fat</a></li>
+  <li id = "vegetarianSide"><a  href="?category=vegetarian">Vegetarian</a></li>
   <li id = "high-carbSide"><a  href="?category=high-carb">High Carb</a></li>
   <li id = "seafoodSide"><a  href="?category=seafood">Seafood</a></li>
   <li id = "sweetSide"><a  href="?category=sweet">Sweets</a></li>
   <li id = "snacksSide"><a  href="?category=snacks">Snacks</a></li>
+  
 </ul>
 
   <div class="row">
@@ -24,11 +26,11 @@
             <div class="sideMenuItem"><a id = "fast-food" href="?category=fast-food">Fast Foods</a></div>
             <div class="sideMenuItem"><a id = "meaty" href="?category=meaty">Meat Corner</a></div>
             <div class="sideMenuItem"><a id = "low-fat" href="?category=low-fat">Low-Fat</a></div>
+            <div class="sideMenuItem"><a id = "vegetarian" href="?category=vegetarian">Vegetarian</a></div>
             <div class="sideMenuItem"><a id = "high-carb" href="?category=high-carb">High Carb</a></div>
             <div class="sideMenuItem"><a id = "seafood" href="?category=seafood">Seafood</a></div>
             <div class="sideMenuItem"><a id = "sweet" href="?category=sweet">Sweets</a></div>
             <div class="sideMenuItem"><a id = "snacks" href="?category=snacks">Snacks</a></div>
-
           </div>
       </div>
       <div class="col s12 m9 l9">
@@ -59,7 +61,7 @@
               <div class="col s6 m4 l3">
                 <div class="card z-depth-1 hoverable">
                   <div class="card-image">
-                      <img class = "card-photo" onclick="sendToRelevantPage('<%=food.id%>')" src="<%= food.photoLink %> " height = 200  alt="<%= food.name %>">
+                      <img class = "card-photo" onclick="sendToRelevantPage('<%=food._id%>')" src="<%= food.photoLink %> " height = 200  alt="<%= food.name %>">
                   </div>
                   <div class="card-action" >
                     <a href="#" style="color: #EE7176;" class = "waves-effect truncate"><%= food.name %> </a>

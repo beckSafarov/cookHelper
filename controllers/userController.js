@@ -17,7 +17,7 @@ const path = require('path'),
 //@access    Public
 exports.createNewUser = asyncHandler(async(req, res, next) => {
   const newUser = await User.create(req.body);
-  
+  newUser.save(); 
   res.status(201).json({
     success: true,
     data: newUser,
@@ -59,6 +59,7 @@ exports.login = asyncHandler(async (req, res, next) => {
 //@access    Private
  exports.dashboard = asyncHandler(async(req, res, next)=>{
   const user = await User.findById(req.user.id);
+  // console.log(user); 
   let tab = '$'; 
   let sideTab = '$'; 
   let foods;
@@ -67,7 +68,8 @@ exports.login = asyncHandler(async (req, res, next) => {
   }
 
   if(!req.query.category || req.query.category == 'recfoods'){
-    foods = await user.featuredFoods();
+    foods = user.recommended;
+    console.log(foods[1]);
     tab = `recfoods`;
     sideTab = `${tab}Side`;
   }else{
@@ -78,7 +80,7 @@ exports.login = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse(`${req.query.category} is wrong query`, 404));
     }
   }
-  console.log(tab);
+
   res.render('dashboard', {
     foods,
     root: process.env.root,
