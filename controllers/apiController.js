@@ -106,14 +106,11 @@ exports.recommended = asyncHandler(async(req, res, next)=>{
         return next(new ErrorResponse('Invalid user id', 404))
     }
 
-    user.recommended.forEach(function(recfood){
-        foodNames.push(recfood.name); 
-    });
-
+    
 
     res.status(200).json({
         success: true,
-        data: foodNames
+        data: user.recommended
     })
 })
 

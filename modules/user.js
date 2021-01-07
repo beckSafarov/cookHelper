@@ -2,7 +2,9 @@ const mongoose = require('mongoose'),
   bcrypt = require('bcryptjs'),
   jwt = require('jsonwebtoken'),
   Foods = require('./foods.js'),
-  {getUniqueArray} = require('../utils/userCtrlHelpers'),
+  {
+    getUniqueArray, getUniqueObjectArray
+  } = require('../utils/userCtrlHelpers'),
   crypto = require('crypto');
 
 const UserSchema = new mongoose.Schema({
@@ -36,6 +38,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ['beginner', 'intermediate', 'advanced'],
         required: true
+    },
+    numericalExperience: {
+        type:Number,
+        enum: [1, 2, 3]
     },
     createdAt: {
       type: Date,
@@ -82,54 +88,59 @@ UserSchema.statics.getWeightCategory = function(height, weight){
 
 //INITIAL RECOMMENDED FOODS LIST MAKER 
 UserSchema.pre('save', async function(){
-    const weightCategory = this.constructor.getWeightCategory(this.height, this.weight); 
-    let categories = [];
-    let level; 
-    let finalFoods = []; 
-    let food; 
-    
-    
-    //choosing recommended food categories based on weight
-    if(weightCategory == 'underweight'){
-      categories.push('fast-food', 'meaty', 'high-carb', 'sweet');
-    }else if(weightCategory == 'overwheight'){
-      categories.push('low-fat', 'vegetarian');
-    }
-    
-    //identify the difficulty level for the user
-    if(this.experience === 'beginner'){
-        level = 'easy'; 
-    }else if(this.experience === 'intermediate'){
-        level = 'medium';
-    }else{
-      level = 'hard'; 
+    if(this.recommended.length === 0){
+      const weightCategory = this.constructor.getWeightCategory(this.height, this.weight); 
+      let categories = [];
+      let level; 
+      let finalFoods = this.recommended; 
+     
+      //choosing recommended food categories based on weight
+      if(weightCategory == 'underweight'){
+        categories.push('fast-food', 'meaty', 'high-carb', 'sweet');
+      }else if(weightCategory == 'overwheight'){
+        categories.push('low-fat', 'vegetarian');
+      }
+      
+      //identify the difficulty level for the user
+      if(this.experience === 'beginner'){
+          level = 'easy'; 
+      }else if(this.experience === 'intermediate'){
+          level = 'medium';
+      }else{
+        level = 'hard'; 
+      }
+     
+      //querying the database for the relevant meals 
+      if(categories.length > 0){
+        for(let i = 0; i<categories.length; i++){
+          finalFoods.push({
+             difficultyLevel: level,
+             category: categories[i]
+          })
+        }
+       
+      }else{
+        finalFoods.push({
+          difficultyLevel: level,
+          categories: undefined
+        })
+      }
+      
+      this.recommended = getUniqueObjectArray(finalFoods);
     }
 
-    //querying the database for the relevant meals 
-    if(categories.length > 0){
-        for(let i = 0; i<categories.length; i++){
-           food = await Foods.find({category: categories[i], difficultyLevel: level});
-           food.forEach(function(){
-             finalFoods = finalFoods.concat(food); 
-           });
-        }
-        
-    }else{
-       food = await Foods.find({difficultyLevel: level}); 
-       
-       finalFoods = finalFoods.concat(food); 
+    
+});
+
+//NUMERICAL EXPERIENCE 
+UserSchema.pre('save', function(){
+    let numbers = [1, 2, 3]; 
+    let words = ['beginner', 'intermediate', 'advanced']; 
+    for(let i = 0; i<words.length; i++){
+      if(this.experience === words[i]){
+        this.numericalExperience = numbers[i];
+      }
     }
-    
-    this.recommended = this.recommended.concat(finalFoods);
-    this.recommended.forEach(function(recommendedFood){
-      console.log(recommendedFood.name); 
-    }) 
-    console.log('----------');
-    this.recommended = getUniqueArray(this.recommended); 
-    this.recommended.forEach(function(recommendedFood){
-      console.log(recommendedFood.name); 
-    }) 
-    
 });
 
 //sign JWT and return
@@ -138,6 +149,18 @@ UserSchema.methods.getSignedJwtToken = function () {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
+
+
+//new food liked 
+UserSchema.methods.foodLiked = function(category, level){
+  let recommended = this.recommended; 
+  recommended.push({
+    difficultyLevel: level,
+    category: category
+  })
+  this.recommended = getUniqueObjectArray(recommended); 
+  return this.recommended;
+}
 
 
 //ADDS LIST OF INGREDIENTS TO THE INGREDIENTS ARRAY

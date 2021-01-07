@@ -44,8 +44,26 @@ exports.getUniqueArray = (a) =>{
     }
   }
 
-return out; 
+  return out; 
 }
+
+exports.getUniqueObjectArray = (a) => {
+  let jammedList = [];  
+  let out = []; 
+  a.forEach(function(element){
+      jammedList.push(`${element.difficultyLevel}_${element.category}`); 
+  }); 
+  jammedList = this.getUniqueArray(jammedList); 
+  jammedList.forEach(function(element){
+      out.push({
+        difficultyLevel: element.split('_')[0],
+        category: element.split('_')[1],
+      })
+  });
+
+  return out; 
+}
+
 
 exports.getRandomFoods = (allSimilarFoods)=>{
   let similarFoods = []; 

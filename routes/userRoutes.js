@@ -5,6 +5,7 @@ const express = require('express'),
       searchPage,
       ingredients,
       foodPage,
+      foodLikedController,
       shoppingListPage,
       addToShoppingList,
       removeFromShoppingList,
@@ -20,6 +21,7 @@ router.route('/search').get(protect, searchPage);
 router.route('/shoppinglist').get(protect, shoppingListPage);
 router.route('/search/ingredients').get(protect, ingredients);
 router.route('/food/:foodId').get(protect, foodPage);
+router.route('/food/:foodId/liked').put(protect, foodLikedController);
 router.post('/shoppinglist/add', protect, addToShoppingList);
 router.put('/shoppinglist/remove', protect, removeFromShoppingList);
 router.put('/shoppinglist/flush', protect, flushShoppingList);

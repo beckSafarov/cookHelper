@@ -20,14 +20,24 @@ const path = require('path'),
   // console.log(user); 
   let tab = '$'; 
   let sideTab = '$'; 
-  let foods;
+  let foods = []; 
+  let recs; 
   if(!user){
       return next(new ErrorResponse(`Such user not found`, 404));
   }
 
   if(!req.query.category || req.query.category == 'recfoods'){
-    foods = user.recommended;
-    console.log(foods[1]);
+    for(let i = 0; i<user.recommended.length; i++){
+      // console.log(user.recommended);
+      if(user.recommended.category){
+        recs = await Foods.find({difficultyLevel: user.recommended[i].difficultyLevel, category: user.recommended[i].category});
+      }else{
+        recs = await Foods.find({difficultyLevel: user.recommended[i].difficultyLevel}); 
+      } 
+      foods = foods.concat(recs);
+    }
+    foods = getUniqueArray(foods); 
+    // console.log(foods);
     tab = `recfoods`;
     sideTab = `${tab}Side`;
   }else{
@@ -48,6 +58,7 @@ const path = require('path'),
 
  })
 
+ 
 //@desc      Search Food page
 //@route     GET /user/search
 //@access    Private
@@ -121,6 +132,26 @@ exports.foodPage = asyncHandler(async(req, res, next)=>{
     similarFoods: allSimilarFoods
   }); 
 });
+
+//@desc      Like a food
+//@route     PUT /user/food/:foodId/liked
+//@access    Private
+exports.foodLikedController = asyncHandler(async(req, res, next)=>{
+  const food = await Foods.findById(req.params.foodId);
+  const user = await User.findById(req.user.id);  
+  if(!food){
+    return next(new ErrorResponse(`Could not find such food`, 404)); 
+  }
+
+  const newRecommended = user.foodLiked(food.category, food.difficultyLevel); 
+  user.save(); 
+  res.status(200).json({
+    success: true,
+    msg: `${food.name} is liked by ${user.name}`,
+    data: newRecommended
+    
+  })
+})
 
 exports.shoppingListPage = asyncHandler(async(req, res, next)=>{
   const userData = await User.findById(req.user.id);
