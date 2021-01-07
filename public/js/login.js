@@ -28,7 +28,7 @@ form.addEventListener('submit', function(e){
     };
 
 
-    post(`${root}/user/login`, data)
+    post(`${root}/auth/login`, data)
         .then(data => {
             if(data.success == false){
                 warningBtn.innerHTML = data.error;

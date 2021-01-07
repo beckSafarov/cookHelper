@@ -2,8 +2,9 @@ const path = require('path'),
     Users = require('../modules/user'),
     Foods = require('../modules/foods'),
     asyncHandler = require('../middleware/async'),
-    ErrorResponse = require('../utils/errorResponse');
-const { all } = require('../routes/apiRoutes');
+    ErrorResponse = require('../utils/errorResponse'),
+    {getUniqueArray} = require('../utils/userCtrlHelpers');
+
 
 
 //@desc      get the foods
@@ -89,4 +90,30 @@ exports.users = asyncHandler(async(req, res, next) => {
     }
     
   });
+
+
+//@desc      get recommended foods for a user
+//@route     GET /api/:specialpass/recommended
+//@access    Private
+exports.recommended = asyncHandler(async(req, res, next)=>{
+    let foodNames = []; 
+    if(req.params.specialpass !== process.env.IDENTITY_PASS){
+        return next(new ErrorResponse('Invalid access token', 404))
+    };
+
+    const user = await Users.findById(req.body.id); 
+    if(!user){
+        return next(new ErrorResponse('Invalid user id', 404))
+    }
+
+    user.recommended.forEach(function(recfood){
+        foodNames.push(recfood.name); 
+    });
+
+
+    res.status(200).json({
+        success: true,
+        data: foodNames
+    })
+})
 

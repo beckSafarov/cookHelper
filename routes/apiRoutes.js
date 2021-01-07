@@ -4,12 +4,14 @@ const express = require('express'),
         foods,
         searchFood, 
         searchFoodByIngredient,
-        users
+        users,
+        recommended
     } = require('../controllers/apiController'); 
 
 
 router.route('/foods').get(foods); 
 router.route('/:specialpass/users').get(users); 
+router.route('/:specialpass/recommended').get(recommended); 
 router.route('/foods/:food').get(searchFood);
 router.route('/ingredients/:ingredient').get(searchFoodByIngredient);
 module.exports = router; 

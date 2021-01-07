@@ -41,7 +41,7 @@ form.addEventListener('submit', function(e){
             experience: experience.value
         };
     
-        post(`${root}/user/signup`, data)
+        post(`${root}/auth/signup`, data)
             .then(data => {
                 if(data.success == false){
                     warningBtn.innerHTML = data.error; 

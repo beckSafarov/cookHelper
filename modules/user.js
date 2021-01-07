@@ -41,11 +41,8 @@ const UserSchema = new mongoose.Schema({
       type: Date,
       default: Date.now(),
       },
-
-    weightCategory: String, //overweight, normal, underweight
     recommended: [Object],
-    ingredients: [Object],
-    foodHabits: [String],
+    ingredients: [Object]
 })
 
 //ENCRYPT PASSWORDS USING BECRYPT
@@ -60,26 +57,11 @@ UserSchema.pre('save', async function (next) {
     this.resetPasswordExpire = undefined;
 });
 
-  //match user entered password to hashed password in database
+//match user entered password to hashed password in database
 UserSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
   };
 
-
-//IDENTIFY THE BMI OF THE USERS
-UserSchema.pre('save', function(){
-  const height = this.height/100;
-  const weight = this.weight;
-  const bmi = weight/(height*height);
-
-  if(bmi >= 18.5 && bmi <= 24.9){
-    this.weightCategory = 'normal';
-  } else if(bmi < 18.5){
-    this.weightCategory = 'underweight';
-  }else{
-    this.weightCategory = 'overweight';
-  }
-});
 
 //RETURN THE WEIGHT OF THE USER 
 UserSchema.statics.getWeightCategory = function(height, weight){
@@ -104,7 +86,9 @@ UserSchema.pre('save', async function(){
     let categories = [];
     let level; 
     let finalFoods = []; 
-
+    let food; 
+    
+    
     //choosing recommended food categories based on weight
     if(weightCategory == 'underweight'){
       categories.push('fast-food', 'meaty', 'high-carb', 'sweet');
@@ -115,7 +99,7 @@ UserSchema.pre('save', async function(){
     //identify the difficulty level for the user
     if(this.experience === 'beginner'){
         level = 'easy'; 
-    }else if(this.experience === 'medium'){
+    }else if(this.experience === 'intermediate'){
         level = 'medium';
     }else{
       level = 'hard'; 
@@ -124,18 +108,28 @@ UserSchema.pre('save', async function(){
     //querying the database for the relevant meals 
     if(categories.length > 0){
         for(let i = 0; i<categories.length; i++){
-           let food = await Foods.find({category: categories[i], difficultyLevel: level});
+           food = await Foods.find({category: categories[i], difficultyLevel: level});
            food.forEach(function(){
              finalFoods = finalFoods.concat(food); 
            });
         }
+        
     }else{
-       let food = await Foods.find({difficultyLevel: level}); 
+       food = await Foods.find({difficultyLevel: level}); 
+       
        finalFoods = finalFoods.concat(food); 
     }
-
-    this.recommended = this.recommended.concat(finalFoods); 
-    console.log('it should work'); 
+    
+    this.recommended = this.recommended.concat(finalFoods);
+    this.recommended.forEach(function(recommendedFood){
+      console.log(recommendedFood.name); 
+    }) 
+    console.log('----------');
+    this.recommended = getUniqueArray(this.recommended); 
+    this.recommended.forEach(function(recommendedFood){
+      console.log(recommendedFood.name); 
+    }) 
+    
 });
 
 //sign JWT and return
@@ -145,37 +139,6 @@ UserSchema.methods.getSignedJwtToken = function () {
   });
 };
 
-
-//GENERATE ARRAY WITH RECOMMENDED FOODS
-UserSchema.methods.featuredFoods = async function () {
-  let categories = [];
-  let foods = [];
-  
-  //choosing recommended food categories based on weight
-  if(this.weightCategory == 'underweight'){
-    categories.push('fast-food', 'meaty');
-  }else if(this.weightCategory == 'overwheight'){
-    categories.push('low-fat', 'vegetarian');
-  }
-
-  //adding those categories to the food array
-  if(categories.length > 0){
-    for(let i = 0; i<categories.length; i++){
-      let food = await Foods.find({category: categories[i]}).exec();
-      for(let y = 0; y<food.length; y++){
-        foods.push(food[y]);
-      }
-    }
-  }else{
-    let food = await Foods.find().exec();
-    for(let y = 0; y<food.length; y++){
-      foods.push(food[y]);
-    }
-    foods.push(food);
-  }
-
-  return foods;
-};
 
 //ADDS LIST OF INGREDIENTS TO THE INGREDIENTS ARRAY
 UserSchema.methods.addToIngredients = function(ingredients){
