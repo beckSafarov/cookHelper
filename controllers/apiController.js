@@ -106,11 +106,24 @@ exports.recommended = asyncHandler(async(req, res, next)=>{
         return next(new ErrorResponse('Invalid user id', 404))
     }
 
-    
-
     res.status(200).json({
         success: true,
         data: user.recommended
     })
 })
 
+
+//@desc      get likes of a food
+//@route     GET /api/foods/:foodId/likes
+//@access    Private
+exports.getLikes = asyncHandler(async(req, res, next)=>{
+    const food = await Foods.findById(req.params.foodId); 
+    if(!food){
+        return next(new ErrorResponse(`No such food found`, 404)); 
+    }
+    // console.log(food);
+    res.status(200).json({
+        success: true,
+        data: food.likes
+    })
+})

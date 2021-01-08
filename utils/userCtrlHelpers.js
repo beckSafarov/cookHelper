@@ -1,4 +1,5 @@
 const Foods = require('../modules/foods'),
+    User = require('../modules/user'),
     asyncHandler = require('../middleware/async')
 
 
@@ -48,15 +49,16 @@ exports.getUniqueArray = (a) =>{
 }
 
 exports.getUniqueObjectArray = (a) => {
+  
   let jammedList = [];  
   let out = []; 
   a.forEach(function(element){
-      jammedList.push(`${element.difficultyLevel}_${element.category}`); 
+      jammedList.push(`${element.numericalDifficulty}_${element.category}`); 
   }); 
   jammedList = this.getUniqueArray(jammedList); 
   jammedList.forEach(function(element){
       out.push({
-        difficultyLevel: element.split('_')[0],
+        numericalDifficulty: parseInt(element.split('_')[0]),
         category: element.split('_')[1],
       })
   });
@@ -74,3 +76,14 @@ exports.getRandomFoods = (allSimilarFoods)=>{
   }
   return similarFoods; 
 }
+
+exports.checkLike = asyncHandler(async(favorites, foodId)=>{
+  let status = false; 
+  for(let i = 0; i<favorites.length; i++){
+    if(favorites[i] == foodId){
+        status = true; 
+    }
+  }//end of the for loop 
+
+  return status; 
+});

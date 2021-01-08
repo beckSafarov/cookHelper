@@ -7,7 +7,8 @@ const path = require('path'),
       searchFoodByIngredient,
       searchFoods,
       getUniqueArray,
-      getRandomFoods
+      getRandomFoods,
+      checkLike
     } = require('../utils/userCtrlHelpers'); 
 
 
@@ -25,14 +26,16 @@ const path = require('path'),
   if(!user){
       return next(new ErrorResponse(`Such user not found`, 404));
   }
-
+  
   if(!req.query.category || req.query.category == 'recfoods'){
     for(let i = 0; i<user.recommended.length; i++){
-      // console.log(user.recommended);
-      if(user.recommended.category){
-        recs = await Foods.find({difficultyLevel: user.recommended[i].difficultyLevel, category: user.recommended[i].category});
+      if(user.recommended[i].category !== "undefined"){
+        recs = await Foods.find({numericalDifficulty: {$lte: user.recommended[i].numericalDifficulty}, category: user.recommended[i].category});
+        // console.log('1'); 
+        // console.log(recs); 
       }else{
-        recs = await Foods.find({difficultyLevel: user.recommended[i].difficultyLevel}); 
+        recs = await Foods.find({numericalDifficulty: {$lte: user.recommended[i].numericalDifficulty}}); 
+        // console.log('2'); 
       } 
       foods = foods.concat(recs);
     }
@@ -116,6 +119,8 @@ exports.ingredients = asyncHandler(async(req, res, next)=>{
 //@access    Private
 exports.foodPage = asyncHandler(async(req, res, next)=>{
   const food = await Foods.findById(req.params.foodId); 
+  const user = await User.findById(req.user.id); 
+  let likeStatus = false; 
   if(!food){
     return next(new ErrorResponse(`No food was found with the id of ${req.params.id}`, 400));
   }
@@ -126,10 +131,14 @@ exports.foodPage = asyncHandler(async(req, res, next)=>{
        allSimilarFoods.splice(index, 1); 
      }
   }); 
+  likeStatus = await checkLike(user.favorites, req.params.foodId); 
+  // user.foodVisited(food); 
+  user.save(); 
   res.render('foodPage', {
     root: process.env.root,
     food: food,
-    similarFoods: allSimilarFoods
+    similarFoods: allSimilarFoods,
+    likeStatus: likeStatus
   }); 
 });
 
@@ -142,9 +151,15 @@ exports.foodLikedController = asyncHandler(async(req, res, next)=>{
   if(!food){
     return next(new ErrorResponse(`Could not find such food`, 404)); 
   }
+  const foodLikedBefore = await checkLike(user.favorites, food.id);
+  if(foodLikedBefore){
+    return next(new ErrorResponse(`${food.name} is already liked by ${user.name}`, 404));
+  }
 
-  const newRecommended = user.foodLiked(food.category, food.difficultyLevel); 
+  food.addLike(); 
+  const newRecommended = user.foodLiked(food); 
   user.save(); 
+  food.save();
   res.status(200).json({
     success: true,
     msg: `${food.name} is liked by ${user.name}`,
@@ -153,6 +168,34 @@ exports.foodLikedController = asyncHandler(async(req, res, next)=>{
   })
 })
 
+//@desc      Unlike a food
+//@route     PUT /user/food/:foodId/unliked
+//@access    Private
+exports.foodUnlikedController = asyncHandler(async(req, res, next)=>{
+  const food = await Foods.findById(req.params.foodId);
+  const user = await User.findById(req.user.id);  
+  if(!food){
+    return next(new ErrorResponse(`Could not find such food`, 404)); 
+  }
+  const foodLikedBefore = await checkLike(user.favorites, food.id); 
+  if(!foodLikedBefore){
+    return next(new ErrorResponse(`${food.name} is not liked by ${user.name}`, 404));
+  }
+  food.removeLike(); 
+  const newFavorites = user.foodUnliked(req.params.foodId);  
+  user.save(); 
+  food.save(); 
+  res.status(200).json({
+    success: true,
+    msg: `${food.name} is unliked by ${user.name}`,
+    data: newFavorites
+    
+  })
+})
+
+//@desc      Check food like
+//@route     GET /user/food/shoppinglist
+//@access    Private
 exports.shoppingListPage = asyncHandler(async(req, res, next)=>{
   const userData = await User.findById(req.user.id);
   let title;  

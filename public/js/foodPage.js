@@ -22,17 +22,27 @@ function starter(){
     //init photo materialboxed 
     var elems = document.querySelectorAll('.materialboxed');
     var instances = M.Materialbox.init(elems, {});
+
     //init tooltip 
     elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems, {});
+
     //init sideNav
     const sidenav = document.querySelector('.sidenav'); 
     M.Sidenav.init(sidenav, {});
+
     //init tabs bar
     const el = document.getElementById('tabsBar'); 
     var instance = M.Tabs.init(el, {});
+
     //init description tab
     moveToDescription();
+
+    //init likebutton 
+    if(likeStatus == 'true'){
+        foodLiked = true; 
+        likeButton.childNodes[1].style.color = 'magenta'; 
+    }
 }
 
 
@@ -57,13 +67,34 @@ function moveToDescription(){
 }
 
 //FUNCTION TO CONTROL THE LIKE BUTTON  
-function likeButtonController(){
+async function likeButtonController(){
+    const foodId = getFoodId(); 
     if(!foodLiked){
         likeButton.childNodes[1].style.color = 'magenta'; 
         foodLiked = true; 
+        
+        const response = await fetch(`${root}/user/food/${foodId}/liked`, {
+            method: 'PUT'
+        });
+        const resData = await response.json(); 
+        if(!resData.success){
+            console.log(resData); 
+        }else{
+            console.log(resData); 
+        }
     }else{
         likeButton.childNodes[1].style.color = 'pink';
         foodLiked = false; 
+        const response = await fetch(`${root}/user/food/${foodId}/unliked`, {
+            method: 'PUT'
+        });
+        const resData = await response.json(); 
+        if(!resData.success){
+            console.log(resData); 
+        }else{
+            console.log(resData); 
+        }
+
     }
 }
 
@@ -91,3 +122,8 @@ async function addToShoppingList(){
 }//end of the addToShoppingList() function 
 
 
+function getFoodId(){
+    let urlArray = location.href.split('/'); 
+    const foodId = urlArray.pop(); 
+    return foodId; 
+}

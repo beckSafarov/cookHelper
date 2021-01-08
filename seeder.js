@@ -44,7 +44,7 @@ const importData = async () => {
 //Delete data
 const deleteData = async () => {
   try {
-    await userModel.deleteMany();
+    // await userModel.deleteMany();
     await foodModel.deleteMany();
     console.log('Data Destroyed...'.red.inverse);
     process.exit();

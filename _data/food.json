@@ -366,7 +366,7 @@
         "name": "baked salmon",
         "photoLink":"/photos/baked_salmon.jpg" ,
         "description":"simple breakfast that keeps you full with lots of energy to last your morning" ,
-        "difficultyLevel": " medium",
+        "difficultyLevel": "medium",
         "approximateTimeInMinutes": 37,
         "ingredients": ["salmon", "garlic", "honey", "lemon juice", "salt", " cayenne pepper"],
         "amount":["12 oz", "2 cloves", "3 tablespoons", "1 tablespoons","1/8 teaspoons", "1/8 teaspoons"],

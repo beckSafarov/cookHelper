@@ -39,15 +39,13 @@ const UserSchema = new mongoose.Schema({
         enum: ['beginner', 'intermediate', 'advanced'],
         required: true
     },
-    numericalExperience: {
-        type:Number,
-        enum: [1, 2, 3]
-    },
     createdAt: {
       type: Date,
       default: Date.now(),
       },
     recommended: [Object],
+    visitedFoods: [Object],
+    favorites: [String],
     ingredients: [Object]
 })
 
@@ -93,7 +91,8 @@ UserSchema.pre('save', async function(){
       let categories = [];
       let level; 
       let finalFoods = this.recommended; 
-     
+      
+
       //choosing recommended food categories based on weight
       if(weightCategory == 'underweight'){
         categories.push('fast-food', 'meaty', 'high-carb', 'sweet');
@@ -101,47 +100,61 @@ UserSchema.pre('save', async function(){
         categories.push('low-fat', 'vegetarian');
       }
       
-      //identify the difficulty level for the user
+      //identify the difficulty level in numbers for the user
       if(this.experience === 'beginner'){
-          level = 'easy'; 
+          level = 1; 
       }else if(this.experience === 'intermediate'){
-          level = 'medium';
+          level = 2;
       }else{
-        level = 'hard'; 
+        level = 3; 
       }
      
       //querying the database for the relevant meals 
       if(categories.length > 0){
         for(let i = 0; i<categories.length; i++){
           finalFoods.push({
-             difficultyLevel: level,
+             numericalDifficulty: level,
              category: categories[i]
           })
         }
-       
       }else{
         finalFoods.push({
-          difficultyLevel: level,
+          numericalDifficulty: level,
           categories: undefined
         })
       }
       
       this.recommended = getUniqueObjectArray(finalFoods);
-    }
-
-    
+    } 
 });
 
-//NUMERICAL EXPERIENCE 
-UserSchema.pre('save', function(){
-    let numbers = [1, 2, 3]; 
-    let words = ['beginner', 'intermediate', 'advanced']; 
-    for(let i = 0; i<words.length; i++){
-      if(this.experience === words[i]){
-        this.numericalExperience = numbers[i];
-      }
+UserSchema.methods.foodVisited = function(food){
+  const value = this.visitedFoods.find(checkId); 
+  if(!value){
+    this.visitedFoods.push({
+      id: 1
+    });
+    // console.log('1'); 
+    // console.log(this.visitedFoods[food.id]); 
+  }else{
+    if(value === 2){
+      let recommended = this.recommended; 
+      recommended.push({
+        numericalDifficulty: food.numericalDifficulty,
+        category: food.category
+      })
+      this.recommended = getUniqueObjectArray(recommended); 
+    }else{
+      this.visitedFoods[food.id]++; 
     }
-});
+    // console.log('2'); 
+    // console.log(this.visitedFoods[food.id]); 
+  }
+  function checkId(object){
+    return object.id===food.id;
+  }
+  console.log(this.visitedFoods[food.id]); 
+}//end of the foodVisited function 
 
 //sign JWT and return
 UserSchema.methods.getSignedJwtToken = function () {
@@ -152,16 +165,28 @@ UserSchema.methods.getSignedJwtToken = function () {
 
 
 //new food liked 
-UserSchema.methods.foodLiked = function(category, level){
+UserSchema.methods.foodLiked = function(food){
+  const category = food.category; 
+  const level = food.numericalDifficulty; 
   let recommended = this.recommended; 
   recommended.push({
-    difficultyLevel: level,
+    numericalDifficulty: level,
     category: category
   })
   this.recommended = getUniqueObjectArray(recommended); 
+  this.favorites.push(food.id); 
   return this.recommended;
 }
 
+//food disliked
+UserSchema.methods.foodUnliked = function(foodId){
+  for(let i = 0; i<this.favorites.length; i++){
+    if(foodId == this.favorites[i]){
+      this.favorites.splice(i, 1); 
+    }
+  }
+  return this.favorites; 
+}
 
 //ADDS LIST OF INGREDIENTS TO THE INGREDIENTS ARRAY
 UserSchema.methods.addToIngredients = function(ingredients){
@@ -188,3 +213,5 @@ UserSchema.methods.flushIngredients = function(ingredient, foodName){
 }
 
 module.exports = mongoose.model('user', UserSchema);
+
+

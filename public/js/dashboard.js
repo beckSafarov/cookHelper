@@ -16,6 +16,7 @@ M.Tabs.init(tabs, {});
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById(selectedTab).style.color = '#EE7176'; 
+  // console.log(selectTab);
   document.getElementById(selectedSideTab).style.backgroundColor = '#EE7176'; 
 
   //select tab content
