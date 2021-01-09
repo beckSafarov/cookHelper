@@ -187,7 +187,7 @@
         "description":"Simple and healthy meal especially to those are in diet" ,
         "difficultyLevel": "easy",
         "approximateTimeInMinutes": 20,
-        "ingredients": ["mayonnaise", "lemon juice","red bell pepper","chicken meat","celery"],
+        "ingredients": ["mayonnaise", "lemon juice","red bell pepper","chicken","celery"],
         "amount":["5 tablespoons", "2 teaspoons", "1/2", "1 pound boneless", "2 stalks"],
         "category": "meaty" ,
         "calories": "319",

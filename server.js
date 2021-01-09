@@ -43,7 +43,7 @@ app.use('/auth', authRoutes);
 app.use(errorHandler); //using errorhandler function in case of errors 
 
 
-app.listen(
+var server = app.listen(
   PORT,
   console.log(
     `Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold

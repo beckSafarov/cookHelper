@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
   bcrypt = require('bcryptjs'),
   jwt = require('jsonwebtoken'),
+  asyncHandler = require('../middleware/async'),
   Foods = require('./foods.js'),
   {
     getUniqueArray, getUniqueObjectArray
@@ -85,7 +86,7 @@ UserSchema.statics.getWeightCategory = function(height, weight){
 }
 
 //INITIAL RECOMMENDED FOODS LIST MAKER 
-UserSchema.pre('save', async function(){
+UserSchema.pre('save', async function(req, res, next){
     if(this.recommended.length === 0){
       const weightCategory = this.constructor.getWeightCategory(this.height, this.weight); 
       let categories = [];
@@ -124,37 +125,42 @@ UserSchema.pre('save', async function(){
         })
       }
       
-      this.recommended = getUniqueObjectArray(finalFoods);
+      this.recommended = getUniqueObjectArray(finalFoods); 
     } 
+    next();
 });
 
 UserSchema.methods.foodVisited = function(food){
-  const value = this.visitedFoods.find(checkId); 
-  if(!value){
-    this.visitedFoods.push({
-      id: 1
-    });
-    // console.log('1'); 
-    // console.log(this.visitedFoods[food.id]); 
-  }else{
-    if(value === 2){
-      let recommended = this.recommended; 
-      recommended.push({
-        numericalDifficulty: food.numericalDifficulty,
-        category: food.category
-      })
-      this.recommended = getUniqueObjectArray(recommended); 
-    }else{
-      this.visitedFoods[food.id]++; 
-    }
-    // console.log('2'); 
-    // console.log(this.visitedFoods[food.id]); 
-  }
-  function checkId(object){
-    return object.id===food.id;
-  }
-  console.log(this.visitedFoods[food.id]); 
+  let previousObject = this.visitedFoods.find(function(object){
+    return (object.id === food.id) ? object : false;
+  })
+  
+   if(!previousObject){
+      this.visitedFoods.push({
+        id: food.id,
+        count: 1
+      });
+     
+   }else{
+      previousObject.count++; 
+      if(previousObject.count === 3){
+        this.recommended.push({
+          numericalDifficulty: food.numericalDifficulty,
+          category: food.category
+        });
+        this.recommended = getUniqueObjectArray(this.recommended); 
+      }
+      this.visitedFoods.find(function(object){
+        if(object.id === previousObject.id){
+          object.count = previousObject.count; 
+        }
+      });
+   }
+  return this;  
+
 }//end of the foodVisited function 
+
+
 
 //sign JWT and return
 UserSchema.methods.getSignedJwtToken = function () {

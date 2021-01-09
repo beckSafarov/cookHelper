@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const foodSchema = new mongoose.Schema({
     name: {
@@ -6,6 +7,7 @@ const foodSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    slug:String,
     photoLink: {
         type: String,
         required: true,
@@ -54,7 +56,7 @@ const foodSchema = new mongoose.Schema({
 })
 
 //NUMERICAL DIFFICULTY LEVEL OF A FOOD
-foodSchema.pre('save', function(){
+foodSchema.pre('save', function(next){
     if(this.difficultyLevel === 'easy'){
         this.numericalDifficulty = 1;
     }else if(this.difficultyLevel === 'medium'){
@@ -62,7 +64,15 @@ foodSchema.pre('save', function(){
     }else{
         this.numericalDifficulty = 3;
     }
+    next(); 
 });
+
+foodSchema.pre('save', function(next){
+    this.slug = slugify(this.name, {lower: true}); 
+    next(); 
+});
+
+
 
 foodSchema.methods.addLike = function(){
     this.likes++; 

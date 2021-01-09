@@ -127,3 +127,21 @@ exports.getLikes = asyncHandler(async(req, res, next)=>{
         data: food.likes
     })
 })
+
+//@desc      get likes of a food
+//@route     GET /api/user/visited
+//@access    Private
+exports.getVisitedFoods = asyncHandler(async(req, res, next)=>{
+    const user = await Users.findById(req.body.id); 
+    if(!user){
+        return next(new ErrorResponse(`Such user not found!`, 404)); 
+    }
+
+    res.status(200).json({
+        success: true, 
+        name: user.name,
+        data: user.visitedFoods
+    })
+});
+
+

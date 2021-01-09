@@ -10,7 +10,8 @@ const express = require('express'),
       addToShoppingList,
       removeFromShoppingList,
       flushShoppingList,
-      foodUnlikedController
+      foodUnlikedController,
+      altIngredients
     } = require('../controllers/userController'),
     {
       urlDirect,

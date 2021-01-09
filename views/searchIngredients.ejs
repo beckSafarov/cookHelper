@@ -36,12 +36,6 @@
                     </div>
                     
                 </div>
-                <div class="container">
-                  <div class="row">
-                    <button style="width: 45%;" id = 'outputBtn' class = "btn  waves-effect"> Search </button>
-                    <button id = "clearBtn" style="width: 45%;" id = 'outputBtn' class = "btn red darken-1 white-text waves-effect disabled"> Clear </button>
-                  </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -58,8 +52,17 @@
               </div>   
             </div>
             <br>
-            <p id="warning"></p> 
+            
         </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <button style="width: 48%;" id = 'searchBtn' class = "btn  waves-effect"> Search </button>
+        <button id = "clearBtn" style="width: 48%;" id = 'outputBtn' class = "btn red darken-1 white-text waves-effect disabled"> Clear </button>
+      </div>
+      <div class="row">
+        <p style="margin-top:70px;" class = "center-align" id="warning"></p> 
+      </div>
     </div>
 
         <!--Search result food-->
@@ -85,10 +88,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="<%=root%>/js/ingredients.js"></script>
     <script>
+      let success = `<%=success%>`;
+      let message = `<%=message%>`;
       function sendToRelevantPage(id){
         location.href = `<%=root%>/user/food/${id}`;
       }
-
+      
       document.getElementById('dashboardLink').style.color = '#F3979A'; 
       document.getElementById('searchLink').style.color = '#EE7176 '; 
       document.getElementById('settingsLink').style.color = '#F3979A';

@@ -4,12 +4,15 @@ const path = require('path'),
     asyncHandler = require('../middleware/async'),
     ErrorResponse = require('../utils/errorResponse'),
     {
-      searchFoodByIngredient,
       searchFoods,
       getUniqueArray,
+      getUniqueObjectArray,
       getRandomFoods,
-      checkLike
+      checkLike,
+      foodVisited,
+      refineIngredientsQuery
     } = require('../utils/userCtrlHelpers'); 
+const { recommended } = require('./apiController');
 
 
 
@@ -87,24 +90,27 @@ const path = require('path'),
 
 //@desc      Search Ingredients page
 //@route     GET /user/search/ingredients 
-//@queries   GET /user/search/ingredients?name=sausage;bread
+//@queries   GET /user/search/ingredients?ingredients=sausage+bread
 //@access    Private
 exports.ingredients = asyncHandler(async(req, res, next)=>{
   const user = await User.findById(req.user.id);
   let foodList = []; 
   let ingredientsArray = [];
-  ingredientsArray.push(req.query.name); 
-  if(req.query.name){
-    if(req.query.name.includes(';')){
-      ingredientsArray = req.query.name.split(';');
-    } 
-    foodList = await searchFoodByIngredient(ingredientsArray)
-    foodList = getUniqueArray(foodList); 
-  }else{
-    ingredientsArray = []; 
+  let result;
+  let message = `No Text Here`; 
+  let success = true; 
+  if(req.query.ingredients){
+    ingredientsArray = refineIngredientsQuery(req.query.ingredients); 
+    result = await searchIngredients(ingredientsArray); 
+    success = result.success; 
+    message = result.message; 
+    foodList = result.data; 
+ 
   }
 
   res.render('searchIngredients', {
+    success,
+    message,
     root: process.env.root,
     foods: foodList,
     ingredients: ingredientsArray,
@@ -113,13 +119,32 @@ exports.ingredients = asyncHandler(async(req, res, next)=>{
   
 });//end of the ingredients controller 
 
+const searchIngredients = async function(ingredientsList){
+  let success = false; 
+  let data = []; 
+  let message = `No food found with the provided ingredients`; 
+  const food = await Foods.find({ingredients: {$all: ingredientsList}}); 
+  if(food.length > 0){
+    success = true; 
+    message = `${food.length} food(s) found containing the provided ingredients`; 
+    data = food; 
+  }
+
+  return {
+    success, 
+    message,
+    data
+  }
+}
+
+
 
 //@desc      Chosen Food Page
 //@route     GET /user/food/:foodId
 //@access    Private
 exports.foodPage = asyncHandler(async(req, res, next)=>{
   const food = await Foods.findById(req.params.foodId); 
-  const user = await User.findById(req.user.id); 
+  let user = await User.findById(req.user.id); 
   let likeStatus = false; 
   if(!food){
     return next(new ErrorResponse(`No food was found with the id of ${req.params.id}`, 400));
@@ -132,8 +157,8 @@ exports.foodPage = asyncHandler(async(req, res, next)=>{
      }
   }); 
   likeStatus = await checkLike(user.favorites, req.params.foodId); 
-  // user.foodVisited(food); 
-  user.save(); 
+  user = user.foodVisited(food);
+  await User.findByIdAndUpdate(user.id, user); 
   res.render('foodPage', {
     root: process.env.root,
     food: food,
@@ -141,6 +166,7 @@ exports.foodPage = asyncHandler(async(req, res, next)=>{
     likeStatus: likeStatus
   }); 
 });
+
 
 //@desc      Like a food
 //@route     PUT /user/food/:foodId/liked

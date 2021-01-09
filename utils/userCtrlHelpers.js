@@ -3,21 +3,7 @@ const Foods = require('../modules/foods'),
     asyncHandler = require('../middleware/async')
 
 
-exports.searchFoodByIngredient = asyncHandler(async(ingredients)=>{
-    const allFoods = await Foods.find().exec(); 
-    let foodList = [];
-    ingredients.forEach(function(ingredient){
-      allFoods.forEach(function(food){
-         food.ingredients.forEach(function(foodIngredient){
-           if(foodIngredient === ingredient || foodIngredient.includes(ingredient)){
-              foodList.push(food); 
-           }
-         })//end of looping ingredients array in food
-      })//end of looping all foods 
-    })//end of looping ingredients 
- 
-     return (foodList.length === 0 ? false : foodList);
- })
+
  
  exports.searchFoods = asyncHandler(async(searchedFood)=>{
    const allFoods = await Foods.find().exec(); 
@@ -87,3 +73,26 @@ exports.checkLike = asyncHandler(async(favorites, foodId)=>{
 
   return status; 
 });
+
+exports.refineIngredientsQuery = function(ingredients){
+  let ingredientsArray = []; 
+  if(ingredients.includes(' ')){
+    ingredientsArray = ingredients.split(' '); 
+    for(let i = 0; i<ingredientsArray.length; i++){
+      if(ingredientsArray[i].includes('-')){
+        ingredientsArray[i] = ingredientsArray[i].split('-').join(' '); 
+      }
+
+    }//end of the for loop  
+  }else{
+    if(ingredients.includes('-')){
+      ingredientsArray.push(ingredients.split('-').join(' ')); 
+    }else{
+      ingredientsArray.push(ingredients);
+    }
+  }//end of the else statement
+  return ingredientsArray; 
+}
+
+
+

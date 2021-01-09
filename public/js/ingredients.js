@@ -1,13 +1,14 @@
 let elementTextField = document.querySelector('.autocomplete');
 let clearBtn = document.getElementById('clearBtn');
 const output = document.querySelector('#output');
-const outputBtn = document.getElementById('outputBtn'); 
+const searchBtn = document.getElementById('searchBtn'); 
 const warning = document.getElementById('warning');
 const label = document.getElementById('label');
 var elems = document.querySelectorAll('.autocomplete');
 const tagsRow = document.getElementById('tags-row'); 
 const tagsSection = document.getElementById('tags-section');  
 let root = `${location.protocol}//${location.host}`;
+let chosenIngredients = []; 
 
 const sidenav = document.querySelector('.sidenav'); 
 M.Sidenav.init(sidenav, {}); 
@@ -16,11 +17,11 @@ loadAllEventListeners();
 
 function loadAllEventListeners(){
     document.addEventListener('DOMContentLoaded', starter);
-    outputBtn.addEventListener('click', ingredientsButtonAction); 
+    searchBtn.addEventListener('click', ingredientsButtonAction); 
     clearBtn.addEventListener('click', clearButtonAction); 
     tagsRow.addEventListener('click', function(e){
         e.preventDefault(); 
-        removeTag(e); 
+        removeQuery(e); 
      });
 }
 
@@ -29,24 +30,31 @@ async function starter(){
     let foods = await getFoods();
     const ingredients = getProperIngredientFormat(foods.data);
 
+    //init autocomplete 
     var instances = M.Autocomplete.init(elems, {
         data: ingredients,
-        onAutocomplete: ingredientsButtonAction
+        onAutocomplete: addTag
     });
 
+    //init query response
+    if(success !== "true" ){
+        throwError(message);
+    }
+
+    //init clear button toggler
     clearButtonToggler(); 
+
+    //update the content of chosen ingredients
+    updateChosenIngredients();
+    // console.log(chosenIngredients);
 }//end of the starter function 
 
 async function ingredientsButtonAction(){
-    if(elementTextField.value == ''){
+    if(chosenIngredients.length === 0){
         throwError('Please enter an ingredient');  
     }else{
         warning.innerHTML = '';
-        let similarFoods = await searchItem(elementTextField.value); 
-        if(similarFoods){
-            addTag(elementTextField.value); 
-            newIngredientQuery(elementTextField.value); 
-        }
+        ingredientsQuery();
     }
 }
 
@@ -83,7 +91,8 @@ async function searchItem(name){
     return resData; 
 }
 
-function addTag(value){
+function addTag(){
+    let value = elementTextField.value; 
     const span = document.createElement('span'); 
     span.className = 'btn-small'; 
     span.style = 'margin-right: 10px;';
@@ -94,47 +103,41 @@ function addTag(value){
 
     span.appendChild(link); 
     tagsRow.appendChild(span); 
+    chosenIngredients.push(value); 
 }
 
-function removeTag(e){
+function removeQuery(e){
     e.preventDefault(); 
     let closeStartingIndex;
     let tagWord; 
     if(e.target.parentElement.classList.contains('delete-item')){
+        //remove the tag for the query
         closeStartingIndex = e.target.parentElement.parentElement.textContent.search('close'); //5:10 
         tagWord = e.target.parentElement.parentElement.textContent.slice(0, closeStartingIndex); 
         e.target.parentElement.parentElement.remove();  
-        cutURL(tagWord);
-    } 
+        //remove the query from list
+        for(let i = 0; i<chosenIngredients.length; i++){
+            if(tagWord === chosenIngredients[i]){
+                chosenIngredients.splice(i, 1); 
+            }
+        }
+    }
+}//end of the removeQuery function
+
+function ingredientsQuery(){
+    for(let i = 0; i<chosenIngredients.length; i++){
+        if(chosenIngredients[i].includes(' ')){
+            chosenIngredients[i] = chosenIngredients[i].split(' ').join('-');
+        }
+    }
+    const url = `${root}/user/search/ingredients?ingredients=${chosenIngredients.join('+')}`
+    console.log(url);
+    window.location.href = url; 
 }
 
-function newIngredientQuery(ingredient){
-    let url = window.location.href; 
-    if(url.includes('name')){
-        window.location.href = `${url};${ingredient}`; 
-    }else{
-        window.location.href = `${url}?name=${ingredient}`; 
-    }
-}
-
-function cutURL(tagWord){
-    let urlArray = location.href.split('='); 
-    let ingredients = urlArray[1]; 
-    let ingredientsArray = [];
-    if(ingredients.includes(';')){
-        ingredientsArray = ingredients.split(';');   
-        ingredientsArray.splice(ingredientsArray.indexOf(tagWord), 1); 
-        ingredientsArray = ingredientsArray.join(';'); 
-        urlArray[1] = ingredientsArray;  
-        urlArray = urlArray.join('='); 
-        location.href = urlArray; 
-    } else{
-        location.href = `${root}/user/search/ingredients`; 
-    }
-}
 
 function clearButtonToggler(){
-    if(location.href.includes('name')){
+    if(location.href.includes('?ingredients')){
         clearBtn.classList.toggle('disabled'); 
     }
 }
@@ -143,6 +146,22 @@ function clearButtonAction(){
     location.href = `${root}/user/search/ingredients`;
 }
 
+function updateChosenIngredients(){
+  if(location.href.includes('=')){
+    let currentIngredients = location.href.split('='); 
+    if(currentIngredients[1].includes('+')){
+        currentIngredients = currentIngredients[1].split('+'); 
+        for(let i = 0; i<currentIngredients.length; i++){
+            if(currentIngredients[i].includes('-')){
+                currentIngredients[i] = currentIngredients[i].replace('-', ' ');
+            }
+        }//end of the for loop 
+        chosenIngredients = currentIngredients; 
+    }else{
+       chosenIngredients.push(currentIngredients[1]); 
+    }
+  }//end of the first if statement
+}//end of the updateCHosenIngredients function
 
 
 function throwError(message){

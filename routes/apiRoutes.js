@@ -6,7 +6,8 @@ const express = require('express'),
         searchFoodByIngredient,
         users,
         recommended,
-        getLikes
+        getLikes,
+        getVisitedFoods
     } = require('../controllers/apiController'); 
 
 
@@ -16,4 +17,6 @@ router.route('/:specialpass/recommended').get(recommended);
 router.route('/foods/:food').get(searchFood);
 router.route('/foods/:foodId/likes').get(getLikes);
 router.route('/ingredients/:ingredient').get(searchFoodByIngredient);
+router.route('/user/visited').get(getVisitedFoods);
+
 module.exports = router; 
