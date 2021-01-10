@@ -5,6 +5,7 @@ const fastFoodsTab = document.getElementById('fastFoodsTab');
 const recFoodsTab = document.getElementById('recFoodsTab');
 const meatCornerTab = document.getElementById('meatCornerTab');
 const lowFatTab = document.getElementById('lowFatTab');
+const filter = document.getElementById('filter'); 
 const cardPhotos = document.querySelectorAll('.card-photo'),
   featuredSideTab = document.getElementById('featuredSideTab'),
   fastFoodSideTab = document.getElementById('fastFoodSideTab'),
@@ -12,7 +13,7 @@ const cardPhotos = document.querySelectorAll('.card-photo'),
   lowFatSideTab = document.getElementById('lowFatSideTab');
   
 
-M.Tabs.init(tabs, {});
+
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById(selectedTab).style.color = '#EE7176'; 
@@ -20,7 +21,25 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById(selectedSideTab).style.backgroundColor = '#EE7176'; 
 
   //select tab content
-  var elems = document.querySelectorAll('select');
-  var instances = M.FormSelect.init(elems, {});
+  var selectElems = document.querySelectorAll('select');
+  var selectInstances = M.FormSelect.init(selectElems, {});
+  if(selectInstances.input){
+    var instance = M.FormSelect.getInstance(selectInstances);
+    console.log(instance.getSelectedValues());
+  }
+
+
+  M.Tabs.init(tabs, {});
+  M.Sidenav.init(sidenav, {}); 
+
+  //init drop down
+  var dropdownElems = document.querySelectorAll('.dropdown-trigger');
+  M.Dropdown.init(dropdownElems, {
+      coverTrigger: false,
+      hover: true,
+      constrainWidth: false
+  });
 });
+
+
 

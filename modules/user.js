@@ -132,12 +132,12 @@ UserSchema.pre('save', async function(req, res, next){
 
 UserSchema.methods.foodVisited = function(food){
   let previousObject = this.visitedFoods.find(function(object){
-    return (object.id === food.id) ? object : false;
+    return (object.category === food.category) ? object : false;
   })
   
    if(!previousObject){
       this.visitedFoods.push({
-        id: food.id,
+        category: food.category,
         count: 1
       });
      
@@ -151,7 +151,7 @@ UserSchema.methods.foodVisited = function(food){
         this.recommended = getUniqueObjectArray(this.recommended); 
       }
       this.visitedFoods.find(function(object){
-        if(object.id === previousObject.id){
+        if(object.category === previousObject.category){
           object.count = previousObject.count; 
         }
       });

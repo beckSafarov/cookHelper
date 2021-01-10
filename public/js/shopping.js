@@ -9,7 +9,6 @@ loadAllEventListeners();
 
 function loadAllEventListeners(){
     document.addEventListener('DOMContentLoaded', starter); 
-    document.getElementById('shoppingLink').style.color = '#EE7176'; 
     clearBtn.addEventListener('click', clearAll); 
     ingredientTask.addEventListener('click', function(e){
         removeFromView(e); 

@@ -40,13 +40,12 @@
           <label for="searchField">Search</label>
         </div> 
         <div class="input-field col s6 l3">
-          <select multiple>
-              <option value="1" disabled selected>None</option>
-            <optgroup label="team 1"></optgroup>
+          <select id = "filter" multiple>
+            <optgroup label="Group 1"></optgroup>
               <option value="2">Option 2</option>
               <option value="3">Option 3</option>
             </optgroup>
-            <optgroup label="team 2">
+            <optgroup label="Group 2">
               <option value="4">Option 3</option>
               <option value="5">Option 4</option>
             </optgroup>
@@ -75,14 +74,7 @@
     </div>
   </div>
   
-    <!-- Dropdown Structure -->
-    <ul id='dropdown1' class='dropdown-content'>
-      <li><a id = "recFoodsTab" href="?category=recfoods">Featured Foods</a></li>
-      <li><a id = "fastFoodsTab" href="?category=fast-food">Fast Foods</a></li>
-      <!-- <li class="divider" tabindex="-1"></li> -->
-      <li><a id = "meatCornerTab" href="?category=meaty">Meat Corner</a></li>
-      <li><a id = "lowFatTab" href="?category=low-fat">Low-Fat</a></li>
-    </ul>
+    
   
 
 
@@ -96,8 +88,6 @@
   let selectedSideTab = `<%=sideTab%>`;
 
   document.getElementById('dashboardLink').style.color = '#EE7176'; 
-
-  console.log(`<%=foods%>`);
 </script>
 <script src="<%=root%>/js/dashboard.js"></script>
 

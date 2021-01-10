@@ -95,6 +95,29 @@ exports.login = asyncHandler(async (req, res, next) => {
     });
   });
 
+  //@desc      logout user
+  //@route     GET /auth/logout
+  //@access    Private
+  exports.logout = asyncHandler(async(req, res, next)=>{
+   res.clearCookie('token');
+
+    res.status(200).json({
+      success: true,
+      msg: 'The user has been successfully logged out'
+    })
+  })
+
+  //@desc      get the currently logged in user
+  //@route     GET /auth/currentuser
+  //@access    Private
+  exports.getCurrentUser = asyncHandler(async(req, res, next)=>{
+    const user = await User.findById(req.user.id); 
+      res.status(200).json({
+        success: true, 
+        data: user
+      })
+  })
+
     //get token from model, create cookie and send response
 const sendTokenResponse = (user, statusCode, res) => {
     //create token

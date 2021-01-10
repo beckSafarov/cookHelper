@@ -14,7 +14,7 @@
               <li class="collection-item"> 
                 <a class = "done" style="color: black;" href="#"><i onclick="removeFromDB(`<%=ingredient.ingredient%>`, `<%=ingredient.food%>`)" style="margin-right: 13px;" class="far fa-circle"></i> </a>
                 <%=ingredient.ingredient%> 
-                <a href="#" class = "secondary-content"><em><%=ingredient.food%></em></a></li>
+                <a href="" class = "secondary-content"><em><%=ingredient.food%></em></a></li>
           <% }); %> 
           </ul>
           <div id = "btnDiv">
@@ -25,9 +25,11 @@
 </div>
 
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script> 
   let listLength = parseInt(`<%=ingredients.length%>`);
+  
 </script>
 <script src="<%=root%>/js/shopping.js"></script>
 </body>

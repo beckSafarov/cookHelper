@@ -3,7 +3,7 @@ const output = document.querySelector('#output');
 const outputBtn = document.getElementById('outputBtn'); 
 const warning = document.getElementById('warning');
 const label = document.getElementById('label');
-var elems = document.querySelectorAll('.autocomplete');
+var autoCompleteElems = document.querySelectorAll('.autocomplete');
 let foodSection = document.getElementById('.foodsection'); 
 let root = `${location.protocol}//${location.host}`;
 
@@ -19,14 +19,23 @@ async function starter(){
     let foods = await getFoods();
     //fill up the autocomplete field 
     const foodList = getProperFoodFormat(foods.data); 
-    var instances = M.Autocomplete.init(elems, {
+    M.Autocomplete.init(autoCompleteElems, {
         data: foodList,
         onAutocomplete: generalFoodButtonAction
     });
 
     //init sideNav
     const sidenav = document.querySelector('.sidenav'); 
-    M.Sidenav.init(sidenav, {});        
+    M.Sidenav.init(sidenav, {});   
+    
+    //init drop down
+    var dropdownElems = document.querySelectorAll('.dropdown-trigger');
+    M.Dropdown.init(dropdownElems, {
+        coverTrigger: false,
+        hover: true,
+        constrainWidth: false
+    });
+    console.log('sefer');
 
 }
 
@@ -34,7 +43,7 @@ async function starter(){
 async function generalFoodButtonAction(){
     let value = elementTextField.value; 
     if(value == ''){
-        // throwError('Please enter an ingredient');  
+        throwError('Please enter an ingredient');  
     }else{
         warning.innerHTML = '';
         let similarFoods = await searchItem(value); 

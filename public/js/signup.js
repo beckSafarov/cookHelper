@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 form.addEventListener('submit', function(e){
     e.preventDefault();
-    console.log(experience.value);
     if(password.value.length > 5){
         const data = {
             name: name.value,

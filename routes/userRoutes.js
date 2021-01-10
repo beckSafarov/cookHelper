@@ -11,7 +11,7 @@ const express = require('express'),
       removeFromShoppingList,
       flushShoppingList,
       foodUnlikedController,
-      altIngredients
+      favorites
     } = require('../controllers/userController'),
     {
       urlDirect,
@@ -28,6 +28,7 @@ router.route('/food/:foodId/unliked').put(protect, foodUnlikedController);
 router.post('/shoppinglist/add', protect, addToShoppingList);
 router.put('/shoppinglist/remove', protect, removeFromShoppingList);
 router.put('/shoppinglist/flush', protect, flushShoppingList);
+router.get('/favorites', protect, favorites);
 
 
 

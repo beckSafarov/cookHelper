@@ -292,3 +292,26 @@ exports.flushShoppingList = asyncHandler(async(req, res, next)=>{
     current: currentList
   })
 });
+
+//@desc      favorite foods page
+//@route     GET /user/favorites
+//@access    Private
+exports.favorites = asyncHandler(async(req, res, next)=>{
+  const user = await User.findById(req.user.id);
+  let message = 'You have not liked any food yet'; 
+  let foods = []; 
+  let food; 
+  if(user.favorites.length > 0){
+    for(let i = 0; i<user.favorites.length; i++){
+      food = await Foods.findById(user.favorites[i]); 
+      foods.push(food); 
+    }
+    message = 'Your favorite foods'
+  }
+
+  res.render('favorites', {
+    root: process.env.root,
+    foods: foods,
+    message
+  })
+});

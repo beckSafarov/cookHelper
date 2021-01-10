@@ -30,16 +30,37 @@
               <a id='dashboardLink' style = "color: #f3979a;" href="<%=root%>/user/dashboard" class="waves-effect"><strong>Dashboard</strong></a>
             </li>
             <li>
-              <a id='searchLink' style = "color: #f3979a;" href = "<%=root%>/user/search" class="waves-effect">Search</a>
-            </li>
-            <li>
-                <a id="shoppingLink" style = "color: #f3979a;" href='<%= root %>/user/shoppinglist '>Shopping List</a>
-            </li>
-            <li>
-                <a id = "settingsLink" style = "color: #f3979a;" href='#' data-target='dropdown1'>Settings</a>
+                <a style="color: #f3979a; margin-top: 1px;" class='dropdown-trigger' onclick="javascript:void(0)" data-target='dropdown1'>Others <i class="fas fa-caret-down"></i></i></a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
   </div>
+
+  <!-- Dropdown Structure -->
+  <div>
+    <ul id='dropdown1' class='dropdown-content'>
+      <li><a id = "searchDropDown" href="<%=root%>/user/search">Search</a></li>
+      <li><a id = "favoritesDropDown" href="<%=root%>/user/favorites">Favorites</a></li>
+      <li><a id = "shoppingListDropDown" href="<%= root %>/user/shoppinglist">Shopping List</a></li>
+      <li><a id = "accountDropDown" onclick="logout()">Log Out</a></li>
+      <!-- <li><a id = "accountDropDown" href="#">Account</a></li> -->
+    </ul>
+  </div>
+
+
+  <script>
+    async function logout(){
+      if(confirm('Are you sure to log out?')){
+        const response = await fetch(`<%=root%>/auth/logout`); 
+        if(response.status===200){
+          location.href = `<%=root%>/login`;
+        }else{
+          console.log(response);
+          alert('something went wrong!');
+        }
+      }
+    }
+
+  </script>

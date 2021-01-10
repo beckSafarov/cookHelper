@@ -27,8 +27,11 @@ const errorHandler = (err, req, res, next) => {
     }
     message = `Such ${errorPoint} already exists`;
     err = new ErrorResponse(message, 400);
-    
   }
+
+  // if(err.message === 'jwt malformed'){
+  //   res.redirect(`${process.env.root}/login`);
+  // }
 
   //json web token error
   if (err.name === 'JsonWebTokenError') {

@@ -4,7 +4,7 @@ const output = document.querySelector('#output');
 const searchBtn = document.getElementById('searchBtn'); 
 const warning = document.getElementById('warning');
 const label = document.getElementById('label');
-var elems = document.querySelectorAll('.autocomplete');
+var autocompleteElems = document.querySelectorAll('.autocomplete');
 const tagsRow = document.getElementById('tags-row'); 
 const tagsSection = document.getElementById('tags-section');  
 let root = `${location.protocol}//${location.host}`;
@@ -31,7 +31,7 @@ async function starter(){
     const ingredients = getProperIngredientFormat(foods.data);
 
     //init autocomplete 
-    var instances = M.Autocomplete.init(elems, {
+    var instances = M.Autocomplete.init(autocompleteElems, {
         data: ingredients,
         onAutocomplete: addTag
     });
@@ -46,7 +46,14 @@ async function starter(){
 
     //update the content of chosen ingredients
     updateChosenIngredients();
-    // console.log(chosenIngredients);
+    
+     //init drop down
+     var dropDownElems = document.querySelectorAll('.dropdown-trigger');
+     var instances = M.Dropdown.init(dropDownElems, {
+         coverTrigger: false,
+         hover: true,
+         constrainWidth: false
+     });
 }//end of the starter function 
 
 async function ingredientsButtonAction(){
@@ -93,9 +100,10 @@ async function searchItem(name){
 
 function addTag(){
     let value = elementTextField.value; 
+    elementTextField.value = '';
     const span = document.createElement('span'); 
     span.className = 'btn-small'; 
-    span.style = 'margin-right: 10px;';
+    span.style = 'margin-right: 10px; border-radius: 25px;';
     span.appendChild(document.createTextNode(value)); 
     const link = document.createElement('a'); 
     link.className = 'delete-item secondary-content'; 
