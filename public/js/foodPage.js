@@ -122,7 +122,10 @@ async function addToShoppingList(){
     }); 
     const resData = await response.json();
     if(resData.success == true){
-        M.toast({html: 'List has been added!', classes: 'rounded'});
+        M.toast({
+            html: 'List has been added!', 
+            classes: 'rounded'
+        });
     }else{
         M.toast({html: 'Sorry something went wrong', classes: 'rounded'});
         console.log(resData);

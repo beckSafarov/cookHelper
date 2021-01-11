@@ -5,7 +5,10 @@ const express = require('express'),
   morgan =require('morgan'),
   colors = require('colors'),
   errorHandler = require('./middleware/error'),
-  fileupload = require('express-fileupload');
+  fileupload = require('express-fileupload'),
+  xss = require('xss-clean'),
+  helmet = require('helmet'),
+  mongoSanitize = require('express-mongo-sanitize'),
   PORT = process.env.PORT || 5000;
 
 
@@ -33,9 +36,24 @@ connectDB();
 //file upload
 app.use(fileupload());
 
+//use mongo sanitize to sanitize the incoming code injections
+app.use(mongoSanitize());
+
+//set security headers
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
+
+//prevent XSS attacks
+app.use(xss());
+
 //set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//mounting routes 
 app.use('/', pageRoutes); 
 app.use('/user', userRoutes); 
 app.use('/api', apiRoutes);

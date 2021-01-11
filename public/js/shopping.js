@@ -19,6 +19,15 @@ function starter(){
     //side navigation
     M.Sidenav.init(sidenav, {});
 
+
+    //init drop down
+    //init drop down
+    var dropDownElems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(dropDownElems, {
+        coverTrigger: false,
+        hover: true,
+        constrainWidth: false
+    });
 }
 
 function removeFromView(e){
@@ -69,10 +78,16 @@ async function clearAll(){
         console.log(resData);
 
         if(resData.success = true){
-            M.toast({html: 'List has been destroyed'})
+            M.toast({
+                html: 'List has been destroyed',
+                classes: 'rounded'
+            })
             console.log(resData); 
         }else{
-            M.toast({html: 'Sorry something went wrong'})
+            M.toast({
+                html: 'Sorry something went wrong',
+                classes: 'rounded'
+            })
             console.log(resData.error); 
         }
     }

@@ -306,9 +306,10 @@ exports.favorites = asyncHandler(async(req, res, next)=>{
       food = await Foods.findById(user.favorites[i]); 
       foods.push(food); 
     }
+    
     message = 'Your favorite foods'
   }
-
+  // console.log(foods);
   res.render('favorites', {
     root: process.env.root,
     foods: foods,

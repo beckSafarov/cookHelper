@@ -25,8 +25,9 @@ const users = JSON.parse(
 
 
 const food = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/food.json`, 'utf-8')
+  fs.readFileSync(`${__dirname}/_data/food2.json`, 'utf-8')
 );
+
 
 
 //Import into DB
