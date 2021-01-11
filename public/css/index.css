@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+html {
+  height: 100%;
+  width: 100%;
+  font-family: 'Nunito Sans', sans-serif;
+  color: black;
+}
+.navbar {
+  padding: 1.5rem;
+  font-family: 'Righteous', cursive;
+  font-size: 15px;
+  background-color: beige;
+}
+.navbar-toggler {
+  background-color: maroon;
+  border: 1px;
+}
+.navbar-custom .navbar-nav .nav-link {
+  color: maroon;
+}
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+  color: darksalmon;
+}
+.navbar-nav li {
+  padding: 20px;
+  text-align: center;
+}
+.nav-link {
+  font-size: 1.4em;
+  font-weight: bold;
+  font-family: 'Josefin Sans', sans-serif;
+}
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+}
+.jumbotron {
+  padding: 3rem;
+}
+.jumbotron h1 {
+  text-align: center;
+  color: dimgrey;
+}
+.jumbotron p {
+  text-align: center;
+  color: dimgrey;
+}
+h5 {
+  color: black;
+}
+.col-md-4 p {
+  color: gainsboro;
+}
+body {
+  background: url('https://source.unsplash.com/twukN12EN7c/1920x1080') no-repeat
+    center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+#section2 {
+  margin-top: 0%;
+  padding: 10%;
+  background-color: beige;
+  background-size: 50%;
+  width: inherit;
+  opacity: 70%;
+}
+
+.how-img {
+  text-align: center;
+  text-emphasis-style: filled;
+}
+.how-img img {
+  width: 40%;
+  opacity: 100%;
+}
+.col-md-6 h4 {
+  color: gold;
+  font-size: bold;
+}
+p {
+  font-family: 'Josefin Sans', sans-serif;
+  color: black;
+}
+a {
+  color: maroon;
+}
+.carousel-caption a {
+  padding: 10px 10px 10px 10px;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  top: -80%;
+  left: 40%;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-decoration: none;
+  font-size: 20px;
+  overflow: hidden;
+  transition: 0.2s;
+  font-family: 'Josefin Sans', sans-serif;
+  outline-style: solid 1px;
+  resize: horizontal;
+}
+.carousel-caption a:hover {
+  color: white;
+  background: gold;
+  box-shadow: 0 0 10px #ffd700, 0 0 40px #ffd700, 0 0 10px #ffd700,
+    0 0 80px #ffd700;
+  transition-delay: 0.1s;
+}

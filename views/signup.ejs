@@ -1,77 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <title>Sign up</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Cook Helper web app">
+    <meta name="author" content="Group 6">
+    <title> Sign up | Cookhelper</title>
+    <!--Template based on URL below-->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!-----fontsawesome---->
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <!-- Place your stylesheet here-->
+    <link href="<%=root%>/css/chregister.css" rel="stylesheet" >
 </head>
 <body>
-    <h1 class = "center-align">SIGN UP page</h1>
-    <div class="container">
-        <form class = "col s12" id ="form">
-            <div class="row">
-                <div class="input-field col s12">
-                    <label for="name">Enter your name</label>
-                    <input type="text" name = "name" id = "name" placeholder="John" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <label for="email">Enter your email</label>
-                    <input type="email" name = "email" id = "email" placeholder="email" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <label for="password">Enter a password, at least 6 characters</label>
-                    <input type="password" name = "password" id = "password" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <label for="weight">Enter your weight</label>
-                    <input type="number" name = "weight" id = "weight" placeholder="e.g. 70" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <label for="height">Enter your height in centimetres</label>
-                    <input type="number" name = "height" id = "height" placeholder="e.g. 170" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                     <select id = "experience">
-                        <option value="" disabled selected>Choose your option</option>
-                        <option value="beginner">Beginner</option>
-                        <option value="intermediate">Intermediate</option>
-                        <option value="advanced">Advanced</option>
-                      </select>
-                      <label>Experience in cooking</label>
-                </div>
-            </div>
-            <br>
-            <div class="center-align">
-                <p id = "warningBtn" style="color:red;"></p>
-            </div>
-            <button style="width: 100%;" class = "btn green waves-effect hoverable" id = "submitBtn" type="submit">Submit</button>
-            <br>
-            
-            <div class="center-align">
-                <a style = "text-decoration: none;" href="/login">Already have an account? Sign in</a>
-            </div>
-        </form>
-        <br><br>
-        
+    
+<!---Navigation bar-->
+<nav class="navbar navbar-expand-md navbar-custom justify-content-center sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%=root%>">
+    <img src="photos/logo.png" width="70" height="70" class="d-inline-block align-top" alt="Cook Helper">
+  </a>
+    <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse justify-content-between align-items-center w-100" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto text-center">
+        <li class="nav-item active">
+            <a class="nav-link" href="<%=root%>">Home</a>
+        </li>
+      
+        <li class="nav-item">
+          <a class="nav-link" href="<%=root%>/login">Login</a>
+        </li>
+      </ul>
     </div>
+  </div>
+</nav>
+<br>
+<br>
+
+
+<!-----sign in--->
+    <div class="container">
+        <div class="header">
+            <h2> Create your Account</h2>
+        </div>
+        <form id ="form">
+          <form>
+            <div class="mb-3">
+                <label for="name" class = "form-label">Enter your name</label>
+                <input class = "form-control" type="text" name = "name" id = "name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password">
+              <div id="passHelp" class="form-text">*Password should be at least 6 characters</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="weight">Enter your weight</label>
+              <input class = "form-control" type="number" name = "weight" id = "weight" placeholder="e.g. 70" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="height">Enter your height in centimetres</label><br>
+              <input class = "form-control" type="number" name = "height" id = "height" placeholder="e.g. 170" required>
+            </div>
+            <div class = "mb-3">
+              <label for="experience">Your experience in cooking:</label>
+              <select name = 'experience' id = 'experience' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" required>
+                <option selected>Options</option>
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+            <br>
+            <div class="d-grid gap-2">
+              <button style="width: 100%;" type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <br>
+            <div class="text-center">
+                <p style="color: red;" id="warningBtn"></p>
+            </div>
+          </form>
+          
+      </form>
+      <div style="margin-top: 20px; text-align: center;">
+        <a style = "text-decoration: none;" href="<%=root%>/login">Already have an account? Sign in</a>
+      </div>
+      <script>
+          const root = `<%=root%>`;
+        //   document.getElementById('form').addEventListener('submit', function(e){
+        //     e.preventDefault(); 
+        //     console.log(document.getElementById('height').value); 
+        //     console.log(document.getElementById('weight').value); 
+        //     console.log(document.getElementById('experienceSelect').value); 
+        //   })
+      </script>
+      <script src = "<%=root%>/js/signup.js"></script>
+
+<br>
+<br>
+<br>
+
     
-    <script>
-        const root = `<%=root%>`;
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src = "js/signup.js"></script>
+<!---footer--->
+<footer>
+    <div class="container-fluid padding">
+        <div class="col-12">
+           <hr class="light">
+           <h5>&copy; <%=root%></h5>
+        </div>
+   </div> 
+</footer>
+
     
+    
+    
+    
+
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+    
+                
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+                
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 </body>
 </html>

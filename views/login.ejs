@@ -1,42 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Cook Helper web app">
+    <meta name="author" content="Group 6">
+    <title>Login | Cookhelper</title>
+    
+    <!--Template based on URL below-->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!-----fontsawesome---->
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <!-- Place your stylesheet here-->
+    <link href="<%=root%>/css/chlogin.css" rel="stylesheet" >
 </head>
 <body>
-    <h1 class = "center-align">Login page</h1>
-    <div class="container">
-        <form class = "col s12" id ="form">
-            <div class="row">
-                <div class="input-field">
-                    <label for="email">Enter your email</label>
-                    <input type="email" name = "email" id = "email" required>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field">
-                    <label for="password">Enter your password</label>
-                    <input type="password" name = "password" id = "password" required> 
-                </div>
-            </div>
-            <br>
-            <div class="center-align">
-                <p id = "warningBtn"></p>
-            </div>
-            <button style="width:100%;" class = "btn green waves-effect hoverable" id = "submitBtn" type="submit">Submit</button><br>
-            <div style="margin-top: 30px;" class="center-align">
-                <a style = "text-decoration: none;" href="signup">No account? Get one</a>
-            </div>
-            <br>
-            
-        </form>
-    </div>
     
+<!---Navigation bar-->
+<nav class="navbar navbar-expand-md navbar-custom justify-content-center sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%=root%>">
+    <img src="<%=root%>/photos/logo.png" width="70" height="70" class="d-inline-block align-top" alt="Cook Helper">
+  </a>
+    <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse justify-content-between align-items-center w-100" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto text-center">
+        <li class="nav-item active">
+            <a class="nav-link" href="<%=root%>">Home</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="<%=root%>/signup">Sign up</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src = "js/login.js"></script>
+<!-----login--->
+    <div class="container">
+        <div class="row">
+			<div class="col-md-5 mx-auto">
+			<div id="first">
+				<div class="myform form ">
+					 <div class="logo mb-3">
+						 <div class="col-md-12 text-center">
+							<h1>Login</h1>
+						 </div>
+					</div>
+                   <form id="form">
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Email address</label>
+                              <input type="email" name="email"  class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+                           </div>
+                           <div class="form-group">
+                              <label for="exampleInputEmail1">Password</label>
+                              <input type="password" name="password" id="password"  class="form-control" aria-describedby="emailHelp" placeholder="Enter Password" required>
+                           </div>
+                           <div class="col-md-12 text-center ">
+                              <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
+                           </div>
+                           <div class="text-center">
+                               <br>
+                                <p id="warningBtn"></p>
+                           </div>
+                           <div class="col-md-12 ">
+                              <div class="login-or">
+                                 <hr class="hr-or">
+                                 <span class="span-or">or</span>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <p class="text-center">Don't have account? <a href="<%=root%>/signup">Sign up here</a></p>
+                           </div>
+                        </form>    
+				</div>
+    
+  
+    
+<!---footer--->
+<footer>
+    <div class="container-fluid padding">
+        <div class="col-12">
+           <hr class="light">
+           <h5>&copy; <%=root%></h5>
+        </div>
+   </div> 
+</footer>
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+    
+                
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+                
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src = "js/login.js"></script> 
+
 </body>
 </html>

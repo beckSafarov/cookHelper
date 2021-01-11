@@ -1,9 +1,9 @@
 const express = require('express'),
     router = express.Router(),
     {
-      indexPage, 
+      indexPage,
       signUpPage,
-      loginPage
+      loginPage,
     } = require('../controllers/pageController'),
     {
       urlDirect,

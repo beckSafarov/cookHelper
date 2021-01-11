@@ -4,7 +4,6 @@ const name = document.getElementById('name'),
     weight = document.getElementById('weight'),
     height = document.getElementById('height'),
     experience = document.getElementById('experience'),
-    submitBtn = document.getElementById('submitBtn'),
     warningBtn = document.getElementById('warningBtn'),
     form = document.getElementById('form');
 
@@ -21,16 +20,11 @@ async function post(url, data){
     const resData = await response.json(); 
     return resData;        
 }
-// console.log(`${root}/user/signup`);
 
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems, {});
-  });
 
 form.addEventListener('submit', function(e){
     e.preventDefault();
-    if(password.value.length > 5){
+    if(password.value.length > 5 && experience.value !== 'Options'){
         const data = {
             name: name.value,
             email: email.value, 
@@ -39,7 +33,8 @@ form.addEventListener('submit', function(e){
             height: height.value,
             experience: experience.value
         };
-    
+        
+        console.log(data);
         post(`${root}/auth/signup`, data)
             .then(data => {
                 if(data.success == false){
@@ -51,7 +46,12 @@ form.addEventListener('submit', function(e){
             })
             .catch(err => console.log(err));
     }else{
-        warningBtn.innerHTML = `Your password is too short`;
+        if(password.value.length < 6){
+            warningBtn.innerHTML = `Your password is too short`;
+        }else{
+            warningBtn.innerHTML = `Please choose an option for your experience`;
+        }
+        
     }
     
 

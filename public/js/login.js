@@ -2,8 +2,7 @@ const email = document.getElementById('email'),
     password = document.getElementById('password'),
     warningBtn = document.getElementById('warningBtn'),
     form = document.getElementById('form'),
-    root = `${location.protocol}//${location.host}`; 
-console.log(root); 
+    root = `${location.protocol}//${location.host}`;  
 
 //post function to make a post request to the server
 async function post(url, data){
@@ -27,7 +26,7 @@ form.addEventListener('submit', function(e){
         password: password.value,
     };
 
-
+    console.log(data); 
     post(`${root}/auth/login`, data)
         .then(data => {
             if(data.success == false){

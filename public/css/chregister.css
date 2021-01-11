@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@500&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+
+
+
+html{
+    height: 100%;
+    width: 100%;
+    font-family: 'Nunito Sans', sans-serif ;
+    color: black;
+}
+.navbar{
+    padding: 1.5rem;
+    font-family: 'Righteous', cursive;
+    font-size: 15px;
+    background-color:beige;
+}
+.navbar-toggler{
+    background-color: maroon;
+    border: 1px;
+}
+.navbar-custom .navbar-nav .nav-link {
+    color: maroon;
+}
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: darksalmon;
+}
+.navbar-nav li {
+    padding: 20px;
+    text-align: center;
+}
+.nav-link {
+  font-size: 1.4em;  
+  font-weight: bold;
+  font-family:'Josefin Sans', sans-serif;
+}
+
+.col-12 h5{
+    color: black;
+    text-align: center;
+}
+
+p{
+    font-family:'Josefin Sans', sans-serif;
+    color: black;
+}
+a{
+    color:maroon;
+}
+/*.searchbar{
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: maroon;
+    border-radius: 30px;
+    padding: 10px;
+}
+ .search_input{
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color:transparent;
+    line-height: 40px;
+    transition: width 0.4s linear;
+}
+.searchbar:hover > .search_input{
+    padding: 0 10px;
+    width: 450px;
+    caret-color:red;
+    transition: width 0.4s linear;
+}
+.searchbar:hover > .search_icon{
+    background: white;
+    color: #e74c3c;
+}
+.search_icon{
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    text-decoration:none;
+}
+*/
+{
+box-sizing: border-box;
+}
+body{
+    
+    font-family:'Josefin Sans', sans-serif;
+    display:flow-root;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+.container{
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    width: 600px;
+    max-width: 400%; 
+    
+}
+.header{
+    color: maroon;
+    text-align: center;  
+}
+.header h2{
+    padding: 20px;
+}
+.form{
+    padding: 20px 40px;
+    
+}
+
+#submitBtn{
+    color:white;
+    background-color:maroon;
+    text-align: center;
+    width:100%;
+    border-radius: %;
+}
+
+a{
+    text-align: center;
+}
+
