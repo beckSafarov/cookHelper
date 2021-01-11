@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken'),
   asyncHandler = require('./async'),
   ErrorResponse = require('../utils/errorResponse'),
-  User = require('../modules/user');
+  User = require('../modeles/user');
 
 exports.urlDirect = asyncHandler(async(req, res, next)=>{
     const cookie = req.headers.cookie; 

@@ -1,6 +1,6 @@
 const path = require('path'),
-    Users = require('../modules/user'),
-    Foods = require('../modules/foods'),
+    Users = require('../modeles/user'),
+    Foods = require('../modeles/foods'),
     asyncHandler = require('../middleware/async'),
     ErrorResponse = require('../utils/errorResponse'),
     {getUniqueArray} = require('../utils/userCtrlHelpers');

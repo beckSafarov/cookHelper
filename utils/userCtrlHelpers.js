@@ -1,5 +1,5 @@
-const Foods = require('../modules/foods'),
-    User = require('../modules/user'),
+const Foods = require('../modeles/foods'),
+    User = require('../modeles/user'),
     asyncHandler = require('../middleware/async')
 
 

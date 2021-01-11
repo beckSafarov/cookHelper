@@ -8,13 +8,12 @@ const express = require('express'),
   fileupload = require('express-fileupload'),
   xss = require('xss-clean'),
   helmet = require('helmet'),
-  mongoSanitize = require('express-mongo-sanitize'),
-  PORT = process.env.PORT || 5000;
-
-
+  mongoSanitize = require('express-mongo-sanitize');
+ 
 
 //load env vars
 dotenv.config({ path: './config/config.env' });
+const PORT = process.env.PORT;
 app.set('view engine', 'ejs');
 //Body parser
 app.use(express.json());
