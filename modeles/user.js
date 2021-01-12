@@ -95,11 +95,13 @@ UserSchema.pre('save', async function(req, res, next){
       
 
       //choosing recommended food categories based on weight
-      if(weightCategory == 'underweight'){
+      if(weightCategory === 'underweight'){
         categories.push('fast-food', 'meaty', 'high-carb', 'sweet');
-      }else if(weightCategory == 'overwheight'){
+      }else if(weightCategory === 'overweight'){
         categories.push('low-fat', 'vegetarian');
       }
+      console.log(weightCategory);
+      console.log(categories);
       
       //identify the difficulty level in numbers for the user
       if(this.experience === 'beginner'){

@@ -203,7 +203,7 @@
         "amount":["1 1/2 cups", "1/4 cups", "6", "2", "1 cups", "3 tablespoons"],
         "category": "sweet" ,
         "calories": "399",
-        "steps":"stepsFiles/banana pancakes"
+        "steps":"stepsFiles/general"
     },
     {
         "name": "nasi goreng",
@@ -398,7 +398,7 @@
         "amount":["3 medium","100g","1","1 stem","1","6 cloves","5 shallots","1 cm","1 cup","3 spoon","2.6 spoon","2 spoon","300ml","a pinch","5 spoon"],
         "category": "seafood" ,
         "calories": "453",
-        "steps":"stepsFile/general"
+        "steps":"stepsFiles/general"
     },
     {
 
